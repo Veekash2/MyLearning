@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boss Projects — Veeka's Learning Tracker</title>
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --surface: #fffdf7;
+      --border: #c8b89a;
+      --accent: #2d5a27;
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --diff-easy:   #e8f4e8; --diff-easy-border:   #4a8c42; --diff-easy-text:   #1a4d18;
+      --diff-mid:    #fdf3e8; --diff-mid-border:    #c4843d; --diff-mid-text:    #5a3d18;
+      --diff-hard:   #fdecea; --diff-hard-border:   #c0392b; --diff-hard-text:   #6e1a1a;
+      --status-ns:   #ddd;
+      --status-ip:   #f4c842;
+      --status-done: #4a8c42;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 4px solid #1a3d15;
+    }
+    header h1 { font-size: 2.4rem; letter-spacing: 1px; margin-bottom: 0.4rem; }
+    header p  { font-style: italic; opacity: 0.85; font-size: 1.05rem; }
+
+    nav {
+      background: #1a3d15;
+      padding: 0.7rem 2rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    nav a {
+      color: #c8e6c4; text-decoration: none;
+      font-family: monospace; font-size: 0.9rem;
+      padding: 0.2rem 0.5rem; border-radius: 3px;
+      transition: background 0.2s;
+    }
+    nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    nav .nav-admin { margin-left: auto; opacity: 0.75; }
+
+    main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+    /* ── Intro ── */
+    .intro {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+    .intro strong { color: var(--text); }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .progress-bar-outer {
+      flex: 1; min-width: 180px;
+      height: 10px; background: #ddd; border-radius: 5px; overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 100%; background: var(--accent);
+      border-radius: 5px;
+      transition: width 0.4s;
+    }
+    .progress-label {
+      font-family: monospace; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap;
+    }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--accent);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.4rem;
+      margin: 2.5rem 0 1.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center;
+      font-size: 0.82rem; color: var(--text-muted);
+      margin-bottom: 1rem; font-family: monospace;
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; cursor: default; }
+
+    /* ── Grid ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.2rem;
+    }
+
+    /* ── Project card ── */
+    .pcard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pcard-header {
+      background: #1a3d15;
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .pcard-topic {
+      font-family: monospace; font-size: 0.75rem;
+      color: #a8d5a2; letter-spacing: 0.5px;
+      flex: 1;
+    }
+    .diff-badge {
+      font-family: monospace; font-size: 0.72rem;
+      padding: 0.15rem 0.5rem; border-radius: 3px;
+      font-weight: bold;
+    }
+    .diff-easy { background: var(--diff-easy); border: 1px solid var(--diff-easy-border); color: var(--diff-easy-text); }
+    .diff-mid  { background: var(--diff-mid);  border: 1px solid var(--diff-mid-border);  color: var(--diff-mid-text); }
+    .diff-hard { background: var(--diff-hard); border: 1px solid var(--diff-hard-border); color: var(--diff-hard-text); }
+
+    .pcard-body { padding: 0.9rem 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .pcard-title {
+      font-size: 1rem; font-weight: bold; line-height: 1.3;
+    }
+
+    .pcard-desc {
+      font-size: 0.85rem; color: var(--text-muted);
+      line-height: 1.55; flex: 1;
+    }
+
+    .tech-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tech-tag {
+      font-family: monospace; font-size: 0.74rem;
+      padding: 0.15rem 0.45rem;
+      background: #f0ebe0; border: 1px solid var(--border);
+      border-radius: 3px; color: var(--text);
+    }
+
+    /* ── Status toggle ── */
+    .pcard-footer {
+      padding: 0.55rem 1rem;
+      border-top: 1px solid #ede8dc;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .status-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+      border: 1.5px solid rgba(0,0,0,0.15);
+    }
+    .status-dot.not-started { background: var(--status-ns); }
+    .status-dot.in-progress { background: var(--status-ip); }
+    .status-dot.done        { background: var(--status-done); }
+
+    .status-btn {
+      font-family: monospace; font-size: 0.78rem;
+      background: none; border: 1px solid var(--border);
+      border-radius: 3px; padding: 0.2rem 0.6rem;
+      cursor: pointer; color: var(--text-muted);
+      transition: background 0.15s, color 0.15s;
+    }
+    .status-btn:hover { background: #ede8dc; color: var(--text); }
+
+    .gh-link {
+      margin-left: auto;
+      font-family: monospace; font-size: 0.75rem;
+      color: var(--accent); text-decoration: none;
+      opacity: 0.7;
+    }
+    .gh-link:hover { opacity: 1; text-decoration: underline; }
+
+    footer {
+      text-align: center; font-size: 0.8rem; color: var(--text-muted);
+      padding: 1.5rem; border-top: 1px solid var(--border); font-style: italic;
+    }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Boss Projects</h1>
+  <p>One capstone project per topic — build it to prove you know it</p>
+</header>
+
+<nav>
+  <a href="index.html">← Tracker</a>
+  <a href="#topics-projects">Topics</a>
+  <a href="#books-projects">Books &amp; Certs</a>
+  <a href="admin.html" class="nav-admin">Admin ⚙</a>
+</nav>
+
+<main>
+
+  <div class="intro">
+    <strong>The rule:</strong> each project below is designed to be the <em>hardest reasonable thing</em> you can build with that skill. If you can finish it, you genuinely know the topic. Click the status button on any card to track progress — saved in your browser.
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
+    </div>
+    <span class="progress-label" id="progress-label">0 / 24 completed</span>
+  </div>
+
+  <div class="legend">
+    <span class="legend-item"><span class="diff-badge diff-easy">Starter</span> Achievable early on</span>
+    <span class="legend-item"><span class="diff-badge diff-mid">Intermediate</span> Requires real depth</span>
+    <span class="legend-item"><span class="diff-badge diff-hard">Advanced</span> Genuinely hard</span>
+  </div>
+
+  <!-- ══ TOPICS ══ -->
+  <h2 class="section-title" id="topics-projects">Topics</h2>
+  <div class="projects-grid">
+
+    <div class="pcard" id="proj-networking">
+      <div class="pcard-header">
+        <span class="pcard-topic">NETWORKING</span>
+        <span class="diff-badge diff-hard">Advanced</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build an HTTP/1.1 Server from Raw Sockets</div>
+        <div class="pcard-desc">Implement a working HTTP server using only TCP sockets — no frameworks. Handle GET/POST, request headers, status codes, and serve static files from disk. If you can do this, you understand networking.</div>
+        <div class="tech-list">
+          <span class="tech-tag">TCP sockets</span>
+          <span class="tech-tag">HTTP spec</span>
+          <span class="tech-tag">Python / Java / C</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-networking"></span>
+        <button class="status-btn" onclick="cycleStatus('networking')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-docker">
+      <div class="pcard-header">
+        <span class="pcard-topic">DOCKER</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Fully Containerise a Full-Stack App</div>
+        <div class="pcard-desc">Take any existing app and containerise the whole thing: app server + database + nginx reverse proxy, orchestrated with Docker Compose. Anyone should be able to clone and run it with a single command.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Docker Compose</span>
+          <span class="tech-tag">nginx</span>
+          <span class="tech-tag">volumes</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-docker"></span>
+        <button class="status-btn" onclick="cycleStatus('docker')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-ai-codebases">
+      <div class="pcard-header">
+        <span class="pcard-topic">AI FOR CODEBASES</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Codebase Explainer CLI</div>
+        <div class="pcard-desc">Build a CLI tool that takes a GitHub repo URL, clones it, and uses an LLM to generate a structured plain-English explanation: architecture overview, key files, data flow, and how to get started contributing.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Claude API</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">git clone</span>
+          <span class="tech-tag">CLI</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-ai-codebases"></span>
+        <button class="status-btn" onclick="cycleStatus('ai-codebases')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-frontend">
+      <div class="pcard-header">
+        <span class="pcard-topic">FRONTEND</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Personal Portfolio — 90+ Lighthouse Score</div>
+        <div class="pcard-desc">Build a fully responsive, accessible personal portfolio in pure HTML/CSS/JS. No frameworks. Must pass keyboard navigation, have a dark mode, load under 1s, and score 90+ on all Lighthouse categories.</div>
+        <div class="tech-list">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Lighthouse</span>
+          <span class="tech-tag">a11y</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-frontend"></span>
+        <button class="status-btn" onclick="cycleStatus('frontend')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-react">
+      <div class="pcard-header">
+        <span class="pcard-topic">REACT</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Full-Stack Task Manager</div>
+        <div class="pcard-desc">A Trello-style task board with user authentication, drag-and-drop columns, real-time updates, and data persisted to a backend. Think minimal Trello — boards, lists, cards, due dates.</div>
+        <div class="tech-list">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">React Router</span>
+          <span class="tech-tag">Context / Zustand</span>
+          <span class="tech-tag">REST API</span>
+          <span class="tech-tag">Auth</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-react"></span>
+        <button class="status-btn" onclick="cycleStatus('react')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-architecture">
+      <div class="pcard-header">
+        <span class="pcard-topic">ARCHITECTURE</span>
+        <span class="diff-badge diff-hard">Advanced</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Design a Real System (Uber / Twitter / YouTube)</div>
+        <div class="pcard-desc">Pick a well-known app and write a complete system design document: components, data flow, database schema, API contracts, caching strategy, scaling plan. Then build a working MVP of the core feature.</div>
+        <div class="tech-list">
+          <span class="tech-tag">System design</span>
+          <span class="tech-tag">C4 diagrams</span>
+          <span class="tech-tag">ADRs</span>
+          <span class="tech-tag">microservices</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-architecture"></span>
+        <button class="status-btn" onclick="cycleStatus('architecture')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-hardware">
+      <div class="pcard-header">
+        <span class="pcard-topic">HARDWARE</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Home Server</div>
+        <div class="pcard-desc">Set up a Raspberry Pi or spare PC as a home server. Self-host at least three services (e.g. Nextcloud, Pi-hole, Plex or Jellyfin). Wire up monitoring and make it accessible from outside your home network.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Raspberry Pi</span>
+          <span class="tech-tag">Linux</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">port forwarding</span>
+          <span class="tech-tag">DNS</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-hardware"></span>
+        <button class="status-btn" onclick="cycleStatus('hardware')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-linux">
+      <div class="pcard-header">
+        <span class="pcard-topic">LINUX OS</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Harden a VPS and Deploy a Real App</div>
+        <div class="pcard-desc">Rent a cheap VPS (DigitalOcean, Hetzner). Set it up from scratch: SSH key-only auth, ufw firewall, fail2ban, nginx with SSL, then deploy one of your own apps. Write a setup script so you can reproduce it.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Ubuntu / Debian</span>
+          <span class="tech-tag">SSH</span>
+          <span class="tech-tag">ufw</span>
+          <span class="tech-tag">nginx</span>
+          <span class="tech-tag">Let's Encrypt</span>
+          <span class="tech-tag">bash</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-linux"></span>
+        <button class="status-btn" onclick="cycleStatus('linux')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-scaling">
+      <div class="pcard-header">
+        <span class="pcard-topic">SCALING &amp; COST MANAGEMENT</span>
+        <span class="diff-badge diff-hard">Advanced</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Serverless API — Stay Under $1/month</div>
+        <div class="pcard-desc">Build a REST API on AWS Lambda + API Gateway. Add CloudWatch monitoring and a cost-tracking dashboard. Optimise cold starts and memory. The constraint: stay under $1/month at 10,000 requests/day.</div>
+        <div class="tech-list">
+          <span class="tech-tag">AWS Lambda</span>
+          <span class="tech-tag">API Gateway</span>
+          <span class="tech-tag">CloudWatch</span>
+          <span class="tech-tag">DynamoDB</span>
+          <span class="tech-tag">cost explorer</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-scaling"></span>
+        <button class="status-btn" onclick="cycleStatus('scaling')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-security">
+      <div class="pcard-header">
+        <span class="pcard-topic">SECURITY / CYBERSECURITY</span>
+        <span class="diff-badge diff-hard">Advanced</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Full Security Audit of One of Your Own Apps</div>
+        <div class="pcard-desc">Run a complete OWASP Top 10 audit against one of your projects: manual testing, dependency scanning, SAST tooling. Document every finding with severity and a fix. Ship all the fixes. Write it up like a real pentest report.</div>
+        <div class="tech-list">
+          <span class="tech-tag">OWASP ZAP</span>
+          <span class="tech-tag">Snyk / npm audit</span>
+          <span class="tech-tag">Burp Suite</span>
+          <span class="tech-tag">SAST</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-security"></span>
+        <button class="status-btn" onclick="cycleStatus('security')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-java">
+      <div class="pcard-header">
+        <span class="pcard-topic">JAVA</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Production-Ready Spring Boot REST API</div>
+        <div class="pcard-desc">Build a fully featured REST API: Spring Boot, JPA + PostgreSQL, JWT authentication, full JUnit test suite, API documentation with Swagger, Dockerised, and deployed to a cloud platform.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Spring Boot</span>
+          <span class="tech-tag">JPA / Hibernate</span>
+          <span class="tech-tag">JWT</span>
+          <span class="tech-tag">JUnit</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">Swagger</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-java"></span>
+        <button class="status-btn" onclick="cycleStatus('java')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-sql-databases">
+      <div class="pcard-header">
+        <span class="pcard-topic">SQL &amp; DATABASES</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Analytics Dashboard with Query Optimisation</div>
+        <div class="pcard-desc">Build a reporting dashboard backed by a real relational database with at least 100k seed rows. Write complex queries (CTEs, window functions, aggregates). Then use EXPLAIN ANALYZE to find slow queries and add indexes to fix them.</div>
+        <div class="tech-list">
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">CTEs</span>
+          <span class="tech-tag">window functions</span>
+          <span class="tech-tag">indexes</span>
+          <span class="tech-tag">EXPLAIN ANALYZE</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-sql-databases"></span>
+        <button class="status-btn" onclick="cycleStatus('sql-databases')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-testing">
+      <div class="pcard-header">
+        <span class="pcard-topic">TESTING</span>
+        <span class="diff-badge diff-easy">Starter</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Take an Existing Project to 80% Test Coverage</div>
+        <div class="pcard-desc">Pick one of your existing projects that has little or no tests. Write unit tests, integration tests, and at least one E2E test until you hit 80%+ coverage. Wire it all up to run automatically in CI on every push.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Jest / JUnit / Pytest</span>
+          <span class="tech-tag">Playwright / Cypress</span>
+          <span class="tech-tag">GitHub Actions</span>
+          <span class="tech-tag">coverage reports</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-testing"></span>
+        <button class="status-btn" onclick="cycleStatus('testing')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-git-workflows">
+      <div class="pcard-header">
+        <span class="pcard-topic">GIT &amp; VERSION CONTROL</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Get a PR Merged into an Open Source Project</div>
+        <div class="pcard-desc">Find a real open source project you actually use. Find a bug or a "good first issue", fork the repo, implement the fix properly following their contribution guidelines, and get the PR reviewed and merged.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Git</span>
+          <span class="tech-tag">GitHub</span>
+          <span class="tech-tag">forking</span>
+          <span class="tech-tag">rebasing</span>
+          <span class="tech-tag">PR etiquette</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-git-workflows"></span>
+        <button class="status-btn" onclick="cycleStatus('git-workflows')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-debugging">
+      <div class="pcard-header">
+        <span class="pcard-topic">DEBUGGING</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Instrument and Debug a Production-Style Issue</div>
+        <div class="pcard-desc">Deploy an app with Sentry for error tracking and structured logging (not console.log). Introduce a subtle bug. Then diagnose and fix it using only the observability tooling — no code reading allowed until you have a hypothesis.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Sentry</span>
+          <span class="tech-tag">structured logging</span>
+          <span class="tech-tag">browser DevTools</span>
+          <span class="tech-tag">debugger</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-debugging"></span>
+        <button class="status-btn" onclick="cycleStatus('debugging')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-code-reviews">
+      <div class="pcard-header">
+        <span class="pcard-topic">CODE REVIEWS &amp; READING CODE</span>
+        <span class="diff-badge diff-easy">Starter</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Review an Older Project — Then Refactor It</div>
+        <div class="pcard-desc">Treat one of your own older projects as if a colleague wrote it. Write a formal code review document listing issues by severity. Then fix every medium/high issue and write a short retrospective on what past-you got wrong.</div>
+        <div class="tech-list">
+          <span class="tech-tag">code review checklist</span>
+          <span class="tech-tag">refactoring</span>
+          <span class="tech-tag">documentation</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-code-reviews"></span>
+        <button class="status-btn" onclick="cycleStatus('code-reviews')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-tech-docs">
+      <div class="pcard-header">
+        <span class="pcard-topic">TECHNICAL DOCUMENTATION</span>
+        <span class="diff-badge diff-easy">Starter</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Fully Document One of Your Projects</div>
+        <div class="pcard-desc">Pick any project and write the complete documentation: a proper README, OpenAPI spec for the API, a C4 architecture diagram, at least one ADR for a key design decision, and a "first-time contributor" guide.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Markdown</span>
+          <span class="tech-tag">OpenAPI / Swagger</span>
+          <span class="tech-tag">C4 model</span>
+          <span class="tech-tag">ADRs</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-tech-docs"></span>
+        <button class="status-btn" onclick="cycleStatus('tech-docs')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-estimation">
+      <div class="pcard-header">
+        <span class="pcard-topic">ESTIMATING &amp; TASK BREAKDOWN</span>
+        <span class="diff-badge diff-easy">Starter</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Run Two Full Sprints on a Personal Project</div>
+        <div class="pcard-desc">Plan a new project from scratch using a proper backlog and story points. Execute two 1-week sprints. Track your estimates vs actual time spent. Write a sprint retrospective. The deliverable is the retrospective doc, not the app.</div>
+        <div class="tech-list">
+          <span class="tech-tag">GitHub Projects</span>
+          <span class="tech-tag">story points</span>
+          <span class="tech-tag">sprint planning</span>
+          <span class="tech-tag">retrospective</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-estimation"></span>
+        <button class="status-btn" onclick="cycleStatus('estimation')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-cicd">
+      <div class="pcard-header">
+        <span class="pcard-topic">CI/CD PIPELINES</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Zero-Touch Deploy Pipeline</div>
+        <div class="pcard-desc">Set up a complete pipeline for any project: lint + test on every PR, build a Docker image and push to a registry on merge to main, auto-deploy to a cloud environment, and send a notification on failure. All automated, no manual steps.</div>
+        <div class="tech-list">
+          <span class="tech-tag">GitHub Actions</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">container registry</span>
+          <span class="tech-tag">cloud deploy</span>
+          <span class="tech-tag">Slack / email</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-cicd"></span>
+        <button class="status-btn" onclick="cycleStatus('cicd')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-cloud-basics">
+      <div class="pcard-header">
+        <span class="pcard-topic">CLOUD BASICS (AWS / GCP)</span>
+        <span class="diff-badge diff-hard">Advanced</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Deploy a Multi-Tier App to the Cloud — Properly</div>
+        <div class="pcard-desc">Deploy a real application to AWS or GCP: static frontend on S3/Cloud Storage, backend on EC2/Cloud Run, database on RDS/Cloud SQL. Use IAM roles (no hardcoded credentials), a custom domain with HTTPS, and a monitoring dashboard.</div>
+        <div class="tech-list">
+          <span class="tech-tag">AWS / GCP</span>
+          <span class="tech-tag">IAM</span>
+          <span class="tech-tag">S3 / Cloud Storage</span>
+          <span class="tech-tag">EC2 / Cloud Run</span>
+          <span class="tech-tag">Route 53 / Cloud DNS</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-cloud-basics"></span>
+        <button class="status-btn" onclick="cycleStatus('cloud-basics')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-api-design">
+      <div class="pcard-header">
+        <span class="pcard-topic">API DESIGN</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build and Publish a Public API</div>
+        <div class="pcard-desc">Design and build a genuinely useful public REST API: versioning (v1/v2), JWT auth, rate limiting, consistent error responses, and a full OpenAPI spec. Deploy it, write a developer quickstart guide, and get someone else to use it.</div>
+        <div class="tech-list">
+          <span class="tech-tag">REST</span>
+          <span class="tech-tag">JWT</span>
+          <span class="tech-tag">rate limiting</span>
+          <span class="tech-tag">OpenAPI</span>
+          <span class="tech-tag">versioning</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-api-design"></span>
+        <button class="status-btn" onclick="cycleStatus('api-design')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ BOOKS & CERTS ══ -->
+  <h2 class="section-title" id="books-projects">Books &amp; Certifications</h2>
+  <div class="projects-grid">
+
+    <div class="pcard" id="proj-clean-code">
+      <div class="pcard-header">
+        <span class="pcard-topic">CLEAN CODE</span>
+        <span class="diff-badge diff-easy">Starter</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">The Great Refactor</div>
+        <div class="pcard-desc">Take your messiest old project and refactor it chapter by chapter using Clean Code principles. Rename everything badly named, extract every oversized function, eliminate duplication. Write a before/after comparison document showing every change and why.</div>
+        <div class="tech-list">
+          <span class="tech-tag">any codebase</span>
+          <span class="tech-tag">Clean Code book</span>
+          <span class="tech-tag">refactoring</span>
+          <span class="tech-tag">git diff</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-clean-code"></span>
+        <button class="status-btn" onclick="cycleStatus('clean-code')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-azure-certs">
+      <div class="pcard-header">
+        <span class="pcard-topic">AZURE CERTIFICATIONS</span>
+        <span class="diff-badge diff-mid">Intermediate</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Pass AZ-900 — Then Build With It</div>
+        <div class="pcard-desc">Study and sit the Azure Fundamentals exam (AZ-900). Then immediately build a small project that uses at least five Azure services you learned about: App Service, Blob Storage, Azure SQL, Key Vault, and Application Insights.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Azure</span>
+          <span class="tech-tag">AZ-900</span>
+          <span class="tech-tag">App Service</span>
+          <span class="tech-tag">Azure SQL</span>
+          <span class="tech-tag">Key Vault</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-azure-certs"></span>
+        <button class="status-btn" onclick="cycleStatus('azure-certs')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <div class="pcard" id="proj-agile">
+      <div class="pcard-header">
+        <span class="pcard-topic">AGILE</span>
+        <span class="diff-badge diff-easy">Starter</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Run a Real Solo Sprint — Retrospective as the Deliverable</div>
+        <div class="pcard-desc">Plan a new project using a proper Scrum backlog. Run two 1-week sprints with actual sprint planning, a daily standup journal, a sprint review (demo to someone), and a retrospective. The retrospective document IS the deliverable — be brutally honest.</div>
+        <div class="tech-list">
+          <span class="tech-tag">Scrum</span>
+          <span class="tech-tag">GitHub Projects</span>
+          <span class="tech-tag">backlog</span>
+          <span class="tech-tag">retrospective</span>
+          <span class="tech-tag">velocity</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-agile"></span>
+        <button class="status-btn" onclick="cycleStatus('agile')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Updated 2026 &nbsp;·&nbsp; Build the thing. &nbsp;·&nbsp; <a href="index.html">← Tracker</a>
+</footer>
+
+<script>
+  const STATUSES = ['not-started', 'in-progress', 'done'];
+  const STATUS_LABELS = { 'not-started': 'Not started', 'in-progress': 'In progress', 'done': 'Done ✓' };
+
+  function loadStatuses() {
+    try { return JSON.parse(localStorage.getItem('projectStatuses')) || {}; }
+    catch(e) { return {}; }
+  }
+
+  function saveStatuses(s) {
+    localStorage.setItem('projectStatuses', JSON.stringify(s));
+  }
+
+  function cycleStatus(id) {
+    const statuses = loadStatuses();
+    const current = statuses[id] || 'not-started';
+    const next = STATUSES[(STATUSES.indexOf(current) + 1) % STATUSES.length];
+    statuses[id] = next;
+    saveStatuses(statuses);
+    applyStatus(id, next);
+    updateProgress();
+  }
+
+  function applyStatus(id, status) {
+    const dot = document.getElementById('dot-' + id);
+    const btn = dot ? dot.nextElementSibling : null;
+    if (dot) { dot.className = 'status-dot ' + status; }
+    if (btn) { btn.textContent = STATUS_LABELS[status] || status; }
+  }
+
+  function updateProgress() {
+    const statuses = loadStatuses();
+    const total = document.querySelectorAll('.pcard').length;
+    const done  = Object.values(statuses).filter(s => s === 'done').length;
+    document.getElementById('progress-bar').style.width = (done / total * 100) + '%';
+    document.getElementById('progress-label').textContent = done + ' / ' + total + ' completed';
+  }
+
+  function init() {
+    const statuses = loadStatuses();
+    Object.entries(statuses).forEach(([id, status]) => applyStatus(id, status));
+    updateProgress();
+  }
+
+  init();
+</script>
+</body>
+</html>
