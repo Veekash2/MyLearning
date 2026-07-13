@@ -12,12 +12,9 @@
       --accent: #2d5a27;
       --text: #1a1a1a;
       --text-muted: #666;
-      --diff-easy:   #e8f4e8; --diff-easy-border:   #4a8c42; --diff-easy-text:   #1a4d18;
-      --diff-mid:    #fdf3e8; --diff-mid-border:    #c4843d; --diff-mid-text:    #5a3d18;
-      --diff-hard:   #fdecea; --diff-hard-border:   #c0392b; --diff-hard-text:   #6e1a1a;
-      --status-ns:   #ddd;
-      --status-ip:   #f4c842;
-      --status-done: #4a8c42;
+      --diff-easy:   #e8f4e8; --diff-easy-b: #4a8c42; --diff-easy-t: #1a4d18;
+      --diff-mid:    #fdf3e8; --diff-mid-b:  #c4843d; --diff-mid-t:  #5a3d18;
+      --diff-hard:   #fdecea; --diff-hard-b: #c0392b; --diff-hard-t: #6e1a1a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,83 +39,52 @@
     nav {
       background: #1a3d15;
       padding: 0.7rem 2rem;
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      align-items: center;
+      display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center;
     }
     nav a {
       color: #c8e6c4; text-decoration: none;
       font-family: monospace; font-size: 0.9rem;
-      padding: 0.2rem 0.5rem; border-radius: 3px;
-      transition: background 0.2s;
+      padding: 0.2rem 0.5rem; border-radius: 3px; transition: background 0.2s;
     }
     nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     nav .nav-admin { margin-left: auto; opacity: 0.75; }
 
-    main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+    main { max-width: 1080px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
 
-    /* ── Intro ── */
     .intro {
       background: var(--surface);
       border: 1px solid var(--border);
       border-left: 5px solid var(--accent);
       border-radius: 0 6px 6px 0;
       padding: 1.1rem 1.4rem;
-      margin-bottom: 2rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);
     }
     .intro strong { color: var(--text); }
 
-    /* ── Progress bar ── */
-    .progress-wrap {
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .progress-bar-outer {
-      flex: 1; min-width: 180px;
-      height: 10px; background: #ddd; border-radius: 5px; overflow: hidden;
-    }
-    .progress-bar-inner {
-      height: 100%; background: var(--accent);
-      border-radius: 5px;
-      transition: width 0.4s;
-    }
-    .progress-label {
-      font-family: monospace; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap;
-    }
+    /* Progress */
+    .progress-wrap { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .progress-bar-outer { flex: 1; min-width: 180px; height: 10px; background: #ddd; border-radius: 5px; overflow: hidden; }
+    .progress-bar-inner { height: 100%; background: var(--accent); border-radius: 5px; transition: width 0.4s; }
+    .progress-label { font-family: monospace; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
 
-    /* ── Section title ── */
     .section-title {
-      font-size: 1.3rem;
-      color: var(--accent);
+      font-size: 1.3rem; color: var(--accent);
       border-bottom: 2px solid var(--border);
-      padding-bottom: 0.4rem;
-      margin: 2.5rem 0 1.2rem;
-      letter-spacing: 0.5px;
+      padding-bottom: 0.4rem; margin: 2.5rem 0 1.2rem; letter-spacing: 0.5px;
     }
 
-    /* ── Legend ── */
-    .legend {
-      display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center;
-      font-size: 0.82rem; color: var(--text-muted);
-      margin-bottom: 1rem; font-family: monospace;
-    }
-    .legend-item { display: flex; align-items: center; gap: 0.4rem; cursor: default; }
+    /* Legend */
+    .legend { display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; font-family: monospace; }
 
-    /* ── Grid ── */
+    /* Grid */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+      gap: 1.4rem;
     }
 
-    /* ── Project card ── */
+    /* Card */
     .pcard {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -131,36 +97,47 @@
     .pcard-header {
       background: #1a3d15;
       padding: 0.7rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+      display: flex; align-items: center; gap: 0.6rem;
     }
-    .pcard-topic {
-      font-family: monospace; font-size: 0.75rem;
-      color: #a8d5a2; letter-spacing: 0.5px;
-      flex: 1;
-    }
-    .diff-badge {
-      font-family: monospace; font-size: 0.72rem;
-      padding: 0.15rem 0.5rem; border-radius: 3px;
-      font-weight: bold;
-    }
-    .diff-easy { background: var(--diff-easy); border: 1px solid var(--diff-easy-border); color: var(--diff-easy-text); }
-    .diff-mid  { background: var(--diff-mid);  border: 1px solid var(--diff-mid-border);  color: var(--diff-mid-text); }
-    .diff-hard { background: var(--diff-hard); border: 1px solid var(--diff-hard-border); color: var(--diff-hard-text); }
+    .pcard-topic { font-family: monospace; font-size: 0.75rem; color: #a8d5a2; letter-spacing: 0.5px; flex: 1; }
 
-    .pcard-body { padding: 0.9rem 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+    .diff-badge { font-family: monospace; font-size: 0.72rem; padding: 0.15rem 0.5rem; border-radius: 3px; font-weight: bold; }
+    .diff-easy { background: var(--diff-easy); border: 1px solid var(--diff-easy-b); color: var(--diff-easy-t); }
+    .diff-mid  { background: var(--diff-mid);  border: 1px solid var(--diff-mid-b);  color: var(--diff-mid-t); }
+    .diff-hard { background: var(--diff-hard); border: 1px solid var(--diff-hard-b); color: var(--diff-hard-t); }
 
-    .pcard-title {
-      font-size: 1rem; font-weight: bold; line-height: 1.3;
+    .pcard-body { padding: 1rem 1.1rem 0.8rem; flex: 1; display: flex; flex-direction: column; gap: 0.7rem; }
+
+    .pcard-title { font-size: 1.05rem; font-weight: bold; line-height: 1.3; }
+    .pcard-desc  { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Steps + Outcomes */
+    .pcard-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.3rem;
     }
+    @media (max-width: 560px) { .pcard-details { grid-template-columns: 1fr; } }
 
-    .pcard-desc {
-      font-size: 0.85rem; color: var(--text-muted);
-      line-height: 1.55; flex: 1;
+    .detail-block {}
+    .detail-label {
+      font-family: monospace; font-size: 0.68rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text-muted); margin-bottom: 0.4rem;
+      border-bottom: 1px solid #ede8dc; padding-bottom: 0.2rem;
     }
+    .step-list, .outcome-list {
+      font-size: 0.82rem; line-height: 1.65;
+      padding-left: 1.1rem; color: var(--text);
+    }
+    .step-list li { margin-bottom: 0.15rem; }
+    .outcome-list { list-style: none; padding-left: 0; }
+    .outcome-list li::before { content: "→ "; color: var(--accent); font-weight: bold; }
+    .outcome-list li { padding-left: 1.1rem; text-indent: -1.1rem; margin-bottom: 0.15rem; }
 
-    .tech-list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    /* Tech tags */
+    .tech-list { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.4rem; }
     .tech-tag {
       font-family: monospace; font-size: 0.74rem;
       padding: 0.15rem 0.45rem;
@@ -168,21 +145,17 @@
       border-radius: 3px; color: var(--text);
     }
 
-    /* ── Status toggle ── */
+    /* Card footer */
     .pcard-footer {
-      padding: 0.55rem 1rem;
+      padding: 0.55rem 1.1rem;
       border-top: 1px solid #ede8dc;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+      display: flex; align-items: center; gap: 0.6rem;
+      background: #faf8f3;
     }
-    .status-dot {
-      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-      border: 1.5px solid rgba(0,0,0,0.15);
-    }
-    .status-dot.not-started { background: var(--status-ns); }
-    .status-dot.in-progress { background: var(--status-ip); }
-    .status-dot.done        { background: var(--status-done); }
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid rgba(0,0,0,0.15); }
+    .status-dot.not-started { background: #ddd; }
+    .status-dot.in-progress { background: #f4c842; }
+    .status-dot.done        { background: #4a8c42; }
 
     .status-btn {
       font-family: monospace; font-size: 0.78rem;
@@ -196,8 +169,7 @@
     .gh-link {
       margin-left: auto;
       font-family: monospace; font-size: 0.75rem;
-      color: var(--accent); text-decoration: none;
-      opacity: 0.7;
+      color: var(--accent); text-decoration: none; opacity: 0.6;
     }
     .gh-link:hover { opacity: 1; text-decoration: underline; }
 
@@ -206,6 +178,10 @@
       padding: 1.5rem; border-top: 1px solid var(--border); font-style: italic;
     }
     footer a { color: var(--accent); }
+
+    @media (max-width: 500px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -225,34 +201,54 @@
 <main>
 
   <div class="intro">
-    <strong>The rule:</strong> each project below is designed to be the <em>hardest reasonable thing</em> you can build with that skill. If you can finish it, you genuinely know the topic. Click the status button on any card to track progress — saved in your browser.
+    <strong>The rule:</strong> each project is designed to be the <em>hardest reasonable thing</em> you can build with that skill. Follow the steps, build it, and you'll genuinely know the topic. Click the status button to track your progress.
   </div>
 
   <div class="progress-wrap">
-    <div class="progress-bar-outer">
-      <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
-    </div>
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar" style="width:0%"></div></div>
     <span class="progress-label" id="progress-label">0 / 24 completed</span>
   </div>
 
   <div class="legend">
-    <span class="legend-item"><span class="diff-badge diff-easy">Starter</span> Achievable early on</span>
-    <span class="legend-item"><span class="diff-badge diff-mid">Intermediate</span> Requires real depth</span>
-    <span class="legend-item"><span class="diff-badge diff-hard">Advanced</span> Genuinely hard</span>
+    <span><span class="diff-badge diff-easy">Starter</span> &nbsp;Achievable early on</span>
+    <span><span class="diff-badge diff-mid">Intermediate</span> &nbsp;Requires real depth</span>
+    <span><span class="diff-badge diff-hard">Advanced</span> &nbsp;Genuinely hard</span>
   </div>
 
   <!-- ══ TOPICS ══ -->
   <h2 class="section-title" id="topics-projects">Topics</h2>
   <div class="projects-grid">
 
-    <div class="pcard" id="proj-networking">
+    <!-- Networking -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">NETWORKING</span>
         <span class="diff-badge diff-hard">Advanced</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Build an HTTP/1.1 Server from Raw Sockets</div>
-        <div class="pcard-desc">Implement a working HTTP server using only TCP sockets — no frameworks. Handle GET/POST, request headers, status codes, and serve static files from disk. If you can do this, you understand networking.</div>
+        <div class="pcard-desc">Implement a working HTTP server using only TCP sockets — no web frameworks allowed. Handle real browser requests and serve static files. If you can do this, you truly understand what happens between a browser and a server.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Open a TCP socket and accept connections</li>
+              <li>Parse raw HTTP request line and headers</li>
+              <li>Route GET requests to serve static files from disk</li>
+              <li>Handle POST requests and read the request body</li>
+              <li>Return correct status codes, headers, and body</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How HTTP actually works at the byte level</li>
+              <li>What a browser really sends when you type a URL</li>
+              <li>How web frameworks like Express or Flask work internally</li>
+              <li>Why HTTP/2 and HTTP/3 were improvements</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">TCP sockets</span>
           <span class="tech-tag">HTTP spec</span>
@@ -266,19 +262,42 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-docker">
+    <!-- Docker -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">DOCKER</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Fully Containerise a Full-Stack App</div>
-        <div class="pcard-desc">Take any existing app and containerise the whole thing: app server + database + nginx reverse proxy, orchestrated with Docker Compose. Anyone should be able to clone and run it with a single command.</div>
+        <div class="pcard-desc">Take any existing app and containerise the entire thing: app server, database, and nginx reverse proxy — all orchestrated with Docker Compose. Anyone should be able to clone and run it with a single command on any machine.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Write a Dockerfile for the app (multi-stage build)</li>
+              <li>Add a database service (Postgres or MySQL)</li>
+              <li>Add nginx as a reverse proxy with config</li>
+              <li>Wire everything together in docker-compose.yml</li>
+              <li>Test it boots cleanly on a machine that's never seen the code</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How containers isolate processes and file systems</li>
+              <li>How services talk to each other in Docker networks</li>
+              <li>How to eliminate environment-specific bugs forever</li>
+              <li>How production deployments actually work</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Docker</span>
           <span class="tech-tag">Docker Compose</span>
           <span class="tech-tag">nginx</span>
           <span class="tech-tag">volumes</span>
+          <span class="tech-tag">networks</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -288,19 +307,41 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-ai-codebases">
+    <!-- AI for Codebases -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">AI FOR CODEBASES</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Codebase Explainer CLI</div>
-        <div class="pcard-desc">Build a CLI tool that takes a GitHub repo URL, clones it, and uses an LLM to generate a structured plain-English explanation: architecture overview, key files, data flow, and how to get started contributing.</div>
+        <div class="pcard-title">Codebase Explainer CLI Tool</div>
+        <div class="pcard-desc">Build a CLI tool that accepts a GitHub repo URL, clones it, and uses an LLM to generate a structured plain-English explanation: architecture overview, key files, data flow, and a "how to contribute" guide. Genuinely useful output.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Accept a GitHub repo URL as a CLI argument</li>
+              <li>Clone the repo to a temporary directory</li>
+              <li>Index key files: README, entry points, package.json, etc.</li>
+              <li>Build a structured prompt and call an LLM API</li>
+              <li>Format and print a structured explanation to stdout</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How to integrate LLM APIs into real tools</li>
+              <li>How to engineer prompts for technical tasks</li>
+              <li>How to read and interpret unfamiliar code quickly</li>
+              <li>How context windows affect what you can analyse</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Claude API</span>
           <span class="tech-tag">Python</span>
-          <span class="tech-tag">git clone</span>
-          <span class="tech-tag">CLI</span>
+          <span class="tech-tag">subprocess / git</span>
+          <span class="tech-tag">CLI (argparse)</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -310,14 +351,36 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-frontend">
+    <!-- Frontend -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">FRONTEND</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Personal Portfolio — 90+ Lighthouse Score</div>
-        <div class="pcard-desc">Build a fully responsive, accessible personal portfolio in pure HTML/CSS/JS. No frameworks. Must pass keyboard navigation, have a dark mode, load under 1s, and score 90+ on all Lighthouse categories.</div>
+        <div class="pcard-desc">Build a fully responsive, accessible personal portfolio in pure HTML, CSS, and JavaScript — no frameworks. Must pass keyboard navigation, include dark mode, load under 1 second, and score 90+ across all four Lighthouse categories.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Design and build the semantic HTML structure</li>
+              <li>Style with CSS: responsive layout, dark mode, animations</li>
+              <li>Add full keyboard navigation and ARIA labels</li>
+              <li>Optimise: compress images, defer scripts, remove unused CSS</li>
+              <li>Run Lighthouse and fix issues until all categories hit 90+</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How browsers parse and render HTML/CSS</li>
+              <li>What accessibility actually means in practice</li>
+              <li>How performance affects user experience and SEO</li>
+              <li>What the browser does between request and paint</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">HTML</span>
           <span class="tech-tag">CSS</span>
@@ -333,20 +396,42 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-react">
+    <!-- React -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">REACT</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Full-Stack Task Manager</div>
-        <div class="pcard-desc">A Trello-style task board with user authentication, drag-and-drop columns, real-time updates, and data persisted to a backend. Think minimal Trello — boards, lists, cards, due dates.</div>
+        <div class="pcard-title">Full-Stack Task Manager (Trello-style)</div>
+        <div class="pcard-desc">Build a Trello-style task board with user authentication, drag-and-drop columns, and data persisted to a backend API. Think minimal Trello: boards, lists, cards, and due dates. This covers the full React lifecycle and real API integration.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Set up React app with routing (React Router)</li>
+              <li>Build the boards, lists, and cards UI with state</li>
+              <li>Add user sign-up and login with protected routes</li>
+              <li>Connect to a backend REST API for persistence</li>
+              <li>Add drag-and-drop card reordering</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How React state management scales with app size</li>
+              <li>How to structure a real production React app</li>
+              <li>How frontend auth (tokens, protected routes) works</li>
+              <li>How React re-renders and when to optimise</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">React</span>
           <span class="tech-tag">React Router</span>
           <span class="tech-tag">Context / Zustand</span>
           <span class="tech-tag">REST API</span>
-          <span class="tech-tag">Auth</span>
+          <span class="tech-tag">JWT auth</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -356,19 +441,42 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-architecture">
+    <!-- Architecture -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">ARCHITECTURE</span>
         <span class="diff-badge diff-hard">Advanced</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Design a Real System (Uber / Twitter / YouTube)</div>
-        <div class="pcard-desc">Pick a well-known app and write a complete system design document: components, data flow, database schema, API contracts, caching strategy, scaling plan. Then build a working MVP of the core feature.</div>
+        <div class="pcard-title">Design a Real System — Then Build the Core</div>
+        <div class="pcard-desc">Pick a well-known app (Uber, Twitter, YouTube) and write a complete system design document. Then build a working MVP of the single most critical feature. The document is as important as the code.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Define functional and non-functional requirements</li>
+              <li>Design the data model and API contracts</li>
+              <li>Draw component and sequence diagrams (C4 model)</li>
+              <li>Write an ADR explaining your biggest architectural trade-off</li>
+              <li>Build a working MVP of the single core feature</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How to think about scale and trade-offs from the start</li>
+              <li>How to communicate technical decisions to others</li>
+              <li>Why microservices vs monolith is never a simple choice</li>
+              <li>How real systems handle failure and consistency</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
-          <span class="tech-tag">System design</span>
+          <span class="tech-tag">system design</span>
           <span class="tech-tag">C4 diagrams</span>
           <span class="tech-tag">ADRs</span>
           <span class="tech-tag">microservices</span>
+          <span class="tech-tag">API design</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -378,20 +486,43 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-hardware">
+    <!-- Hardware -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">HARDWARE</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Build a Home Server</div>
-        <div class="pcard-desc">Set up a Raspberry Pi or spare PC as a home server. Self-host at least three services (e.g. Nextcloud, Pi-hole, Plex or Jellyfin). Wire up monitoring and make it accessible from outside your home network.</div>
+        <div class="pcard-title">Build a Home Server Running Real Services</div>
+        <div class="pcard-desc">Set up a Raspberry Pi or spare PC as a home server running at least three self-hosted services (e.g. Nextcloud, Pi-hole, Jellyfin). Wire up monitoring and make it accessible from outside your home network.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Install Linux and harden SSH access</li>
+              <li>Install Docker and deploy your first service</li>
+              <li>Set up a reverse proxy (Nginx Proxy Manager)</li>
+              <li>Configure a domain and SSL certificate</li>
+              <li>Add monitoring (uptime, disk, CPU alerts)</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How real servers are provisioned and managed</li>
+              <li>How home networking and port forwarding works</li>
+              <li>How SSL/TLS certificates are issued and renewed</li>
+              <li>How to think about uptime and self-healing systems</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Raspberry Pi</span>
           <span class="tech-tag">Linux</span>
           <span class="tech-tag">Docker</span>
-          <span class="tech-tag">port forwarding</span>
+          <span class="tech-tag">nginx</span>
           <span class="tech-tag">DNS</span>
+          <span class="tech-tag">Let's Encrypt</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -401,21 +532,43 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-linux">
+    <!-- Linux -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">LINUX OS</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Harden a VPS and Deploy a Real App</div>
-        <div class="pcard-desc">Rent a cheap VPS (DigitalOcean, Hetzner). Set it up from scratch: SSH key-only auth, ufw firewall, fail2ban, nginx with SSL, then deploy one of your own apps. Write a setup script so you can reproduce it.</div>
+        <div class="pcard-desc">Rent a cheap VPS (DigitalOcean, Hetzner). Start from a blank Ubuntu install and harden it end-to-end — then deploy one of your own apps. Write a bash script so you can reproduce the entire setup in under 5 minutes.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Create a non-root user and disable password SSH login</li>
+              <li>Configure ufw firewall (allow only 22, 80, 443)</li>
+              <li>Install fail2ban to block brute-force attempts</li>
+              <li>Set up nginx with SSL via Let's Encrypt (Certbot)</li>
+              <li>Deploy your app and write the full setup as a bash script</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>What actually makes a Linux server secure</li>
+              <li>How web servers route traffic to your application</li>
+              <li>How to automate repeatable server provisioning</li>
+              <li>Why root access is dangerous and how to avoid needing it</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
-          <span class="tech-tag">Ubuntu / Debian</span>
+          <span class="tech-tag">Ubuntu</span>
           <span class="tech-tag">SSH</span>
           <span class="tech-tag">ufw</span>
+          <span class="tech-tag">fail2ban</span>
           <span class="tech-tag">nginx</span>
-          <span class="tech-tag">Let's Encrypt</span>
-          <span class="tech-tag">bash</span>
+          <span class="tech-tag">bash scripting</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -425,19 +578,41 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-scaling">
+    <!-- Scaling -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">SCALING &amp; COST MANAGEMENT</span>
         <span class="diff-badge diff-hard">Advanced</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Serverless API — Stay Under $1/month</div>
-        <div class="pcard-desc">Build a REST API on AWS Lambda + API Gateway. Add CloudWatch monitoring and a cost-tracking dashboard. Optimise cold starts and memory. The constraint: stay under $1/month at 10,000 requests/day.</div>
+        <div class="pcard-title">Serverless API — Stay Under $1/Month</div>
+        <div class="pcard-desc">Build a REST API on AWS Lambda + API Gateway backed by DynamoDB. Add CloudWatch monitoring and a cost dashboard. Optimise cold starts and memory allocation. The hard constraint: stay under $1/month at 10,000 requests per day.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Build a Lambda function with a real use case</li>
+              <li>Connect to DynamoDB for persistence</li>
+              <li>Configure API Gateway with an auth layer</li>
+              <li>Add CloudWatch alarms for errors and latency</li>
+              <li>Load test it and check the cost explorer dashboard</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How serverless billing works (and surprises you)</li>
+              <li>How to design stateless, horizontally scalable APIs</li>
+              <li>How cold starts affect latency and how to minimise them</li>
+              <li>How to monitor and set spend alerts on cloud resources</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">AWS Lambda</span>
           <span class="tech-tag">API Gateway</span>
-          <span class="tech-tag">CloudWatch</span>
           <span class="tech-tag">DynamoDB</span>
+          <span class="tech-tag">CloudWatch</span>
           <span class="tech-tag">cost explorer</span>
         </div>
       </div>
@@ -448,19 +623,41 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-security">
+    <!-- Security -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">SECURITY / CYBERSECURITY</span>
         <span class="diff-badge diff-hard">Advanced</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Full Security Audit of One of Your Own Apps</div>
-        <div class="pcard-desc">Run a complete OWASP Top 10 audit against one of your projects: manual testing, dependency scanning, SAST tooling. Document every finding with severity and a fix. Ship all the fixes. Write it up like a real pentest report.</div>
+        <div class="pcard-desc">Run a complete OWASP Top 10 audit against one of your projects: automated scanning, manual testing, dependency vulnerability scanning. Document every finding with severity and a fix. Ship the fixes. Write it up like a real pentest report.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Run automated scans (OWASP ZAP, npm audit / Snyk)</li>
+              <li>Manually test each OWASP Top 10 category</li>
+              <li>Document every finding with severity (Critical/High/Med/Low)</li>
+              <li>Fix all Medium and above findings</li>
+              <li>Write a pentest-style report with before/after evidence</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How the most common attacks actually work in practice</li>
+              <li>How to find vulnerabilities before attackers do</li>
+              <li>How to communicate security risk to non-technical people</li>
+              <li>How dependency vulnerabilities silently accumulate</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">OWASP ZAP</span>
-          <span class="tech-tag">Snyk / npm audit</span>
           <span class="tech-tag">Burp Suite</span>
-          <span class="tech-tag">SAST</span>
+          <span class="tech-tag">Snyk / npm audit</span>
+          <span class="tech-tag">SAST tools</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -470,21 +667,43 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-java">
+    <!-- Java -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">JAVA</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Production-Ready Spring Boot REST API</div>
-        <div class="pcard-desc">Build a fully featured REST API: Spring Boot, JPA + PostgreSQL, JWT authentication, full JUnit test suite, API documentation with Swagger, Dockerised, and deployed to a cloud platform.</div>
+        <div class="pcard-desc">Build a fully featured REST API: Spring Boot, JPA + PostgreSQL, JWT authentication, comprehensive JUnit test suite, API documentation with Swagger, Dockerised, and deployed to a cloud platform. Every layer done properly.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Set up Spring Boot with JPA and a real data model</li>
+              <li>Build CRUD endpoints for a meaningful domain</li>
+              <li>Add JWT-based authentication and authorisation</li>
+              <li>Write unit tests (Mockito) and integration tests</li>
+              <li>Add Swagger docs, Dockerise, and deploy to cloud</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How Spring's dependency injection and IoC actually work</li>
+              <li>How JPA maps Java objects to database rows</li>
+              <li>How JWT authentication flows from login to protected route</li>
+              <li>What production-quality Java code looks like</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Spring Boot</span>
           <span class="tech-tag">JPA / Hibernate</span>
           <span class="tech-tag">JWT</span>
-          <span class="tech-tag">JUnit</span>
-          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">JUnit / Mockito</span>
           <span class="tech-tag">Swagger</span>
+          <span class="tech-tag">Docker</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -494,14 +713,36 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-sql-databases">
+    <!-- SQL -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">SQL &amp; DATABASES</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Analytics Dashboard with Query Optimisation</div>
-        <div class="pcard-desc">Build a reporting dashboard backed by a real relational database with at least 100k seed rows. Write complex queries (CTEs, window functions, aggregates). Then use EXPLAIN ANALYZE to find slow queries and add indexes to fix them.</div>
+        <div class="pcard-desc">Build a reporting dashboard backed by a real PostgreSQL database seeded with 100k+ rows. Write complex queries (CTEs, window functions, aggregates). Then use EXPLAIN ANALYZE to find slow queries and add indexes to fix them — measuring before and after.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Design a relational schema with at least 4 tables</li>
+              <li>Seed with 100k+ rows of realistic data</li>
+              <li>Write 5+ queries using JOINs, CTEs, and window functions</li>
+              <li>Find your slowest query using EXPLAIN ANALYZE</li>
+              <li>Add the right indexes and measure the speedup</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How databases plan and execute queries</li>
+              <li>When indexes help — and when they hurt</li>
+              <li>How to write complex analytical SQL with confidence</li>
+              <li>Why query performance matters at scale</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">PostgreSQL</span>
           <span class="tech-tag">CTEs</span>
@@ -517,19 +758,41 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-testing">
+    <!-- Testing -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">TESTING</span>
         <span class="diff-badge diff-easy">Starter</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Take an Existing Project to 80% Test Coverage</div>
-        <div class="pcard-desc">Pick one of your existing projects that has little or no tests. Write unit tests, integration tests, and at least one E2E test until you hit 80%+ coverage. Wire it all up to run automatically in CI on every push.</div>
+        <div class="pcard-desc">Pick one of your own projects with little or no tests and write unit, integration, and end-to-end tests until you hit 80%+ coverage. Wire them all to run automatically in CI on every push. The constraint forces you to think about testability.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Set up the testing framework and coverage reporting</li>
+              <li>Write unit tests for all pure functions and business logic</li>
+              <li>Write integration tests for API endpoints (real database)</li>
+              <li>Write at least one end-to-end test with Playwright or Cypress</li>
+              <li>Set up GitHub Actions to run tests and block failing PRs</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>What makes a test useful vs what makes it a waste of time</li>
+              <li>How to test each layer of an application differently</li>
+              <li>Why testability reveals design problems in your code</li>
+              <li>How CI prevents regressions from reaching production</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Jest / JUnit / Pytest</span>
           <span class="tech-tag">Playwright / Cypress</span>
-          <span class="tech-tag">GitHub Actions</span>
           <span class="tech-tag">coverage reports</span>
+          <span class="tech-tag">GitHub Actions</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -539,20 +802,41 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-git-workflows">
+    <!-- Git -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">GIT &amp; VERSION CONTROL</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Get a PR Merged into an Open Source Project</div>
-        <div class="pcard-desc">Find a real open source project you actually use. Find a bug or a "good first issue", fork the repo, implement the fix properly following their contribution guidelines, and get the PR reviewed and merged.</div>
+        <div class="pcard-title">Get a Pull Request Merged into Open Source</div>
+        <div class="pcard-desc">Find a real open source project you actually use, locate a bug or "good first issue", implement the fix properly following their contribution guidelines, and get the PR reviewed and merged. This is what professional collaboration looks like.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Find a project you use with an open "good first issue"</li>
+              <li>Read the CONTRIBUTING guide before writing a line of code</li>
+              <li>Fork, implement the fix matching their code style exactly</li>
+              <li>Write tests if their project requires them</li>
+              <li>Submit the PR, respond to review, and get it merged</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How real teams collaborate on shared codebases</li>
+              <li>How to navigate and understand an unfamiliar codebase</li>
+              <li>How to give and receive professional code review feedback</li>
+              <li>Why git history and commit messages actually matter</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
-          <span class="tech-tag">Git</span>
-          <span class="tech-tag">GitHub</span>
-          <span class="tech-tag">forking</span>
-          <span class="tech-tag">rebasing</span>
+          <span class="tech-tag">git</span>
+          <span class="tech-tag">forking / rebasing</span>
           <span class="tech-tag">PR etiquette</span>
+          <span class="tech-tag">GitHub</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -562,14 +846,36 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-debugging">
+    <!-- Debugging -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">DEBUGGING</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Instrument and Debug a Production-Style Issue</div>
-        <div class="pcard-desc">Deploy an app with Sentry for error tracking and structured logging (not console.log). Introduce a subtle bug. Then diagnose and fix it using only the observability tooling — no code reading allowed until you have a hypothesis.</div>
+        <div class="pcard-desc">Deploy an app with Sentry and structured logging. Introduce a subtle intentional bug. Then diagnose and fix it using only the observability tooling — no reading the source code until you have a specific hypothesis. This is how senior developers debug.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Add Sentry for error tracking and set up structured logging</li>
+              <li>Deploy the app and introduce a subtle, non-obvious bug</li>
+              <li>Reproduce the error using only Sentry and logs</li>
+              <li>Form a written hypothesis before opening the source code</li>
+              <li>Fix it and verify the fix using the monitoring dashboard</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How to debug without guessing or trial-and-error</li>
+              <li>How structured logging changes what you can observe</li>
+              <li>How production debugging differs from local debugging</li>
+              <li>Why observability is a first-class engineering concern</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Sentry</span>
           <span class="tech-tag">structured logging</span>
@@ -584,17 +890,40 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-code-reviews">
+    <!-- Code Reviews -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">CODE REVIEWS &amp; READING CODE</span>
         <span class="diff-badge diff-easy">Starter</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Review an Older Project — Then Refactor It</div>
-        <div class="pcard-desc">Treat one of your own older projects as if a colleague wrote it. Write a formal code review document listing issues by severity. Then fix every medium/high issue and write a short retrospective on what past-you got wrong.</div>
+        <div class="pcard-title">Formally Review an Old Project — Then Refactor It</div>
+        <div class="pcard-desc">Treat one of your own projects from 6+ months ago as if a colleague wrote it. Write a formal code review document listing issues by severity. Then fix every medium and high severity issue and write a retrospective on what changed and why.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Choose an old project and read it cold — no editing yet</li>
+              <li>Write a review document: list every issue with severity rating</li>
+              <li>Fix all Medium and High severity issues</li>
+              <li>Add inline comments explaining non-obvious decisions</li>
+              <li>Write a retrospective: what you got wrong and what you'd do differently</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How to evaluate code quality objectively</li>
+              <li>What good code actually looks like vs what you assumed</li>
+              <li>How to give specific, actionable feedback</li>
+              <li>How much your skills have grown since you wrote the code</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">code review checklist</span>
           <span class="tech-tag">refactoring</span>
+          <span class="tech-tag">git diff</span>
           <span class="tech-tag">documentation</span>
         </div>
       </div>
@@ -605,14 +934,36 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-tech-docs">
+    <!-- Tech Docs -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">TECHNICAL DOCUMENTATION</span>
         <span class="diff-badge diff-easy">Starter</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Fully Document One of Your Projects</div>
-        <div class="pcard-desc">Pick any project and write the complete documentation: a proper README, OpenAPI spec for the API, a C4 architecture diagram, at least one ADR for a key design decision, and a "first-time contributor" guide.</div>
+        <div class="pcard-desc">Pick any project and write the complete documentation set: a proper README, OpenAPI spec for the API, a C4 architecture diagram, an ADR for a key design decision, and a first-contributor guide. The test: can a stranger use it without asking you anything?</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Write the README: what it is, how to run it, how to contribute</li>
+              <li>Document the API with an OpenAPI (Swagger) spec</li>
+              <li>Draw a C4 architecture diagram (context + container levels)</li>
+              <li>Write one ADR explaining your most important design decision</li>
+              <li>Test it: give it to someone who doesn't know the project and watch them try to use it</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How good documentation enables collaboration at scale</li>
+              <li>How to communicate technical decisions to future readers</li>
+              <li>What makes documentation actually useful vs just present</li>
+              <li>Why architecture diagrams save hours of explanation</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Markdown</span>
           <span class="tech-tag">OpenAPI / Swagger</span>
@@ -627,18 +978,40 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-estimation">
+    <!-- Estimation -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">ESTIMATING &amp; TASK BREAKDOWN</span>
         <span class="diff-badge diff-easy">Starter</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Run Two Full Sprints on a Personal Project</div>
-        <div class="pcard-desc">Plan a new project from scratch using a proper backlog and story points. Execute two 1-week sprints. Track your estimates vs actual time spent. Write a sprint retrospective. The deliverable is the retrospective doc, not the app.</div>
+        <div class="pcard-title">Run Two Real Sprints — Retrospective as the Deliverable</div>
+        <div class="pcard-desc">Plan a new project using a proper Scrum backlog with story points. Execute two 1-week sprints with sprint planning, a daily standup journal, a sprint review, and a retrospective. The retrospective document is the deliverable — be brutally honest about your estimates.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Define the project and write the full backlog as user stories</li>
+              <li>Estimate each story with story points (planning poker)</li>
+              <li>Run sprint 1: plan, execute, hold a review (demo to someone)</li>
+              <li>Write the sprint 1 retrospective with estimates vs actuals</li>
+              <li>Run sprint 2 and write a second retrospective showing improvement</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Why estimation is hard and how to get less wrong over time</li>
+              <li>How to break large problems into shippable pieces</li>
+              <li>What a productive retrospective actually produces</li>
+              <li>How velocity improves when you measure and reflect</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">GitHub Projects</span>
+          <span class="tech-tag">user stories</span>
           <span class="tech-tag">story points</span>
-          <span class="tech-tag">sprint planning</span>
           <span class="tech-tag">retrospective</span>
         </div>
       </div>
@@ -649,20 +1022,42 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-cicd">
+    <!-- CI/CD -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">CI/CD PIPELINES</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Zero-Touch Deploy Pipeline</div>
-        <div class="pcard-desc">Set up a complete pipeline for any project: lint + test on every PR, build a Docker image and push to a registry on merge to main, auto-deploy to a cloud environment, and send a notification on failure. All automated, no manual steps.</div>
+        <div class="pcard-desc">Set up a complete CI/CD pipeline: lint and test on every PR, build a Docker image and push to a registry on merge to main, auto-deploy to a cloud environment, and send a notification on failure. No manual steps anywhere in the process.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Set up GitHub Actions: lint + tests run on every PR</li>
+              <li>Build a Docker image and push to GitHub Container Registry on merge</li>
+              <li>Add a deploy step that updates the running container in the cloud</li>
+              <li>Add a health check that confirms the deploy succeeded</li>
+              <li>Wire up Slack or email notifications on pipeline failure</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How to automate the entire path from code to production</li>
+              <li>How to catch problems before they reach users</li>
+              <li>Why teams can ship multiple times per day safely</li>
+              <li>How blue/green and rolling deployments reduce risk</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">GitHub Actions</span>
           <span class="tech-tag">Docker</span>
           <span class="tech-tag">container registry</span>
           <span class="tech-tag">cloud deploy</span>
-          <span class="tech-tag">Slack / email</span>
+          <span class="tech-tag">health checks</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -672,20 +1067,42 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-cloud-basics">
+    <!-- Cloud -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">CLOUD BASICS (AWS / GCP)</span>
         <span class="diff-badge diff-hard">Advanced</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Deploy a Multi-Tier App to the Cloud — Properly</div>
-        <div class="pcard-desc">Deploy a real application to AWS or GCP: static frontend on S3/Cloud Storage, backend on EC2/Cloud Run, database on RDS/Cloud SQL. Use IAM roles (no hardcoded credentials), a custom domain with HTTPS, and a monitoring dashboard.</div>
+        <div class="pcard-desc">Deploy a real application to AWS or GCP across multiple layers: static frontend, backend service, and managed database. Use IAM roles with least-privilege (no hardcoded credentials), a custom domain with HTTPS, and a monitoring dashboard for all three layers.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Deploy the frontend to S3 / Cloud Storage + CDN</li>
+              <li>Deploy the backend to EC2 / Cloud Run with auto-scaling</li>
+              <li>Set up a managed database (RDS / Cloud SQL) with backups</li>
+              <li>Configure IAM roles — no access keys in code or env files</li>
+              <li>Add custom domain with HTTPS and a monitoring dashboard</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How the pieces of cloud infrastructure fit together</li>
+              <li>How IAM prevents credential-based security incidents</li>
+              <li>How managed services trade control for reliability</li>
+              <li>How to think about availability, backup, and disaster recovery</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">AWS / GCP</span>
           <span class="tech-tag">IAM</span>
           <span class="tech-tag">S3 / Cloud Storage</span>
           <span class="tech-tag">EC2 / Cloud Run</span>
-          <span class="tech-tag">Route 53 / Cloud DNS</span>
+          <span class="tech-tag">RDS / Cloud SQL</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -695,19 +1112,41 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-api-design">
+    <!-- API Design -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">API DESIGN</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Build and Publish a Public API</div>
-        <div class="pcard-desc">Design and build a genuinely useful public REST API: versioning (v1/v2), JWT auth, rate limiting, consistent error responses, and a full OpenAPI spec. Deploy it, write a developer quickstart guide, and get someone else to use it.</div>
+        <div class="pcard-title">Design, Build, and Publish a Public API</div>
+        <div class="pcard-desc">Design and build a genuinely useful public REST API: versioning (v1/v2), JWT auth, rate limiting, consistent error responses, and a full OpenAPI spec. Deploy it, write a developer quickstart, and get at least one person who didn't build it to integrate successfully.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Write the OpenAPI spec before writing any code (design-first)</li>
+              <li>Build v1 with authentication and rate limiting</li>
+              <li>Write a developer quickstart guide (curl examples included)</li>
+              <li>Get someone else to integrate with it — fix the friction you discover</li>
+              <li>Release v2 with a breaking change, handled with versioning</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Why API design decisions are hard to undo once published</li>
+              <li>How to design for the developer experience, not just functionality</li>
+              <li>How rate limiting protects you from abuse and cost overruns</li>
+              <li>How versioning and backwards compatibility actually work</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">REST</span>
+          <span class="tech-tag">OpenAPI</span>
           <span class="tech-tag">JWT</span>
           <span class="tech-tag">rate limiting</span>
-          <span class="tech-tag">OpenAPI</span>
           <span class="tech-tag">versioning</span>
         </div>
       </div>
@@ -724,14 +1163,36 @@
   <h2 class="section-title" id="books-projects">Books &amp; Certifications</h2>
   <div class="projects-grid">
 
-    <div class="pcard" id="proj-clean-code">
+    <!-- Clean Code -->
+    <div class="pcard">
       <div class="pcard-header">
-        <span class="pcard-topic">CLEAN CODE</span>
+        <span class="pcard-topic">CLEAN CODE — ROBERT C. MARTIN</span>
         <span class="diff-badge diff-easy">Starter</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">The Great Refactor</div>
-        <div class="pcard-desc">Take your messiest old project and refactor it chapter by chapter using Clean Code principles. Rename everything badly named, extract every oversized function, eliminate duplication. Write a before/after comparison document showing every change and why.</div>
+        <div class="pcard-desc">Take your messiest old project and refactor it chapter by chapter using Clean Code principles. Rename everything badly named. Extract every oversized function. Eliminate every piece of duplication. Write a before/after comparison document showing every change and the reasoning.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Read the relevant chapters before each refactor pass</li>
+              <li>First pass: rename everything that isn't immediately clear</li>
+              <li>Second pass: extract every function longer than 20 lines</li>
+              <li>Third pass: find and eliminate all duplication (DRY)</li>
+              <li>Write the before/after doc with a "what I learned" section</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>What "clean" actually means beyond a general feeling</li>
+              <li>How naming affects readability more than comments ever will</li>
+              <li>How small, focused functions compose better than large ones</li>
+              <li>How much of your old code violates principles you now know</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">any codebase</span>
           <span class="tech-tag">Clean Code book</span>
@@ -746,20 +1207,43 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-azure-certs">
+    <!-- Azure Certs -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">AZURE CERTIFICATIONS</span>
         <span class="diff-badge diff-mid">Intermediate</span>
       </div>
       <div class="pcard-body">
-        <div class="pcard-title">Pass AZ-900 — Then Build With It</div>
-        <div class="pcard-desc">Study and sit the Azure Fundamentals exam (AZ-900). Then immediately build a small project that uses at least five Azure services you learned about: App Service, Blob Storage, Azure SQL, Key Vault, and Application Insights.</div>
+        <div class="pcard-title">Pass AZ-900 — Then Build Something With It</div>
+        <div class="pcard-desc">Study and sit the Azure Fundamentals exam. Then immediately build a small project that uses at least five Azure services you learned about: App Service, Blob Storage, Azure SQL, Key Vault, and Application Insights. Theory without practice doesn't stick.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Complete the Microsoft Learn AZ-900 learning path</li>
+              <li>Take 2 practice exams and score 85%+ on both</li>
+              <li>Book and sit the AZ-900 exam</li>
+              <li>Build a project using App Service, Blob Storage, and Azure SQL</li>
+              <li>Add Key Vault for secrets and Application Insights for monitoring</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>The full landscape of Azure services and when to use each</li>
+              <li>How cloud pricing, billing, and cost management works</li>
+              <li>How to architect on Azure vs on-premises infrastructure</li>
+              <li>How managed services eliminate whole categories of ops work</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Azure</span>
           <span class="tech-tag">AZ-900</span>
           <span class="tech-tag">App Service</span>
           <span class="tech-tag">Azure SQL</span>
           <span class="tech-tag">Key Vault</span>
+          <span class="tech-tag">App Insights</span>
         </div>
       </div>
       <div class="pcard-footer">
@@ -769,18 +1253,40 @@
       </div>
     </div>
 
-    <div class="pcard" id="proj-agile">
+    <!-- Agile -->
+    <div class="pcard">
       <div class="pcard-header">
         <span class="pcard-topic">AGILE</span>
         <span class="diff-badge diff-easy">Starter</span>
       </div>
       <div class="pcard-body">
         <div class="pcard-title">Run a Real Solo Sprint — Retrospective as the Deliverable</div>
-        <div class="pcard-desc">Plan a new project using a proper Scrum backlog. Run two 1-week sprints with actual sprint planning, a daily standup journal, a sprint review (demo to someone), and a retrospective. The retrospective document IS the deliverable — be brutally honest.</div>
+        <div class="pcard-desc">Plan a new project using a proper Scrum backlog. Run two 1-week sprints with actual planning, a daily standup journal, a sprint review demo (to at least one other person), and a retrospective. The retrospective document is the deliverable — be ruthlessly honest about what slipped and why.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Define the project, write the backlog as proper user stories</li>
+              <li>Run sprint planning: pick stories and commit to a sprint goal</li>
+              <li>Journal a 2-minute standup every day (what I did, what's next, blockers)</li>
+              <li>Hold a sprint review — demo working software to someone who isn't you</li>
+              <li>Write the retrospective: what went well, what didn't, and what you'll change</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Why Scrum ceremonies exist and what problems they actually solve</li>
+              <li>How to break down work so you can ship something every week</li>
+              <li>How estimates improve when you measure and reflect honestly</li>
+              <li>Why showing working software matters more than status updates</li>
+            </ul>
+          </div>
+        </div>
         <div class="tech-list">
           <span class="tech-tag">Scrum</span>
           <span class="tech-tag">GitHub Projects</span>
-          <span class="tech-tag">backlog</span>
+          <span class="tech-tag">user stories</span>
           <span class="tech-tag">retrospective</span>
           <span class="tech-tag">velocity</span>
         </div>
@@ -805,42 +1311,37 @@
   const STATUS_LABELS = { 'not-started': 'Not started', 'in-progress': 'In progress', 'done': 'Done ✓' };
 
   function loadStatuses() {
-    try { return JSON.parse(localStorage.getItem('projectStatuses')) || {}; }
-    catch(e) { return {}; }
+    try { return JSON.parse(localStorage.getItem('projectStatuses')) || {}; } catch(e) { return {}; }
   }
-
-  function saveStatuses(s) {
-    localStorage.setItem('projectStatuses', JSON.stringify(s));
-  }
+  function saveStatuses(s) { localStorage.setItem('projectStatuses', JSON.stringify(s)); }
 
   function cycleStatus(id) {
-    const statuses = loadStatuses();
-    const current = statuses[id] || 'not-started';
-    const next = STATUSES[(STATUSES.indexOf(current) + 1) % STATUSES.length];
-    statuses[id] = next;
-    saveStatuses(statuses);
-    applyStatus(id, next);
+    const s = loadStatuses();
+    const cur = s[id] || 'not-started';
+    s[id] = STATUSES[(STATUSES.indexOf(cur) + 1) % STATUSES.length];
+    saveStatuses(s);
+    applyStatus(id, s[id]);
     updateProgress();
   }
 
   function applyStatus(id, status) {
     const dot = document.getElementById('dot-' + id);
     const btn = dot ? dot.nextElementSibling : null;
-    if (dot) { dot.className = 'status-dot ' + status; }
-    if (btn) { btn.textContent = STATUS_LABELS[status] || status; }
+    if (dot) dot.className = 'status-dot ' + status;
+    if (btn) btn.textContent = STATUS_LABELS[status] || status;
   }
 
   function updateProgress() {
-    const statuses = loadStatuses();
+    const s = loadStatuses();
     const total = document.querySelectorAll('.pcard').length;
-    const done  = Object.values(statuses).filter(s => s === 'done').length;
+    const done  = Object.values(s).filter(v => v === 'done').length;
     document.getElementById('progress-bar').style.width = (done / total * 100) + '%';
     document.getElementById('progress-label').textContent = done + ' / ' + total + ' completed';
   }
 
   function init() {
-    const statuses = loadStatuses();
-    Object.entries(statuses).forEach(([id, status]) => applyStatus(id, status));
+    const s = loadStatuses();
+    Object.entries(s).forEach(([id, status]) => applyStatus(id, status));
     updateProgress();
   }
 
