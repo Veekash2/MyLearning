@@ -182,6 +182,25 @@
     @media (max-width: 500px) {
       .projects-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Extreme section ── */
+    .extreme-section-title {
+      font-size: 1.3rem; color: #8b1a1a;
+      border-bottom: 2px solid #8b1a1a;
+      padding-bottom: 0.4rem; margin: 2.5rem 0 0.5rem; letter-spacing: 0.5px;
+    }
+    .extreme-intro {
+      background: #fff8f8; border: 1px solid #e0a0a0;
+      border-left: 5px solid #8b1a1a; border-radius: 0 6px 6px 0;
+      padding: 0.9rem 1.2rem; margin-bottom: 1.2rem;
+      font-size: 0.9rem; color: #5a2020; line-height: 1.6;
+    }
+    .diff-extreme { background: #1a0000; border: 1px solid #8b1a1a; color: #ffaaaa; font-weight: bold; }
+    .pcard-extreme .pcard-header { background: #3d0000; }
+    .pcard-extreme .pcard-topic  { color: #ffaaaa; }
+    .pcard-extreme .detail-label { color: #8b1a1a; border-bottom-color: #fde8e8; }
+    .pcard-extreme .outcome-list li::before { color: #8b1a1a; }
+    .pcard-extreme .pcard-footer { background: #fff8f8; border-top-color: #fde8e8; }
   </style>
 </head>
 <body>
@@ -195,6 +214,7 @@
   <a href="index.html">← Tracker</a>
   <a href="#topics-projects">Topics</a>
   <a href="#books-projects">Books &amp; Certs</a>
+  <a href="#extreme-projects">⚠ Extreme</a>
   <a href="admin.html" class="nav-admin">Admin ⚙</a>
 </nav>
 
@@ -1294,6 +1314,288 @@
       <div class="pcard-footer">
         <span class="status-dot not-started" id="dot-agile"></span>
         <button class="status-btn" onclick="cycleStatus('agile')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ EXTREME PROJECTS ══ -->
+  <h2 class="extreme-section-title" id="extreme-projects">⚠ Extreme Projects</h2>
+  <div class="extreme-intro">
+    <strong>Warning:</strong> these are not weekend projects. Each one takes weeks to months and will break your brain at least once. They're here because finishing any one of them will teach you more than years of tutorials — and because very few developers ever attempt them.
+  </div>
+  <div class="projects-grid">
+
+    <!-- Build Git -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">VERSION CONTROL</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build Git from Scratch</div>
+        <div class="pcard-desc">Implement the core Git internals: content-addressable object store, blob/tree/commit objects, the index (staging area), branches, HEAD, and basic merge. Not a wrapper around Git — a real implementation. When it can init, add, commit, branch, and merge, you're done.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Implement the object store: blobs, trees, commits as SHA-1 hashed files</li>
+              <li>Build the index file (.git/index) to track staged changes</li>
+              <li>Implement refs: branches, HEAD, tag pointers</li>
+              <li>Write the diff engine — compare tree objects recursively</li>
+              <li>Implement 3-way merge and conflict detection</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How content-addressable storage actually works</li>
+              <li>Why Git history is a linked list of immutable snapshots</li>
+              <li>What a merge conflict really is at the data level</li>
+              <li>Why Git is so fast despite tracking everything</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">SHA-1 hashing</span>
+          <span class="tech-tag">file I/O</span>
+          <span class="tech-tag">DAGs</span>
+          <span class="tech-tag">diff algorithms</span>
+          <span class="tech-tag">Python / C / Go</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-git"></span>
+        <button class="status-btn" onclick="cycleStatus('build-git')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Build a Programming Language -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">PROGRAMMING LANGUAGES</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build Your Own Programming Language</div>
+        <div class="pcard-desc">Design and implement a working interpreted language: custom syntax, lexer, recursive-descent parser, AST, tree-walking interpreter, variables, functions, closures, and a small standard library. Write at least one real program in it to prove it works.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Write the lexer: scan source text into a stream of tokens</li>
+              <li>Write the parser: turn tokens into an Abstract Syntax Tree</li>
+              <li>Write the evaluator: walk the AST and produce values</li>
+              <li>Add variables, functions, and lexical scoping / closures</li>
+              <li>Write a small stdlib and build a non-trivial program in the language</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How every programming language goes from source text to execution</li>
+              <li>What parsing actually means and why it's non-trivial</li>
+              <li>How closures and scoping work at the implementation level</li>
+              <li>Why some language features are hard to add and others are cheap</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">lexer / tokeniser</span>
+          <span class="tech-tag">recursive descent parser</span>
+          <span class="tech-tag">AST</span>
+          <span class="tech-tag">tree-walking interpreter</span>
+          <span class="tech-tag">closures</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-lang"></span>
+        <button class="status-btn" onclick="cycleStatus('build-lang')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Build an OS -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">OPERATING SYSTEMS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Bootable Operating System Kernel</div>
+        <div class="pcard-desc">Write a kernel that boots on real hardware (or QEMU), enters 32/64-bit protected mode, manages physical memory with a page allocator, handles interrupts, runs a basic round-robin scheduler, and supports a minimal shell. No Linux. No libc. Just you and the CPU.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Write a multiboot bootloader and enter 32-bit protected mode</li>
+              <li>Set up the GDT, IDT, and handle hardware interrupts (PIC)</li>
+              <li>Implement a physical memory manager (bitmap allocator + paging)</li>
+              <li>Write a round-robin process scheduler with context switching</li>
+              <li>Add a keyboard driver and minimal interactive shell</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>What an OS kernel actually does vs what people think it does</li>
+              <li>How virtual memory and paging work at the hardware level</li>
+              <li>How context switching gives the illusion of parallel processes</li>
+              <li>Why systems programming in C/ASM is unavoidable at this level</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">C</span>
+          <span class="tech-tag">x86 Assembly</span>
+          <span class="tech-tag">QEMU / Bochs</span>
+          <span class="tech-tag">GDT / IDT</span>
+          <span class="tech-tag">paging</span>
+          <span class="tech-tag">interrupts</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-os"></span>
+        <button class="status-btn" onclick="cycleStatus('build-os')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Build a Database -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">DATABASES</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Relational Database Engine</div>
+        <div class="pcard-desc">Implement a SQLite-scale relational database: B-tree page storage on disk, a SQL parser, a query planner, table scans, index seeks, and ACID transactions using a write-ahead log. It needs to survive a crash and recover correctly. That last part is the hardest.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Implement a pager: read/write fixed-size pages to a file</li>
+              <li>Build a B-tree over the pager for ordered key storage</li>
+              <li>Write a SQL parser for SELECT, INSERT, UPDATE, DELETE</li>
+              <li>Add a query executor: table scans, index seeks, joins</li>
+              <li>Implement transactions with a write-ahead log (WAL) for crash recovery</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Why B-trees are the right data structure for database indexes</li>
+              <li>How ACID transactions work at the storage layer</li>
+              <li>What "crash recovery" actually means and why it's so hard</li>
+              <li>How every SQL query becomes a tree of operations</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">B-trees</span>
+          <span class="tech-tag">pager / page cache</span>
+          <span class="tech-tag">SQL parsing</span>
+          <span class="tech-tag">WAL</span>
+          <span class="tech-tag">ACID</span>
+          <span class="tech-tag">C / Go / Rust</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-db"></span>
+        <button class="status-btn" onclick="cycleStatus('build-db')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Build a TCP/IP Stack -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">NETWORKING</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a TCP/IP Stack from Raw Ethernet Frames</div>
+        <div class="pcard-desc">Implement the internet protocol stack from scratch using raw sockets or a TUN/TAP device: Ethernet framing, ARP, IP routing, ICMP (ping), and a working TCP implementation with connection setup, reliable delivery, flow control, and teardown. End goal: serve HTTP over your own TCP.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Open a TUN/TAP device and parse raw Ethernet frames</li>
+              <li>Implement ARP to resolve IP addresses to MAC addresses</li>
+              <li>Implement the IP layer: routing, fragmentation, TTL</li>
+              <li>Implement ICMP so your stack can respond to ping</li>
+              <li>Implement TCP: 3-way handshake, sliding window, retransmit, teardown</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How every packet on the internet actually travels</li>
+              <li>What TCP's reliability guarantee really costs in complexity</li>
+              <li>How the OS network stack you've always used actually works</li>
+              <li>Why network programming bugs are so hard to reproduce</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">TUN/TAP</span>
+          <span class="tech-tag">raw sockets</span>
+          <span class="tech-tag">ARP / IP / ICMP</span>
+          <span class="tech-tag">TCP state machine</span>
+          <span class="tech-tag">C / Rust</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-tcp"></span>
+        <button class="status-btn" onclick="cycleStatus('build-tcp')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Build a Browser Engine -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">FRONTEND / SYSTEMS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Web Browser Rendering Engine</div>
+        <div class="pcard-desc">Implement the pipeline that turns HTML and CSS into pixels: HTML tokeniser and DOM builder, CSS parser and cascade, box model layout engine, and a paint step that draws rectangles and text. It doesn't need JavaScript — getting layout right is enough of a challenge.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Write an HTML tokeniser and build a DOM tree from it</li>
+              <li>Write a CSS parser and implement the cascade and specificity rules</li>
+              <li>Build the layout engine: compute box dimensions with the CSS box model</li>
+              <li>Implement a paint step: draw each box as rectangles and text</li>
+              <li>Render a real (simple) web page and compare to Chrome's output</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Why browsers are the most complex software most people use daily</li>
+              <li>How CSS specificity and the cascade actually work under the hood</li>
+              <li>What "reflow" and "repaint" mean and why they're expensive</li>
+              <li>Why making CSS truly correct is a multi-year engineering effort</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">HTML tokeniser</span>
+          <span class="tech-tag">DOM</span>
+          <span class="tech-tag">CSS cascade</span>
+          <span class="tech-tag">box model layout</span>
+          <span class="tech-tag">2D painting</span>
+          <span class="tech-tag">Rust / Python</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-browser"></span>
+        <button class="status-btn" onclick="cycleStatus('build-browser')">Not started</button>
         <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
       </div>
     </div>
