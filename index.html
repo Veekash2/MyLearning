@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veeka's Learning Tracker</title>
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --surface: #fffdf7;
+      --border: #c8b89a;
+      --accent: #2d5a27;
+      --text: #1a1a1a;
+      --text-muted: #666;
+      --tag-learn: #e8f4e8;
+      --tag-learn-border: #4a8c42;
+      --tag-done: #e8f0fa;
+      --tag-done-border: #3d72c4;
+      --tag-project: #fdf3e8;
+      --tag-project-border: #c4843d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 4px solid #1a3d15;
+    }
+    header h1 { font-size: 2.4rem; letter-spacing: 1px; margin-bottom: 0.4rem; }
+    header p { font-style: italic; opacity: 0.85; font-size: 1.05rem; }
+
+    nav {
+      background: #1a3d15;
+      padding: 0.7rem 2rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    nav a {
+      color: #c8e6c4;
+      text-decoration: none;
+      font-family: monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+    nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    nav .nav-admin { margin-left: auto; opacity: 0.75; }
+
+    main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--accent);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.4rem;
+      margin: 2.5rem 0 1.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .github-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .github-bar svg { flex-shrink: 0; }
+    .github-bar a { color: var(--accent); font-size: 1rem; text-decoration: none; font-family: monospace; font-weight: bold; }
+    .github-bar a:hover { text-decoration: underline; }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    .card-header {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.85rem 1rem;
+      background: #ede8dc; border-bottom: 1px solid var(--border);
+      cursor: pointer; user-select: none;
+    }
+    .card-header:hover { background: #e4ddd0; }
+
+    .status-dot {
+      width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0;
+      border: 1.5px solid rgba(0,0,0,0.15);
+    }
+    .status-dot.not-started { background: #ddd; }
+    .status-dot.in-progress { background: #f4c842; }
+    .status-dot.done        { background: #4a8c42; }
+
+    .card-title { font-size: 1rem; font-weight: bold; flex: 1; }
+    .card-toggle { font-size: 0.8rem; color: var(--text-muted); font-family: monospace; }
+
+    .card-body { padding: 0.9rem 1rem; display: none; }
+    .card-body.open { display: block; }
+    .card-section { margin-bottom: 0.85rem; }
+    .card-section:last-child { margin-bottom: 0; }
+    .card-section-label {
+      font-size: 0.72rem; font-family: monospace; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      font-size: 0.8rem; padding: 0.2rem 0.55rem;
+      border-radius: 3px; font-family: monospace;
+    }
+    .tag.learn   { background: var(--tag-learn);   border: 1px solid var(--tag-learn-border);   color: #1a4d18; }
+    .tag.done    { background: var(--tag-done);    border: 1px solid var(--tag-done-border);    color: #1a3a6e; }
+    .tag.project { background: var(--tag-project); border: 1px solid var(--tag-project-border); color: #5a3d18; }
+
+    .empty-note { font-size: 0.82rem; color: #aaa; font-style: italic; }
+
+    .legend {
+      display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center;
+      font-size: 0.82rem; color: var(--text-muted);
+      margin-bottom: 1rem; font-family: monospace;
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* ── Resource cards ── */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .resource-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .resource-card-header {
+      background: #1a3d15;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .resource-card-header .rc-title {
+      flex: 1;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .resource-card-header .rc-link {
+      color: #c8e6c4;
+      font-family: monospace;
+      font-size: 0.8rem;
+      text-decoration: none;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid #4a8c42;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .resource-card-header .rc-link:hover { background: rgba(255,255,255,0.1); }
+
+    .resource-card-body { padding: 0.9rem 1rem; }
+
+    .resource-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .resource-series-label {
+      font-size: 0.72rem; font-family: monospace;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 0.4rem;
+    }
+
+    .resource-series {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .series-tag {
+      font-size: 0.78rem;
+      font-family: monospace;
+      padding: 0.18rem 0.5rem;
+      border-radius: 3px;
+      background: #f0ebe0;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    footer {
+      text-align: center; font-size: 0.8rem; color: var(--text-muted);
+      padding: 1.5rem; border-top: 1px solid var(--border); font-style: italic;
+    }
+    footer a { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Veeka's Learning Tracker</h1>
+  <p>Things I need to learn — IT related &amp; beyond</p>
+</header>
+
+<nav>
+  <a href="#github">GitHub</a>
+  <a href="#topics">Topics</a>
+  <a href="#books">Books &amp; Certs</a>
+  <a href="#resources">Resources</a>
+  <a href="admin.html" class="nav-admin">Admin ⚙</a>
+</nav>
+
+<main>
+  <h2 class="section-title" id="github">GitHub Projects</h2>
+  <div class="github-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#1a3d15">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+    </svg>
+    <a id="github-link" href="#" target="_blank" rel="noopener">github.com/YOUR_USERNAME</a>
+  </div>
+
+  <h2 class="section-title" id="topics">Learning Topics</h2>
+  <div class="legend">
+    <span class="legend-item"><span class="status-dot not-started"></span> Not started</span>
+    <span class="legend-item"><span class="status-dot in-progress"></span> In progress</span>
+    <span class="legend-item"><span class="status-dot done"></span> Done</span>
+    <span style="margin-left:auto">Click a card to expand</span>
+  </div>
+  <div class="topics-grid" id="topics-grid"></div>
+
+  <h2 class="section-title" id="books">Books &amp; Certifications</h2>
+  <div class="topics-grid" id="books-grid"></div>
+
+  <h2 class="section-title" id="resources">Resources &amp; Links</h2>
+  <div class="resource-grid">
+
+    <div class="resource-card">
+      <div class="resource-card-header">
+        <span class="rc-title">Clean Coders Library</span>
+        <a class="rc-link" href="https://cleancoders.com/library/all" target="_blank" rel="noopener">Visit →</a>
+      </div>
+      <div class="resource-card-body">
+        <p class="resource-desc">Video episodes by Robert C. Martin (Uncle Bob) covering Clean Code, SOLID, TDD, Design Patterns, Architecture, and professional software craft.</p>
+        <div class="resource-series-label">Series available</div>
+        <div class="resource-series">
+          <span class="series-tag">Clean Code</span>
+          <span class="series-tag">SOLID Principles</span>
+          <span class="series-tag">Design Patterns</span>
+          <span class="series-tag">Advanced TDD</span>
+          <span class="series-tag">Clean Architecture</span>
+          <span class="series-tag">Clean Coder</span>
+          <span class="series-tag">Functional Programming</span>
+          <span class="series-tag">Mocking</span>
+          <span class="series-tag">Component Design</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  Updated 2026 &nbsp;·&nbsp; One topic at a time. &nbsp;·&nbsp; <a href="admin.html">Admin ⚙</a>
+</footer>
+
+<script>
+  const DEFAULT_DATA = {
+    github: "https://github.com/YOUR_USERNAME",
+    topics: [
+      { id:"networking",    title:"Networking",                    status:"not-started", group:"topics",
+        learned:[], toLearn:["OSI Model","TCP/IP","DNS & DHCP","Subnetting","Firewalls & VPNs"], projects:[] },
+      { id:"docker",        title:"Docker",                        status:"not-started", group:"topics",
+        learned:[], toLearn:["Containers vs VMs","Dockerfile","Docker Compose","Volumes & Networks","Docker Hub"], projects:[] },
+      { id:"ai-codebases",  title:"AI to Understand Codebases",    status:"in-progress", group:"topics",
+        learned:["Claude Code basics","Prompting for code"], toLearn:["Codebase indexing","AI-assisted debugging","AI code review workflows"], projects:["Deelytefool admin site","Rick & Morty Tracker"] },
+      { id:"frontend",      title:"Frontend",                      status:"in-progress", group:"topics",
+        learned:["HTML basics","CSS basics"], toLearn:["JavaScript fundamentals","Responsive design","Accessibility (a11y)","Web performance"], projects:["This learning tracker"] },
+      { id:"react",         title:"React",                         status:"not-started", group:"topics",
+        learned:[], toLearn:["Components & JSX","State & Props","Hooks (useState, useEffect)","React Router","Context API"], projects:[] },
+      { id:"architecture",  title:"Architecture",                  status:"not-started", group:"topics",
+        learned:[], toLearn:["MVC / MVVM","Microservices","REST vs GraphQL","System design basics","Event-driven architecture"], projects:[] },
+      { id:"hardware",      title:"Hardware",                      status:"not-started", group:"topics",
+        learned:[], toLearn:["CPU & memory","Storage types (SSD/NVMe)","How servers work"], projects:[] },
+      { id:"linux",         title:"Linux OS",                      status:"not-started", group:"topics",
+        learned:[], toLearn:["CLI basics","File permissions","Shell scripting (bash)","Process management","SSH & remote access"], projects:[] },
+      { id:"scaling",       title:"Scaling & Cost Management",     status:"not-started", group:"topics",
+        learned:[], toLearn:["Horizontal vs vertical scaling","Load balancing","Cloud cost optimisation","Caching strategies"], projects:[] },
+      { id:"security",      title:"Security / Cybersecurity",      status:"not-started", group:"topics",
+        learned:[], toLearn:["OWASP Top 10","Auth & OAuth2","SQL Injection basics","HTTPS / TLS","Penetration testing basics"], projects:[] },
+      { id:"java",          title:"Java",                          status:"not-started", group:"topics",
+        learned:[], toLearn:["OOP fundamentals","Collections & Generics","Spring Boot","JUnit testing","Maven / Gradle"], projects:[] },
+      { id:"clean-code",    title:"Clean Code — Robert C. Martin", status:"not-started", group:"books-certs",
+        learned:[], toLearn:["Meaningful names","Functions","Comments","Error handling","Unit tests","Classes","SOLID Principles","Design Patterns","Advanced TDD","Clean Architecture","Component Design","Functional Programming"], projects:["cleancoders.com/library/all"] },
+      { id:"azure-certs",   title:"Azure Certifications",          status:"not-started", group:"books-certs",
+        learned:[], toLearn:["AZ-900 Fundamentals","AZ-204 Developer","AZ-104 Administrator"], projects:["Microsoft Learn"] },
+      { id:"agile",         title:"Agile",                         status:"not-started", group:"books-certs",
+        learned:[], toLearn:["Scrum framework","Kanban","Sprint planning","Retrospectives","User stories","Agile manifesto & values"], projects:["PSM I (Scrum.org)"] }
+    ]
+  };
+
+  function loadData() {
+    try {
+      const saved = localStorage.getItem('learningData');
+      return saved ? JSON.parse(saved) : DEFAULT_DATA;
+    } catch(e) { return DEFAULT_DATA; }
+  }
+
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderCard(topic) {
+    const isBooks = topic.group === 'books-certs';
+    const labels = isBooks
+      ? ['Learned / Achieved', 'Key areas to cover', 'Resources & certifications']
+      : ['Learned so far', 'Want to learn', 'Projects tried'];
+    const empties = ['Nothing yet — get started!', 'Nothing yet', 'No projects yet'];
+    const types   = ['done', 'learn', 'project'];
+    const fields  = ['learned', 'toLearn', 'projects'];
+
+    const sections = fields.map((f, i) => {
+      const items = (topic[f] || []);
+      const tags = items.length
+        ? items.map(t => `<span class="tag ${types[i]}">${esc(t)}</span>`).join('')
+        : `<span class="empty-note">${empties[i]}</span>`;
+      return `<div class="card-section">
+        <div class="card-section-label">${labels[i]}</div>
+        <div class="tag-list">${tags}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="status-dot ${esc(topic.status)}"></span>
+        <span class="card-title">${esc(topic.title)}</span>
+        <span class="card-toggle">[+]</span>
+      </div>
+      <div class="card-body">${sections}</div>
+    </div>`;
+  }
+
+  function renderPage() {
+    const data = loadData();
+
+    const link = document.getElementById('github-link');
+    link.href = data.github || '#';
+    link.textContent = (data.github || '').replace(/^https?:\/\//, '');
+
+    const topicsEl = document.getElementById('topics-grid');
+    const booksEl  = document.getElementById('books-grid');
+    const topicCards = data.topics.filter(t => t.group === 'topics');
+    const bookCards  = data.topics.filter(t => t.group === 'books-certs');
+
+    topicsEl.innerHTML = topicCards.length
+      ? topicCards.map(renderCard).join('')
+      : '<p class="empty-note" style="padding:1rem">No topics yet. <a href="admin.html">Add one in Admin.</a></p>';
+
+    booksEl.innerHTML = bookCards.length
+      ? bookCards.map(renderCard).join('')
+      : '<p class="empty-note" style="padding:1rem">None yet. <a href="admin.html">Add one in Admin.</a></p>';
+  }
+
+  function toggle(header) {
+    const body = header.nextElementSibling;
+    const indicator = header.querySelector('.card-toggle');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    indicator.textContent = isOpen ? '[+]' : '[-]';
+  }
+
+  renderPage();
+</script>
+</body>
+</html>
