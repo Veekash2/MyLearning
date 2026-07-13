@@ -16,8 +16,6 @@
       --tag-learn-border: #4a8c42;
       --tag-done: #e8f0fa;
       --tag-done-border: #3d72c4;
-      --tag-project: #fdf3e8;
-      --tag-project-border: #c4843d;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +35,7 @@
       border-bottom: 4px solid #1a3d15;
     }
     header h1 { font-size: 2.4rem; letter-spacing: 1px; margin-bottom: 0.4rem; }
-    header p { font-style: italic; opacity: 0.85; font-size: 1.05rem; }
+    header p  { font-style: italic; opacity: 0.85; font-size: 1.05rem; }
 
     nav {
       background: #1a3d15;
@@ -48,38 +46,131 @@
       align-items: center;
     }
     nav a {
-      color: #c8e6c4;
-      text-decoration: none;
-      font-family: monospace;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-      padding: 0.2rem 0.5rem;
-      border-radius: 3px;
+      color: #c8e6c4; text-decoration: none;
+      font-family: monospace; font-size: 0.9rem;
+      padding: 0.2rem 0.5rem; border-radius: 3px;
       transition: background 0.2s;
     }
     nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
     nav .nav-admin { margin-left: auto; opacity: 0.75; }
 
-    main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    /* ── Two-column layout ── */
+    .page-layout {
+      display: flex;
+      align-items: flex-start;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 250px;
+      min-width: 250px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.2rem 0.9rem;
+    }
+
+    .sb-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+    .sb-header h3 {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-family: monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .sb-header a {
+      font-family: monospace; font-size: 0.74rem;
+      color: var(--accent); text-decoration: none; opacity: 0.7;
+    }
+    .sb-header a:hover { opacity: 1; text-decoration: underline; }
+
+    .sb-progress {
+      display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .sb-prog-outer {
+      flex: 1; height: 5px; background: #ddd; border-radius: 3px; overflow: hidden;
+    }
+    .sb-prog-inner {
+      height: 100%; background: var(--accent);
+      border-radius: 3px; transition: width 0.3s;
+    }
+    .sb-prog-label { font-family: monospace; font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; }
+
+    .sb-group {
+      font-family: monospace; font-size: 0.66rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text-muted);
+      margin: 0.9rem 0 0.3rem;
+      padding-bottom: 0.2rem;
+      border-bottom: 1px solid #ede8dc;
+    }
+
+    .sb-item {
+      display: flex; align-items: flex-start; gap: 0.4rem;
+      padding: 0.28rem 0.3rem;
+      border-radius: 3px; cursor: pointer;
+      transition: background 0.15s;
+      user-select: none;
+    }
+    .sb-item:hover { background: #f0ebe0; }
+
+    .sb-dot {
+      width: 11px; height: 11px; border-radius: 50%;
+      border: 1.5px solid rgba(0,0,0,0.15);
+      flex-shrink: 0; margin-top: 0.22rem;
+      background: #ddd;
+      transition: background 0.2s;
+    }
+    .sb-item.done .sb-dot { background: #4a8c42; border-color: #2d5a27; }
+
+    .sb-content { flex: 1; min-width: 0; }
+    .sb-title {
+      font-size: 0.76rem; font-weight: bold;
+      display: block; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+      transition: opacity 0.2s;
+    }
+    .sb-desc {
+      font-size: 0.7rem; color: var(--text-muted);
+      display: block; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .sb-item.done .sb-title { text-decoration: line-through; opacity: 0.45; }
+    .sb-item.done .sb-desc  { opacity: 0.35; }
+
+    @media (max-width: 820px) {
+      .page-layout { flex-direction: column; }
+      .sidebar {
+        width: 100%; min-width: 0;
+        position: static; height: auto;
+        border-right: none; border-bottom: 1px solid var(--border);
+      }
+    }
+
+    /* ── Main content ── */
+    main { flex: 1; min-width: 0; padding: 2rem 1.5rem 4rem; }
 
     .section-title {
-      font-size: 1.3rem;
-      color: var(--accent);
+      font-size: 1.3rem; color: var(--accent);
       border-bottom: 2px solid var(--border);
-      padding-bottom: 0.4rem;
-      margin: 2.5rem 0 1.2rem;
-      letter-spacing: 0.5px;
+      padding-bottom: 0.4rem; margin: 2.5rem 0 1.2rem; letter-spacing: 0.5px;
     }
 
     .github-bar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1rem 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 1rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
     }
     .github-bar svg { flex-shrink: 0; }
     .github-bar a { color: var(--accent); font-size: 1rem; text-decoration: none; font-family: monospace; font-weight: bold; }
@@ -87,7 +178,7 @@
 
     .topics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
       gap: 1.2rem;
     }
 
@@ -120,13 +211,9 @@
       text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;
     }
     .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .tag {
-      font-size: 0.8rem; padding: 0.2rem 0.55rem;
-      border-radius: 3px; font-family: monospace;
-    }
-    .tag.learn   { background: var(--tag-learn);   border: 1px solid var(--tag-learn-border);   color: #1a4d18; }
-    .tag.done    { background: var(--tag-done);    border: 1px solid var(--tag-done-border);    color: #1a3a6e; }
-    .tag.project { background: var(--tag-project); border: 1px solid var(--tag-project-border); color: #5a3d18; }
+    .tag { font-size: 0.8rem; padding: 0.2rem 0.55rem; border-radius: 3px; font-family: monospace; }
+    .tag.learn { background: var(--tag-learn); border: 1px solid var(--tag-learn-border); color: #1a4d18; }
+    .tag.done  { background: var(--tag-done);  border: 1px solid var(--tag-done-border);  color: #1a3a6e; }
 
     .empty-note { font-size: 0.82rem; color: #aaa; font-style: italic; }
 
@@ -143,72 +230,23 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.2rem;
     }
-
-    .resource-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
+    .resource-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
     .resource-card-header {
-      background: #1a3d15;
-      padding: 0.85rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
+      background: #1a3d15; padding: 0.85rem 1rem;
+      display: flex; align-items: center; gap: 0.7rem;
     }
-
-    .resource-card-header .rc-title {
-      flex: 1;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-    }
-
+    .resource-card-header .rc-title { flex: 1; color: #fff; font-size: 1rem; font-weight: bold; }
     .resource-card-header .rc-link {
-      color: #c8e6c4;
-      font-family: monospace;
-      font-size: 0.8rem;
-      text-decoration: none;
-      padding: 0.2rem 0.6rem;
-      border: 1px solid #4a8c42;
-      border-radius: 3px;
-      white-space: nowrap;
+      color: #c8e6c4; font-family: monospace; font-size: 0.8rem;
+      text-decoration: none; padding: 0.2rem 0.6rem;
+      border: 1px solid #4a8c42; border-radius: 3px; white-space: nowrap;
     }
     .resource-card-header .rc-link:hover { background: rgba(255,255,255,0.1); }
-
     .resource-card-body { padding: 0.9rem 1rem; }
-
-    .resource-desc {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-bottom: 0.8rem;
-      line-height: 1.5;
-    }
-
-    .resource-series-label {
-      font-size: 0.72rem; font-family: monospace;
-      letter-spacing: 1px; text-transform: uppercase;
-      color: var(--text-muted); margin-bottom: 0.4rem;
-    }
-
-    .resource-series {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .series-tag {
-      font-size: 0.78rem;
-      font-family: monospace;
-      padding: 0.18rem 0.5rem;
-      border-radius: 3px;
-      background: #f0ebe0;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
+    .resource-desc { font-size: 0.88rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.8rem; line-height: 1.5; }
+    .resource-series-label { font-size: 0.72rem; font-family: monospace; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .resource-series { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .series-tag { font-size: 0.78rem; font-family: monospace; padding: 0.18rem 0.5rem; border-radius: 3px; background: #f0ebe0; border: 1px solid var(--border); color: var(--text); }
 
     footer {
       text-align: center; font-size: 0.8rem; color: var(--text-muted);
@@ -233,75 +271,266 @@
   <a href="admin.html" class="nav-admin">Admin ⚙</a>
 </nav>
 
-<main>
-  <h2 class="section-title" id="github">GitHub Projects</h2>
-  <div class="github-bar">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#1a3d15">
-      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-    </svg>
-    <a id="github-link" href="#" target="_blank" rel="noopener">github.com/YOUR_USERNAME</a>
-  </div>
+<div class="page-layout">
 
-  <h2 class="section-title" id="topics">Learning Topics</h2>
-  <div class="legend">
-    <span class="legend-item"><span class="status-dot not-started"></span> Not started</span>
-    <span class="legend-item"><span class="status-dot in-progress"></span> In progress</span>
-    <span class="legend-item"><span class="status-dot done"></span> Done</span>
-    <span style="margin-left:auto">Click a card to expand</span>
-  </div>
-  <div class="topics-grid" id="topics-grid"></div>
-
-  <h2 class="section-title" id="books">Books &amp; Certifications</h2>
-  <div class="topics-grid" id="books-grid"></div>
-
-  <h2 class="section-title" id="resources">Resources &amp; Links</h2>
-  <div class="resource-grid">
-
-    <div class="resource-card">
-      <div class="resource-card-header">
-        <span class="rc-title">Clean Coders Library</span>
-        <a class="rc-link" href="https://cleancoders.com/library/all" target="_blank" rel="noopener">Visit →</a>
-      </div>
-      <div class="resource-card-body">
-        <p class="resource-desc">Video episodes by Robert C. Martin (Uncle Bob) covering Clean Code, SOLID, TDD, Design Patterns, Architecture, and professional software craft.</p>
-        <div class="resource-series-label">Series available</div>
-        <div class="resource-series">
-          <span class="series-tag">Clean Code</span>
-          <span class="series-tag">SOLID Principles</span>
-          <span class="series-tag">Design Patterns</span>
-          <span class="series-tag">Advanced TDD</span>
-          <span class="series-tag">Clean Architecture</span>
-          <span class="series-tag">Clean Coder</span>
-          <span class="series-tag">Functional Programming</span>
-          <span class="series-tag">Mocking</span>
-          <span class="series-tag">Component Design</span>
-        </div>
-      </div>
+  <!-- ── Left Sidebar: Projects to Do ── -->
+  <aside class="sidebar">
+    <div class="sb-header">
+      <h3>Projects to Do</h3>
+      <a href="projects.html">All →</a>
+    </div>
+    <div class="sb-progress">
+      <div class="sb-prog-outer"><div class="sb-prog-inner" id="sb-bar" style="width:0%"></div></div>
+      <span class="sb-prog-label" id="sb-label">0 / 24</span>
     </div>
 
+    <div class="sb-group">Topics</div>
 
-    <div class="resource-card">
-      <div class="resource-card-header">
-        <span class="rc-title">React — Official Docs</span>
-        <a class="rc-link" href="https://react.dev" target="_blank" rel="noopener">Visit →</a>
-      </div>
-      <div class="resource-card-body">
-        <p class="resource-desc">The official React documentation — interactive tutorials, in-depth guides, and full API reference. The best place to start and the best place to return to when things get confusing.</p>
-        <div class="resource-series-label">Key sections</div>
-        <div class="resource-series">
-          <span class="series-tag">Quick Start</span>
-          <span class="series-tag">Components & JSX</span>
-          <span class="series-tag">State & Props</span>
-          <span class="series-tag">Hooks</span>
-          <span class="series-tag">Managing State</span>
-          <span class="series-tag">Escape Hatches</span>
-          <span class="series-tag">API Reference</span>
-        </div>
-      </div>
+    <div class="sb-item" id="sbi-networking" onclick="sbToggle('networking')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Networking</span>
+        <span class="sb-desc">Build an HTTP server from scratch</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-docker" onclick="sbToggle('docker')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Docker</span>
+        <span class="sb-desc">Containerise a full-stack app</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-ai-codebases" onclick="sbToggle('ai-codebases')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">AI for Codebases</span>
+        <span class="sb-desc">Codebase explainer CLI tool</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-frontend" onclick="sbToggle('frontend')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Frontend</span>
+        <span class="sb-desc">Portfolio — 90+ Lighthouse score</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-react" onclick="sbToggle('react')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">React</span>
+        <span class="sb-desc">Full-stack task manager app</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-architecture" onclick="sbToggle('architecture')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Architecture</span>
+        <span class="sb-desc">System design + working MVP</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-hardware" onclick="sbToggle('hardware')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Hardware</span>
+        <span class="sb-desc">Raspberry Pi home server</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-linux" onclick="sbToggle('linux')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Linux OS</span>
+        <span class="sb-desc">Harden &amp; deploy a VPS</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-scaling" onclick="sbToggle('scaling')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Scaling</span>
+        <span class="sb-desc">Serverless API under $1/month</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-security" onclick="sbToggle('security')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Security</span>
+        <span class="sb-desc">OWASP audit your own app</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-java" onclick="sbToggle('java')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Java</span>
+        <span class="sb-desc">Spring Boot production API</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-sql-databases" onclick="sbToggle('sql-databases')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">SQL &amp; Databases</span>
+        <span class="sb-desc">Analytics dashboard + query optimisation</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-testing" onclick="sbToggle('testing')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Testing</span>
+        <span class="sb-desc">80% test coverage in CI</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-git-workflows" onclick="sbToggle('git-workflows')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Git</span>
+        <span class="sb-desc">Merge an open source PR</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-debugging" onclick="sbToggle('debugging')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Debugging</span>
+        <span class="sb-desc">Instrument &amp; debug production issue</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-code-reviews" onclick="sbToggle('code-reviews')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Code Reviews</span>
+        <span class="sb-desc">Review + refactor old code</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-tech-docs" onclick="sbToggle('tech-docs')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Tech Docs</span>
+        <span class="sb-desc">Fully document a project</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-estimation" onclick="sbToggle('estimation')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Estimation</span>
+        <span class="sb-desc">2 sprints + retrospective</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-cicd" onclick="sbToggle('cicd')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">CI/CD</span>
+        <span class="sb-desc">Zero-touch deploy pipeline</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-cloud-basics" onclick="sbToggle('cloud-basics')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Cloud</span>
+        <span class="sb-desc">Multi-tier cloud deployment</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-api-design" onclick="sbToggle('api-design')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">API Design</span>
+        <span class="sb-desc">Build and publish a public API</span>
+      </span>
     </div>
 
-  </div>
-</main>
+    <div class="sb-group">Books &amp; Certs</div>
+
+    <div class="sb-item" id="sbi-clean-code" onclick="sbToggle('clean-code')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Clean Code</span>
+        <span class="sb-desc">Refactor a messy codebase</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-azure-certs" onclick="sbToggle('azure-certs')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Azure Certs</span>
+        <span class="sb-desc">Pass AZ-900 + build with Azure</span>
+      </span>
+    </div>
+    <div class="sb-item" id="sbi-agile" onclick="sbToggle('agile')">
+      <span class="sb-dot"></span>
+      <span class="sb-content">
+        <span class="sb-title">Agile</span>
+        <span class="sb-desc">Solo Scrum sprints</span>
+      </span>
+    </div>
+
+  </aside>
+
+  <!-- ── Main content ── -->
+  <main>
+    <h2 class="section-title" id="github">GitHub Projects</h2>
+    <div class="github-bar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#1a3d15">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+      </svg>
+      <a id="github-link" href="#" target="_blank" rel="noopener">github.com/Veekash2</a>
+    </div>
+
+    <h2 class="section-title" id="topics">Learning Topics</h2>
+    <div class="legend">
+      <span class="legend-item"><span class="status-dot not-started"></span> Not started</span>
+      <span class="legend-item"><span class="status-dot in-progress"></span> In progress</span>
+      <span class="legend-item"><span class="status-dot done"></span> Done</span>
+      <span style="margin-left:auto">Click a card to expand</span>
+    </div>
+    <div class="topics-grid" id="topics-grid"></div>
+
+    <h2 class="section-title" id="books">Books &amp; Certifications</h2>
+    <div class="topics-grid" id="books-grid"></div>
+
+    <h2 class="section-title" id="resources">Resources &amp; Links</h2>
+    <div class="resource-grid">
+
+      <div class="resource-card">
+        <div class="resource-card-header">
+          <span class="rc-title">Clean Coders Library</span>
+          <a class="rc-link" href="https://cleancoders.com/library/all" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="resource-card-body">
+          <p class="resource-desc">Video episodes by Robert C. Martin (Uncle Bob) covering Clean Code, SOLID, TDD, Design Patterns, Architecture, and professional software craft.</p>
+          <div class="resource-series-label">Series available</div>
+          <div class="resource-series">
+            <span class="series-tag">Clean Code</span>
+            <span class="series-tag">SOLID Principles</span>
+            <span class="series-tag">Design Patterns</span>
+            <span class="series-tag">Advanced TDD</span>
+            <span class="series-tag">Clean Architecture</span>
+            <span class="series-tag">Clean Coder</span>
+            <span class="series-tag">Functional Programming</span>
+            <span class="series-tag">Mocking</span>
+            <span class="series-tag">Component Design</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="resource-card">
+        <div class="resource-card-header">
+          <span class="rc-title">React — Official Docs</span>
+          <a class="rc-link" href="https://react.dev" target="_blank" rel="noopener">Visit →</a>
+        </div>
+        <div class="resource-card-body">
+          <p class="resource-desc">The official React documentation — interactive tutorials, in-depth guides, and full API reference. The best place to start and the best place to return to when things get confusing.</p>
+          <div class="resource-series-label">Key sections</div>
+          <div class="resource-series">
+            <span class="series-tag">Quick Start</span>
+            <span class="series-tag">Components &amp; JSX</span>
+            <span class="series-tag">State &amp; Props</span>
+            <span class="series-tag">Hooks</span>
+            <span class="series-tag">Managing State</span>
+            <span class="series-tag">Escape Hatches</span>
+            <span class="series-tag">API Reference</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</div><!-- end page-layout -->
 
 <footer>
   Updated 2026 &nbsp;·&nbsp; One topic at a time. &nbsp;·&nbsp; <a href="admin.html">Admin ⚙</a>
@@ -312,53 +541,53 @@
     github: "https://github.com/Veekash2",
     topics: [
       { id:"networking",    title:"Networking",                    status:"not-started", group:"topics",
-        learned:[], toLearn:["OSI Model","TCP/IP","DNS & DHCP","Subnetting","Firewalls & VPNs"], projects:[] },
+        learned:[], toLearn:["OSI Model","TCP/IP","DNS & DHCP","Subnetting","Firewalls & VPNs"] },
       { id:"docker",        title:"Docker",                        status:"not-started", group:"topics",
-        learned:[], toLearn:["Containers vs VMs","Dockerfile","Docker Compose","Volumes & Networks","Docker Hub"], projects:[] },
+        learned:[], toLearn:["Containers vs VMs","Dockerfile","Docker Compose","Volumes & Networks","Docker Hub"] },
       { id:"ai-codebases",  title:"AI to Understand Codebases",    status:"in-progress", group:"topics",
-        learned:["Claude Code basics","Prompting for code"], toLearn:["Codebase indexing","AI-assisted debugging","AI code review workflows"], projects:["Deelytefool admin site","Rick & Morty Tracker"] },
+        learned:["Claude Code basics","Prompting for code"], toLearn:["Codebase indexing","AI-assisted debugging","AI code review workflows"] },
       { id:"frontend",      title:"Frontend",                      status:"in-progress", group:"topics",
-        learned:["HTML basics","CSS basics"], toLearn:["JavaScript fundamentals","Responsive design","Accessibility (a11y)","Web performance"], projects:["This learning tracker"] },
+        learned:["HTML basics","CSS basics"], toLearn:["JavaScript fundamentals","Responsive design","Accessibility (a11y)","Web performance"] },
       { id:"react",         title:"React",                         status:"not-started", group:"topics",
-        learned:[], toLearn:["Components & JSX","State & Props","Hooks (useState, useEffect)","React Router","Context API"], projects:[] },
+        learned:[], toLearn:["Components & JSX","State & Props","Hooks (useState, useEffect)","React Router","Context API"] },
       { id:"architecture",  title:"Architecture",                  status:"not-started", group:"topics",
-        learned:[], toLearn:["MVC / MVVM","Microservices","REST vs GraphQL","System design basics","Event-driven architecture"], projects:[] },
+        learned:[], toLearn:["MVC / MVVM","Microservices","REST vs GraphQL","System design basics","Event-driven architecture"] },
       { id:"hardware",      title:"Hardware",                      status:"not-started", group:"topics",
-        learned:[], toLearn:["CPU & memory","Storage types (SSD/NVMe)","How servers work"], projects:[] },
+        learned:[], toLearn:["CPU & memory","Storage types (SSD/NVMe)","How servers work"] },
       { id:"linux",         title:"Linux OS",                      status:"not-started", group:"topics",
-        learned:[], toLearn:["CLI basics","File permissions","Shell scripting (bash)","Process management","SSH & remote access"], projects:[] },
+        learned:[], toLearn:["CLI basics","File permissions","Shell scripting (bash)","Process management","SSH & remote access"] },
       { id:"scaling",       title:"Scaling & Cost Management",     status:"not-started", group:"topics",
-        learned:[], toLearn:["Horizontal vs vertical scaling","Load balancing","Cloud cost optimisation","Caching strategies"], projects:[] },
+        learned:[], toLearn:["Horizontal vs vertical scaling","Load balancing","Cloud cost optimisation","Caching strategies"] },
       { id:"security",      title:"Security / Cybersecurity",      status:"not-started", group:"topics",
-        learned:[], toLearn:["OWASP Top 10","Auth & OAuth2","SQL Injection basics","HTTPS / TLS","Penetration testing basics"], projects:[] },
+        learned:[], toLearn:["OWASP Top 10","Auth & OAuth2","SQL Injection basics","HTTPS / TLS","Penetration testing basics"] },
       { id:"java",          title:"Java",                          status:"not-started", group:"topics",
-        learned:[], toLearn:["OOP fundamentals","Collections & Generics","Spring Boot","JUnit testing","Maven / Gradle"], projects:[] },
+        learned:[], toLearn:["OOP fundamentals","Collections & Generics","Spring Boot","JUnit testing","Maven / Gradle"] },
       { id:"sql-databases",  title:"SQL & Databases",              status:"not-started", group:"topics",
-        learned:[], toLearn:["SQL basics","Joins & subqueries","Indexes","Transactions","NoSQL basics","PostgreSQL / MySQL","ORM concepts"], projects:[] },
+        learned:[], toLearn:["SQL basics","Joins & subqueries","Indexes","Transactions","NoSQL basics","PostgreSQL / MySQL","ORM concepts"] },
       { id:"testing",        title:"Testing",                      status:"not-started", group:"topics",
-        learned:[], toLearn:["Unit testing","Integration testing","End-to-end testing","TDD","Mocking","Code coverage"], projects:[] },
+        learned:[], toLearn:["Unit testing","Integration testing","End-to-end testing","TDD","Mocking","Code coverage"] },
       { id:"git-workflows",  title:"Git & Version Control",        status:"not-started", group:"topics",
-        learned:[], toLearn:["Branching strategies","Pull requests","Rebasing vs merging","Git hooks","Conventional commits","Resolving conflicts"], projects:[] },
+        learned:[], toLearn:["Branching strategies","Pull requests","Rebasing vs merging","Git hooks","Conventional commits","Resolving conflicts"] },
       { id:"debugging",      title:"Debugging",                    status:"not-started", group:"topics",
-        learned:[], toLearn:["Reading stack traces","Browser DevTools","Debugger usage","Logging strategies","Root cause analysis"], projects:[] },
+        learned:[], toLearn:["Reading stack traces","Browser DevTools","Debugger usage","Logging strategies","Root cause analysis"] },
       { id:"code-reviews",   title:"Code Reviews & Reading Code",  status:"not-started", group:"topics",
-        learned:[], toLearn:["Reviewing PRs effectively","Reading unfamiliar codebases","Giving constructive feedback","Open source contributions"], projects:[] },
+        learned:[], toLearn:["Reviewing PRs effectively","Reading unfamiliar codebases","Giving constructive feedback","Open source contributions"] },
       { id:"tech-docs",      title:"Technical Documentation",      status:"not-started", group:"topics",
-        learned:[], toLearn:["Writing READMEs","API documentation","Architecture decision records (ADRs)","Diagrams (UML, C4)","Confluence / Notion"], projects:[] },
+        learned:[], toLearn:["Writing READMEs","API documentation","Architecture decision records (ADRs)","Diagrams (UML, C4)","Confluence / Notion"] },
       { id:"estimation",     title:"Estimating & Task Breakdown",  status:"not-started", group:"topics",
-        learned:[], toLearn:["Breaking epics into tasks","Story points","T-shirt sizing","Identifying unknowns","Planning poker"], projects:[] },
+        learned:[], toLearn:["Breaking epics into tasks","Story points","T-shirt sizing","Identifying unknowns","Planning poker"] },
       { id:"cicd",           title:"CI/CD Pipelines",              status:"not-started", group:"topics",
-        learned:[], toLearn:["GitHub Actions","Build automation","Automated testing in CI","Deployment pipelines","Environment management","Release strategies"], projects:[] },
+        learned:[], toLearn:["GitHub Actions","Build automation","Automated testing in CI","Deployment pipelines","Environment management","Release strategies"] },
       { id:"cloud-basics",   title:"Cloud Basics (AWS / GCP)",     status:"not-started", group:"topics",
-        learned:[], toLearn:["Compute (EC2 / Cloud Run)","Storage (S3 / Cloud Storage)","Databases (RDS / Cloud SQL)","IAM & permissions","Serverless functions","Regions & availability zones"], projects:[] },
+        learned:[], toLearn:["Compute (EC2 / Cloud Run)","Storage (S3 / Cloud Storage)","Databases (RDS / Cloud SQL)","IAM & permissions","Serverless functions","Regions & availability zones"] },
       { id:"api-design",     title:"API Design",                   status:"not-started", group:"topics",
-        learned:[], toLearn:["REST principles","HTTP methods & status codes","Versioning","Authentication (API keys, OAuth)","Rate limiting","OpenAPI / Swagger"], projects:[] },
+        learned:[], toLearn:["REST principles","HTTP methods & status codes","Versioning","Authentication (API keys, OAuth)","Rate limiting","OpenAPI / Swagger"] },
       { id:"clean-code",    title:"Clean Code — Robert C. Martin", status:"not-started", group:"books-certs",
-        learned:[], toLearn:["Meaningful names","Functions","Comments","Error handling","Unit tests","Classes","SOLID Principles","Design Patterns","Advanced TDD","Clean Architecture","Component Design","Functional Programming"], projects:["cleancoders.com/library/all"] },
+        learned:[], toLearn:["Meaningful names","Functions","Comments","Error handling","Unit tests","Classes","SOLID Principles","Design Patterns","Advanced TDD","Clean Architecture","Component Design","Functional Programming"] },
       { id:"azure-certs",   title:"Azure Certifications",          status:"not-started", group:"books-certs",
-        learned:[], toLearn:["AZ-900 Fundamentals","AZ-204 Developer","AZ-104 Administrator"], projects:["Microsoft Learn"] },
+        learned:[], toLearn:["AZ-900 Fundamentals","AZ-204 Developer","AZ-104 Administrator"] },
       { id:"agile",         title:"Agile",                         status:"not-started", group:"books-certs",
-        learned:[], toLearn:["Scrum framework","Kanban","Sprint planning","Retrospectives","User stories","Agile manifesto & values"], projects:["PSM I (Scrum.org)"] }
+        learned:[], toLearn:["Scrum framework","Kanban","Sprint planning","Retrospectives","User stories","Agile manifesto & values"] }
     ]
   };
 
@@ -375,16 +604,14 @@
 
   function renderCard(topic) {
     const isBooks = topic.group === 'books-certs';
-    const labels = isBooks
-      ? ['Learned / Achieved', 'Key areas to cover', 'Resources & certifications']
-      : ['Learned so far', 'Want to learn', 'Projects tried'];
-    const empties = ['Nothing yet — get started!', 'Nothing yet', 'No projects yet'];
-    const types   = ['done', 'learn', 'project'];
-    const fields  = ['learned', 'toLearn', 'projects'];
+    const labels  = isBooks ? ['Learned / Achieved', 'Key areas to cover'] : ['Learned so far', 'Want to learn'];
+    const empties = ['Nothing yet — get started!', 'Nothing yet'];
+    const types   = ['done', 'learn'];
+    const fields  = ['learned', 'toLearn'];
 
     const sections = fields.map((f, i) => {
-      const items = (topic[f] || []);
-      const tags = items.length
+      const items = topic[f] || [];
+      const tags  = items.length
         ? items.map(t => `<span class="tag ${types[i]}">${esc(t)}</span>`).join('')
         : `<span class="empty-note">${empties[i]}</span>`;
       return `<div class="card-section">
@@ -412,16 +639,12 @@
 
     const topicsEl = document.getElementById('topics-grid');
     const booksEl  = document.getElementById('books-grid');
-    const topicCards = data.topics.filter(t => t.group === 'topics');
-    const bookCards  = data.topics.filter(t => t.group === 'books-certs');
 
-    topicsEl.innerHTML = topicCards.length
-      ? topicCards.map(renderCard).join('')
-      : '<p class="empty-note" style="padding:1rem">No topics yet. <a href="admin.html">Add one in Admin.</a></p>';
+    topicsEl.innerHTML = data.topics.filter(t => t.group === 'topics').map(renderCard).join('')
+      || '<p class="empty-note" style="padding:1rem">No topics yet. <a href="admin.html">Add one in Admin.</a></p>';
 
-    booksEl.innerHTML = bookCards.length
-      ? bookCards.map(renderCard).join('')
-      : '<p class="empty-note" style="padding:1rem">None yet. <a href="admin.html">Add one in Admin.</a></p>';
+    booksEl.innerHTML = data.topics.filter(t => t.group === 'books-certs').map(renderCard).join('')
+      || '<p class="empty-note" style="padding:1rem">None yet. <a href="admin.html">Add one in Admin.</a></p>';
   }
 
   function toggle(header) {
@@ -432,7 +655,42 @@
     indicator.textContent = isOpen ? '[+]' : '[-]';
   }
 
+  /* ── Sidebar project tracking ── */
+  const SB_IDS = [
+    'networking','docker','ai-codebases','frontend','react','architecture',
+    'hardware','linux','scaling','security','java','sql-databases','testing',
+    'git-workflows','debugging','code-reviews','tech-docs','estimation',
+    'cicd','cloud-basics','api-design','clean-code','azure-certs','agile'
+  ];
+
+  function sbLoadStatuses() {
+    try { return JSON.parse(localStorage.getItem('projectStatuses')) || {}; }
+    catch(e) { return {}; }
+  }
+
+  function sbSync() {
+    const statuses = sbLoadStatuses();
+    let done = 0;
+    SB_IDS.forEach(id => {
+      const el = document.getElementById('sbi-' + id);
+      if (!el) return;
+      const isDone = statuses[id] === 'done';
+      el.classList.toggle('done', isDone);
+      if (isDone) done++;
+    });
+    document.getElementById('sb-bar').style.width = (done / SB_IDS.length * 100) + '%';
+    document.getElementById('sb-label').textContent = done + ' / ' + SB_IDS.length;
+  }
+
+  function sbToggle(id) {
+    const statuses = sbLoadStatuses();
+    statuses[id] = statuses[id] === 'done' ? 'not-started' : 'done';
+    localStorage.setItem('projectStatuses', JSON.stringify(statuses));
+    sbSync();
+  }
+
   renderPage();
+  sbSync();
 </script>
 </body>
 </html>
