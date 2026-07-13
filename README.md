@@ -12,11 +12,4 @@ A personal site to track what I'm learning in tech — topics explored, things s
 
 ## How it works
 
-Pure HTML/CSS/JS — no frameworks, no build step. Data is stored in the browser's `localStorage`.
-
-- `index.html` — the public-facing learning tracker
-- `admin.html` — admin panel to add/edit topics, update tags, and manage content
-
-## Local use
-
-Just open `index.html` in a browser. To edit content, open `admin.html` in the same browser — changes save automatically to localStorage and are reflected on the main page.
+Pure HTML/CSS/JS — no frameworks, no build step.
