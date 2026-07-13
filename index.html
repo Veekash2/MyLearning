@@ -229,6 +229,43 @@
 
     .empty-note { font-size: 0.82rem; color: #aaa; font-style: italic; }
 
+    /* ── Notes ── */
+    .notes-section {
+      border-top: 1px dashed #d9d0c0;
+      padding-top: 0.6rem; margin-top: 0.6rem;
+    }
+    .notes-label {
+      font-size: 0.68rem; font-family: monospace; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem;
+    }
+    .notes-display {
+      font-size: 0.82rem; line-height: 1.65; color: var(--text);
+      min-height: 1.4em; cursor: text; white-space: pre-wrap;
+      word-break: break-word; padding: 0.2rem 0.3rem;
+      border-radius: 3px; transition: background 0.15s;
+    }
+    .notes-display:hover { background: #f0ebe0; }
+    .notes-placeholder { color: #c0b8a8; font-style: italic; }
+    .notes-textarea {
+      width: 100%; min-height: 80px; box-sizing: border-box;
+      font-family: Georgia, serif; font-size: 0.82rem; line-height: 1.6;
+      border: 1px solid var(--border); border-radius: 3px;
+      padding: 0.4rem 0.6rem; resize: vertical;
+      background: var(--surface); color: var(--text);
+    }
+    .notes-textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .notes-btns { display: flex; gap: 0.5rem; margin-top: 0.35rem; }
+    .notes-save {
+      font-family: monospace; font-size: 0.75rem; padding: 0.2rem 0.7rem;
+      border-radius: 3px; cursor: pointer; border: none;
+      background: var(--accent); color: #fff;
+    }
+    .notes-cancel {
+      font-family: monospace; font-size: 0.75rem; padding: 0.2rem 0.7rem;
+      border-radius: 3px; cursor: pointer;
+      background: none; border: 1px solid var(--border); color: var(--text-muted);
+    }
+
     .legend {
       display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center;
       font-size: 0.82rem; color: var(--text-muted);
@@ -632,14 +669,71 @@
       </div>`;
     }).join('');
 
+    const savedNote = topic.notes || '';
+    const noteHtml  = esc(savedNote).replace(/\n/g, '<br>');
+    const notesSection = `<div class="notes-section">
+      <div class="notes-label">Notes</div>
+      <div class="notes-display" id="nd-${topic.id}" onclick="openNote('${topic.id}')">${noteHtml || '<span class="notes-placeholder">Click to add notes…</span>'}</div>
+      <textarea class="notes-textarea" id="nt-${topic.id}" style="display:none">${esc(savedNote)}</textarea>
+      <div class="notes-btns" id="nb-${topic.id}" style="display:none">
+        <button class="notes-save" onclick="saveNote('${topic.id}')">Save</button>
+        <button class="notes-cancel" onclick="cancelNote('${topic.id}')">Cancel</button>
+      </div>
+    </div>`;
+
     return `<div class="card">
       <div class="card-header" onclick="toggle(this)">
         <span class="status-dot ${esc(topic.status)}"></span>
         <span class="card-title">${esc(topic.title)}</span>
         <span class="card-toggle">[-]</span>
       </div>
-      <div class="card-body open">${sections}</div>
+      <div class="card-body open">${sections}${notesSection}</div>
     </div>`;
+  }
+
+  function saveData(data) {
+    localStorage.setItem('learningData', JSON.stringify(data));
+  }
+
+  function openNote(id) {
+    const disp = document.getElementById('nd-' + id);
+    const ta   = document.getElementById('nt-' + id);
+    const btns = document.getElementById('nb-' + id);
+    if (!ta) return;
+    disp.style.display = 'none';
+    ta.style.display = 'block';
+    btns.style.display = 'flex';
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = ta.value.length;
+  }
+
+  function saveNote(id) {
+    const ta   = document.getElementById('nt-' + id);
+    const disp = document.getElementById('nd-' + id);
+    const btns = document.getElementById('nb-' + id);
+    if (!ta) return;
+    const val  = ta.value;
+    const data = loadData();
+    const topic = data.topics.find(t => t.id === id);
+    if (topic) { topic.notes = val; saveData(data); }
+    disp.innerHTML = val
+      ? esc(val).replace(/\n/g, '<br>')
+      : '<span class="notes-placeholder">Click to add notes…</span>';
+    disp.style.display = 'block';
+    ta.style.display   = 'none';
+    btns.style.display = 'none';
+  }
+
+  function cancelNote(id) {
+    const ta   = document.getElementById('nt-' + id);
+    const disp = document.getElementById('nd-' + id);
+    const btns = document.getElementById('nb-' + id);
+    if (!ta) return;
+    const topic = loadData().topics.find(t => t.id === id);
+    ta.value = topic ? (topic.notes || '') : '';
+    disp.style.display = 'block';
+    ta.style.display   = 'none';
+    btns.style.display = 'none';
   }
 
   function renderPage() {

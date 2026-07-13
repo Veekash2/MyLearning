@@ -1611,6 +1611,591 @@
       </div>
     </div>
 
+    <!-- malloc -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">SYSTEMS / MEMORY</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build Your Own malloc</div>
+        <div class="pcard-desc">Implement <code>malloc</code>, <code>free</code>, and <code>realloc</code> from raw memory via <code>sbrk</code> or <code>mmap</code>. Handle alignment, block splitting, coalescing freed blocks to prevent fragmentation, and pass the full suite of libc compatibility tests.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Request pages from the OS with sbrk or mmap</li>
+              <li>Track free blocks with a header/footer metadata scheme</li>
+              <li>Implement splitting: carve a smaller block from a larger free one</li>
+              <li>Implement coalescing: merge adjacent free blocks on every free()</li>
+              <li>Run a test suite against libc malloc and measure fragmentation</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How virtual memory is managed at the process level</li>
+              <li>Why memory fragmentation is an unsolved problem</li>
+              <li>How heap allocators balance speed vs space efficiency</li>
+              <li>What every call to new / malloc actually does under the hood</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">C</span>
+          <span class="tech-tag">sbrk / mmap</span>
+          <span class="tech-tag">heap layout</span>
+          <span class="tech-tag">memory alignment</span>
+          <span class="tech-tag">fragmentation</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-malloc"></span>
+        <button class="status-btn" onclick="cycleStatus('build-malloc')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Container runtime -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">SYSTEMS / LINUX</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Container Runtime (Docker without Docker)</div>
+        <div class="pcard-desc">Implement container isolation using Linux namespaces (pid, net, mnt, uts, ipc), cgroups for resource limits, and an overlay filesystem for layered images — then run a real process inside it. This is what <code>docker run</code> actually does.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Use clone() with CLONE_NEWPID / CLONE_NEWUTS to create isolated namespaces</li>
+              <li>Set up a root filesystem with chroot / pivot_root</li>
+              <li>Configure cgroups v2 to limit CPU and memory</li>
+              <li>Set up a veth pair for network isolation between host and container</li>
+              <li>Pull and extract a real OCI image layer and run a shell inside it</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Exactly what Docker does — and does not — provide</li>
+              <li>How Linux namespaces create the illusion of isolation</li>
+              <li>How cgroups enforce hard resource limits at the kernel level</li>
+              <li>Why containers are not VMs and what the security boundary actually is</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">C / Go</span>
+          <span class="tech-tag">Linux namespaces</span>
+          <span class="tech-tag">cgroups v2</span>
+          <span class="tech-tag">chroot</span>
+          <span class="tech-tag">OCI image spec</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-container"></span>
+        <button class="status-btn" onclick="cycleStatus('build-container')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- CPU emulator -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">SYSTEMS / HARDWARE</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a CPU Emulator (NES or Game Boy)</div>
+        <div class="pcard-desc">Emulate a real CPU instruction set — start with CHIP-8, graduate to the NES (6502) or Game Boy (SM83). Decode opcodes, simulate registers and flags, handle memory-mapped I/O, and get real ROMs booting. Timing accuracy is where it gets brutal.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Study the CPU spec: registers, flags, addressing modes</li>
+              <li>Implement a fetch-decode-execute loop for all opcodes</li>
+              <li>Set up the memory bus and memory-mapped I/O regions</li>
+              <li>Implement the PPU (graphics) enough to render a frame</li>
+              <li>Pass the official CPU test ROMs (nestest, Blargg's tests)</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How a CPU actually executes instructions cycle by cycle</li>
+              <li>What memory-mapped I/O means at the hardware level</li>
+              <li>Why timing bugs are the hardest class of emulator bug</li>
+              <li>How retro hardware did so much with so little</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">C / Rust</span>
+          <span class="tech-tag">6502 / SM83 ISA</span>
+          <span class="tech-tag">fetch-decode-execute</span>
+          <span class="tech-tag">memory bus</span>
+          <span class="tech-tag">PPU</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-emulator"></span>
+        <button class="status-btn" onclick="cycleStatus('build-emulator')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Linker -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">COMPILERS / SYSTEMS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Linker</div>
+        <div class="pcard-desc">Take compiled <code>.o</code> object files (ELF format) and link them into a working executable binary — resolving symbols, performing relocations, laying out sections, and writing a valid ELF header. Run the output directly. Most developers never look at what happens between compilation and execution.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Parse ELF object files: read section headers and symbol tables</li>
+              <li>Build a global symbol table and resolve all undefined symbols</li>
+              <li>Merge input sections (.text, .data, .bss) into output sections</li>
+              <li>Apply relocations: patch addresses now that layout is known</li>
+              <li>Write a valid ELF executable and run it</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>What happens between the compiler and the running program</li>
+              <li>How symbol resolution and undefined references actually work</li>
+              <li>What "relocation" means and why it's necessary</li>
+              <li>How the OS loads an ELF binary into memory</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">C / Python</span>
+          <span class="tech-tag">ELF format</span>
+          <span class="tech-tag">symbol tables</span>
+          <span class="tech-tag">relocations</span>
+          <span class="tech-tag">section layout</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-linker"></span>
+        <button class="status-btn" onclick="cycleStatus('build-linker')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Compiler to native code -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">COMPILERS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Compile Your Language to Native Code</div>
+        <div class="pcard-desc">Take your interpreted language and add a compilation backend that emits real x86-64 assembly or LLVM IR. A tree-walking interpreter is a warm-up; code generation requires understanding register allocation, calling conventions, and the ABI. The gap between these two is enormous.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Add a type-checking pass over the AST</li>
+              <li>Lower the AST to a simple IR (three-address code)</li>
+              <li>Implement naive register allocation (spill everything to the stack first)</li>
+              <li>Emit x86-64 assembly following the System V ABI</li>
+              <li>Link with the C runtime and run the generated binary</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>What compilers actually do between source code and machine code</li>
+              <li>How calling conventions and stack frames work at the assembly level</li>
+              <li>Why register allocation is NP-complete (and how to cheat)</li>
+              <li>Why compiled languages are faster than interpreted ones</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">x86-64 assembly</span>
+          <span class="tech-tag">LLVM IR</span>
+          <span class="tech-tag">register allocation</span>
+          <span class="tech-tag">System V ABI</span>
+          <span class="tech-tag">IR lowering</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-compiler"></span>
+        <button class="status-btn" onclick="cycleStatus('build-compiler')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Bytecode VM -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">COMPILERS / VMs</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Bytecode Virtual Machine</div>
+        <div class="pcard-desc">Design your own bytecode instruction set, write a compiler that targets it, and build a stack-based or register-based VM that executes it. This is how Python, Java, Ruby, and Lua actually run. Much faster than tree-walking, teaches a completely different set of skills.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Design the bytecode instruction set (opcodes, operands, encoding)</li>
+              <li>Write a compiler from your AST to bytecode chunks</li>
+              <li>Build the VM: a main loop with an instruction pointer and value stack</li>
+              <li>Implement function calls with call frames on the stack</li>
+              <li>Add a simple mark-and-sweep garbage collector</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How Python's CPython and the JVM actually execute code</li>
+              <li>Why bytecode is a good middle ground between interpreter and compiler</li>
+              <li>How call frames and the value stack model function calls</li>
+              <li>How garbage collectors know what memory is still in use</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">bytecode design</span>
+          <span class="tech-tag">stack VM</span>
+          <span class="tech-tag">call frames</span>
+          <span class="tech-tag">mark-and-sweep GC</span>
+          <span class="tech-tag">C / Rust</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-vm"></span>
+        <button class="status-btn" onclick="cycleStatus('build-vm')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Raft -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">DISTRIBUTED SYSTEMS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Implement the Raft Consensus Algorithm</div>
+        <div class="pcard-desc">Build a cluster of nodes that agree on a single ordered log of entries even when nodes crash and messages are delayed or dropped. Implement Raft fully: leader election, log replication, safety under network partitions, and snapshotting. Then write a chaos test that kills nodes randomly.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Implement leader election with randomised election timeouts</li>
+              <li>Implement AppendEntries: replicate log entries from leader to followers</li>
+              <li>Ensure safety: a leader only commits entries replicated to a majority</li>
+              <li>Add log snapshotting so nodes can compact old entries</li>
+              <li>Write a chaos test that partitions and kills nodes and verifies consistency</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Why distributed consensus is one of the hardest problems in CS</li>
+              <li>How etcd, CockroachDB, and Consul achieve strong consistency</li>
+              <li>What split-brain means and why it's catastrophic</li>
+              <li>How to reason about distributed systems using formal invariants</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">Go / Rust</span>
+          <span class="tech-tag">Raft paper</span>
+          <span class="tech-tag">leader election</span>
+          <span class="tech-tag">log replication</span>
+          <span class="tech-tag">chaos testing</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-raft"></span>
+        <button class="status-btn" onclick="cycleStatus('build-raft')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- BitTorrent client -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">DISTRIBUTED SYSTEMS / NETWORKING</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a BitTorrent Client</div>
+        <div class="pcard-desc">Implement the full BitTorrent protocol: parse .torrent files, talk to HTTP/UDP trackers, connect to peers using the BitTorrent handshake, implement piece selection (rarest-first), download and verify pieces with SHA-1, and seed back to others. Actually download a real file.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Parse a .torrent file (bencode format) and extract metadata</li>
+              <li>Contact a tracker over HTTP and parse the peer list</li>
+              <li>Implement the BitTorrent peer handshake and message protocol</li>
+              <li>Request, download, and SHA-1 verify pieces from multiple peers</li>
+              <li>Implement DHT so you can find peers without a tracker</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How peer-to-peer protocols coordinate without a central server</li>
+              <li>How DHT (distributed hash table) finds nodes in a giant network</li>
+              <li>How piece selection strategy affects download speed dramatically</li>
+              <li>How content integrity is verified without trusting any single peer</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">Python / Go</span>
+          <span class="tech-tag">bencode</span>
+          <span class="tech-tag">peer protocol</span>
+          <span class="tech-tag">DHT / Kademlia</span>
+          <span class="tech-tag">SHA-1 verification</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-torrent"></span>
+        <button class="status-btn" onclick="cycleStatus('build-torrent')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Search engine -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">DISTRIBUTED SYSTEMS / DATA</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Search Engine</div>
+        <div class="pcard-desc">Build a search engine from scratch: a multi-threaded web crawler, an inverted index stored on disk, TF-IDF ranking with PageRank-style link scoring, a query parser with boolean operators, and a search UI. Index at least 100,000 real pages and make results genuinely useful.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Build a multi-threaded crawler: fetch, parse links, respect robots.txt</li>
+              <li>Tokenise and index documents: build an inverted index on disk</li>
+              <li>Implement TF-IDF scoring for relevance ranking</li>
+              <li>Add a link graph and compute a basic PageRank score</li>
+              <li>Build a query parser (AND/OR/NOT/phrase) and a search results UI</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How search engines actually rank results (it's not magic)</li>
+              <li>How inverted indexes enable sub-millisecond full-text search</li>
+              <li>Why crawling the web at scale is an engineering problem unto itself</li>
+              <li>How PageRank models the web as a directed graph</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">Python / Go</span>
+          <span class="tech-tag">inverted index</span>
+          <span class="tech-tag">TF-IDF</span>
+          <span class="tech-tag">PageRank</span>
+          <span class="tech-tag">web crawler</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-search"></span>
+        <button class="status-btn" onclick="cycleStatus('build-search')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Ray tracer -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">GRAPHICS / MATHS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Ray Tracer</div>
+        <div class="pcard-desc">Render photorealistic images from scratch: fire rays from a virtual camera, compute ray-sphere and ray-triangle intersections, model diffuse and specular reflections, implement shadows, reflections, refractions, and soft shadows. No GPU, no library — just maths and pixels in a file.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Set up a camera model and fire rays through each pixel</li>
+              <li>Implement ray-sphere intersection with the quadratic formula</li>
+              <li>Add diffuse (Lambertian) shading and shadow rays</li>
+              <li>Add reflections (mirror surfaces) and refractions (glass)</li>
+              <li>Add an acceleration structure (BVH) to handle thousands of objects</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How 3D rendering works from first principles, not a graphics API</li>
+              <li>How light physically interacts with different material types</li>
+              <li>Why acceleration structures are essential at any meaningful scene size</li>
+              <li>How path tracing achieves global illumination through probability</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">C++ / Rust</span>
+          <span class="tech-tag">linear algebra</span>
+          <span class="tech-tag">ray-object intersection</span>
+          <span class="tech-tag">BVH</span>
+          <span class="tech-tag">Monte Carlo</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-raytracer"></span>
+        <button class="status-btn" onclick="cycleStatus('build-raytracer')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- 2D game engine -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">GRAPHICS / GAME DEV</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a 2D Game Engine — Then Ship a Game</div>
+        <div class="pcard-desc">Build a 2D game engine from scratch: a fixed-timestep game loop, sprite rendering, a scene graph with entity-component architecture, collision detection (AABB + SAT), a physics step, input handling, and audio. Then build and ship a complete game using only your engine.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Implement a fixed-timestep game loop with interpolated rendering</li>
+              <li>Build a sprite renderer and basic scene graph (entity-component)</li>
+              <li>Add AABB and SAT collision detection with response</li>
+              <li>Add a simple physics step (gravity, velocity, impulse resolution)</li>
+              <li>Ship a complete, playable game that runs in a browser or as a native binary</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>Why game loops are different from web server loops</li>
+              <li>How collision detection algorithms work at the geometry level</li>
+              <li>How ECS (entity-component-system) solves game object design</li>
+              <li>How hard it is to ship even a simple game — and why that's the point</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">C++ / Rust</span>
+          <span class="tech-tag">SDL2 / OpenGL</span>
+          <span class="tech-tag">fixed timestep</span>
+          <span class="tech-tag">ECS</span>
+          <span class="tech-tag">AABB / SAT</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-engine"></span>
+        <button class="status-btn" onclick="cycleStatus('build-engine')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Load balancer -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">NETWORKING / SYSTEMS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Load Balancer / Reverse Proxy</div>
+        <div class="pcard-desc">Implement a production-grade reverse proxy: multiple load-balancing algorithms (round-robin, least-connections, consistent hashing), active health checks, connection pooling, SSL termination, and HTTP/1.1 keepalive. Benchmark it against nginx and measure where the gap comes from.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Accept TCP connections and proxy HTTP requests to a backend pool</li>
+              <li>Implement round-robin, least-connections, and IP-hash algorithms</li>
+              <li>Add active health checks: remove failing backends automatically</li>
+              <li>Implement connection pooling to backends (keep-alive)</li>
+              <li>Add SSL termination with TLS and benchmark against nginx under load</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How load balancers actually distribute traffic between servers</li>
+              <li>Why consistent hashing solves session affinity at scale</li>
+              <li>How connection pooling dramatically reduces backend load</li>
+              <li>Why writing a fast proxy requires understanding the OS network stack</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">Go / Rust / C</span>
+          <span class="tech-tag">TCP / HTTP</span>
+          <span class="tech-tag">consistent hashing</span>
+          <span class="tech-tag">health checks</span>
+          <span class="tech-tag">TLS termination</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-lb"></span>
+        <button class="status-btn" onclick="cycleStatus('build-lb')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Neural network -->
+    <div class="pcard pcard-extreme">
+      <div class="pcard-header">
+        <span class="pcard-topic">AI / MATHS</span>
+        <span class="diff-badge diff-extreme">Legendary</span>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-title">Build a Neural Network from Scratch</div>
+        <div class="pcard-desc">Implement a multi-layer neural network in raw NumPy or pure code — no PyTorch, no TensorFlow. Implement forward propagation, backpropagation through the chain rule, gradient descent, and common activations. Train it to recognise handwritten digits (MNIST) from scratch.</div>
+        <div class="pcard-details">
+          <div class="detail-block">
+            <div class="detail-label">Steps</div>
+            <ol class="step-list">
+              <li>Implement a Layer class with weights, biases, and an activation function</li>
+              <li>Write the forward pass: compute activations through every layer</li>
+              <li>Implement backpropagation: compute gradients via the chain rule</li>
+              <li>Implement mini-batch SGD and train on MNIST</li>
+              <li>Reach 97%+ accuracy, then visualise what each neuron activates on</li>
+            </ol>
+          </div>
+          <div class="detail-block">
+            <div class="detail-label">You'll learn</div>
+            <ul class="outcome-list">
+              <li>How neural networks actually learn — not the metaphor, the maths</li>
+              <li>What backpropagation is doing at every step through the chain rule</li>
+              <li>Why PyTorch and TensorFlow exist (gradient tracking is hard)</li>
+              <li>How activation functions and layer depth affect what a network can learn</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tech-list">
+          <span class="tech-tag">Python / NumPy</span>
+          <span class="tech-tag">backpropagation</span>
+          <span class="tech-tag">gradient descent</span>
+          <span class="tech-tag">MNIST</span>
+          <span class="tech-tag">chain rule</span>
+        </div>
+      </div>
+      <div class="pcard-footer">
+        <span class="status-dot not-started" id="dot-build-nn"></span>
+        <button class="status-btn" onclick="cycleStatus('build-nn')">Not started</button>
+        <a class="gh-link" href="https://github.com/Veekash2" target="_blank" rel="noopener">+ GitHub</a>
+      </div>
+    </div>
+
   </div>
 
 </main>
