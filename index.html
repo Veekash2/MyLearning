@@ -358,7 +358,6 @@
   <a href="#books">Books &amp; Certs</a>
   <a href="#resources">Resources</a>
   <a href="projects.html">Boss Projects</a>
-  <a href="admin.html" class="nav-admin">Admin ⚙</a>
 </nav>
 
 <div class="page-layout">
@@ -682,7 +681,7 @@
 </div><!-- end page-layout -->
 
 <footer>
-  Updated 2026 &nbsp;·&nbsp; One topic at a time. &nbsp;·&nbsp; <a href="admin.html">Admin ⚙</a>
+  Updated 2026 &nbsp;·&nbsp; One topic at a time.
 </footer>
 
 <script>
@@ -917,10 +916,10 @@
     const booksEl  = document.getElementById('books-grid');
 
     topicsEl.innerHTML = data.topics.filter(t => t.group === 'topics').map(renderCard).join('')
-      || '<p class="empty-note" style="padding:1rem">No topics yet. <a href="admin.html">Add one in Admin.</a></p>';
+      || '<p class="empty-note" style="padding:1rem">No topics yet.</p>';
 
     booksEl.innerHTML = data.topics.filter(t => t.group === 'books-certs').map(renderCard).join('')
-      || '<p class="empty-note" style="padding:1rem">None yet. <a href="admin.html">Add one in Admin.</a></p>';
+      || '<p class="empty-note" style="padding:1rem">None yet.</p>';
   }
 
   function toggle(header) {
