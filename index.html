@@ -266,6 +266,47 @@
       background: none; border: 1px solid var(--border); color: var(--text-muted);
     }
 
+    /* ── Kanban columns ── */
+    .kanban-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.55rem;
+      margin-bottom: 0.6rem;
+    }
+    .kb-col {
+      background: #f8f4ec;
+      border: 1.5px dashed var(--border);
+      border-radius: 5px;
+      padding: 0.5rem 0.55rem 0.6rem;
+      min-height: 52px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .kb-col.kb-studying {
+      background: #f5fbf4;
+      border-color: #8bc880;
+    }
+    .kb-col.kb-over {
+      background: #e8f4e8;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+    .kb-label {
+      font-family: monospace; font-size: 0.63rem;
+      text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text-muted); margin-bottom: 0.4rem;
+    }
+    .kb-items { display: flex; flex-wrap: wrap; gap: 0.3rem; min-height: 24px; }
+    .kb-empty { font-size: 0.75rem; color: #ccc; font-style: italic; line-height: 1.8; }
+    .tag.current {
+      background: #fff9e0; border: 1px solid #d4b800; color: #5a4a00;
+    }
+    .kb-tag { cursor: grab; user-select: none; }
+    .kb-tag:active { cursor: grabbing; opacity: 0.6; }
+    @media (max-width: 600px) {
+      .kanban-grid { grid-template-columns: 1fr; }
+      .kb-tag { cursor: pointer; }
+    }
+
     .legend {
       display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center;
       font-size: 0.82rem; color: var(--text-muted);
@@ -631,6 +672,8 @@
         learned:[], toLearn:["Compute (EC2 / Cloud Run)","Storage (S3 / Cloud Storage)","Databases (RDS / Cloud SQL)","IAM & permissions","Serverless functions","Regions & availability zones"] },
       { id:"api-design",     title:"API Design",                   status:"not-started", group:"topics",
         learned:[], toLearn:["REST principles","HTTP methods & status codes","Versioning","Authentication (API keys, OAuth)","Rate limiting","OpenAPI / Swagger"] },
+      { id:"authentication", title:"Authentication",               status:"not-started", group:"topics",
+        learned:[], toLearn:["Session vs JWT","OAuth2 & OpenID Connect","Password hashing (bcrypt/argon2)","MFA & TOTP","Social login (Google/GitHub)","RBAC & permissions","Refresh tokens & PKCE","Cookie security (SameSite, HttpOnly)","SSO","Passkeys / WebAuthn"] },
       { id:"clean-code",    title:"Clean Code — Robert C. Martin", status:"not-started", group:"books-certs",
         learned:[], toLearn:["Meaningful names","Functions","Comments","Error handling","Unit tests","Classes","SOLID Principles","Design Patterns","Advanced TDD","Clean Architecture","Component Design","Functional Programming"] },
       { id:"azure-certs",   title:"Azure Certifications",          status:"not-started", group:"books-certs",
@@ -653,19 +696,29 @@
 
   function renderCard(topic) {
     const isBooks = topic.group === 'books-certs';
-    const labels  = isBooks ? ['Learned / Achieved', 'Key areas to cover'] : ['Learned so far', 'Want to learn'];
-    const empties = ['Nothing yet — get started!', 'Nothing yet'];
-    const types   = ['done', 'learn'];
-    const fields  = ['learned', 'toLearn'];
+    const colLabels = isBooks
+      ? ['To Cover', 'Working Through', 'Achieved']
+      : ['To Learn', 'Studying Now', 'Learned'];
+    const colKeys  = ['toLearn', 'learning', 'learned'];
+    const colTypes = ['learn', 'current', 'done'];
 
-    const sections = fields.map((f, i) => {
-      const items = topic[f] || [];
-      const tags  = items.length
-        ? items.map(t => `<span class="tag ${types[i]}">${esc(t)}</span>`).join('')
-        : `<span class="empty-note">${empties[i]}</span>`;
-      return `<div class="card-section">
-        <div class="card-section-label">${labels[i]}</div>
-        <div class="tag-list">${tags}</div>
+    const colsHtml = colKeys.map((col, i) => {
+      const items = topic[col] || [];
+      const tags = items.map(item =>
+        `<span class="tag ${colTypes[i]} kb-tag"
+           draggable="true"
+           data-topic="${topic.id}" data-col="${col}" data-item="${esc(item)}"
+           ondragstart="kbDragStart(event,this)"
+           onclick="kbTap(this)"
+           title="Tap to advance · drag to move">${esc(item)}</span>`
+      ).join('');
+      return `<div class="kb-col${i === 1 ? ' kb-studying' : ''}"
+                ondragover="kbOver(event)"
+                ondragenter="kbEnter(event)"
+                ondragleave="kbLeave(event)"
+                ondrop="kbDrop(event,'${topic.id}','${col}')">
+        <div class="kb-label">${colLabels[i]}</div>
+        <div class="kb-items">${tags || '<span class="kb-empty">empty</span>'}</div>
       </div>`;
     }).join('');
 
@@ -687,8 +740,58 @@
         <span class="card-title">${esc(topic.title)}</span>
         <span class="card-toggle">[-]</span>
       </div>
-      <div class="card-body open">${sections}${notesSection}</div>
+      <div class="card-body open">
+        <div class="kanban-grid">${colsHtml}</div>
+        ${notesSection}
+      </div>
     </div>`;
+  }
+
+  /* ── Kanban drag & drop ── */
+  let _kbDrag = null;
+
+  function kbDragStart(e, el) {
+    _kbDrag = { topicId: el.dataset.topic, fromCol: el.dataset.col, item: el.dataset.item };
+    e.dataTransfer.effectAllowed = 'move';
+    setTimeout(() => el.style.opacity = '0.4', 0);
+  }
+
+  function kbOver(e)  { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; }
+  function kbEnter(e) { e.currentTarget.classList.add('kb-over'); }
+  function kbLeave(e) { e.currentTarget.classList.remove('kb-over'); }
+
+  function kbDrop(e, topicId, toCol) {
+    e.preventDefault();
+    e.currentTarget.classList.remove('kb-over');
+    if (!_kbDrag || _kbDrag.topicId !== topicId || _kbDrag.fromCol === toCol) {
+      _kbDrag = null; return;
+    }
+    kbMove(topicId, _kbDrag.fromCol, toCol, _kbDrag.item);
+    _kbDrag = null;
+  }
+
+  function kbTap(el) {
+    const cols = ['toLearn', 'learning', 'learned'];
+    const next = cols[(cols.indexOf(el.dataset.col) + 1) % cols.length];
+    kbMove(el.dataset.topic, el.dataset.col, next, el.dataset.item);
+  }
+
+  function kbMove(topicId, fromCol, toCol, item) {
+    const data  = loadData();
+    const topic = data.topics.find(t => t.id === topicId);
+    if (!topic) return;
+    topic[fromCol] = (topic[fromCol] || []).filter(i => i !== item);
+    if (!topic[toCol]) topic[toCol] = [];
+    if (!topic[toCol].includes(item)) topic[toCol].push(item);
+    // auto-update status dot
+    const studying = (topic.learning || []).length > 0;
+    const toLearnLeft = (topic.toLearn || []).length > 0;
+    const hasLearned = (topic.learned || []).length > 0;
+    if (studying)                          topic.status = 'in-progress';
+    else if (!toLearnLeft && hasLearned)   topic.status = 'done';
+    else                                   topic.status = 'not-started';
+    saveData(data);
+    renderPage();
   }
 
   function saveData(data) {
