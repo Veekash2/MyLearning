@@ -1,4 +1,4 @@
-# Learning Tracker
+# Learning Tracker: Veeka's Learning Tracker
 
 A personal site to track what I'm learning in tech — topics explored, things still to learn, and projects built along the way.
 
