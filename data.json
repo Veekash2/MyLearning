@@ -1,0 +1,372 @@
+{
+  "github": "https://github.com/Veekash2",
+  "topics": [
+    {
+      "id": "networking",
+      "title": "Networking",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "DNS & DHCP",
+        "Subnetting",
+        "Firewalls & VPNs",
+        "OSI Model",
+        "TCP/IP"
+      ],
+      "learning": []
+    },
+    {
+      "id": "docker",
+      "title": "Docker",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Containers vs VMs",
+        "Dockerfile",
+        "Docker Compose",
+        "Volumes & Networks",
+        "Docker Hub"
+      ]
+    },
+    {
+      "id": "ai-codebases",
+      "title": "AI to Understand Codebases",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Codebase indexing",
+        "AI-assisted debugging",
+        "AI code review workflows",
+        "Claude Code basics",
+        "Prompting for code"
+      ]
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend",
+      "status": "in-progress",
+      "group": "topics",
+      "learned": [
+        "HTML basics",
+        "CSS basics"
+      ],
+      "toLearn": [
+        "JavaScript fundamentals",
+        "Responsive design",
+        "Accessibility (a11y)",
+        "Web performance"
+      ]
+    },
+    {
+      "id": "react",
+      "title": "React",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Components & JSX",
+        "State & Props",
+        "Hooks (useState, useEffect)",
+        "React Router",
+        "Context API"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "Architecture",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "MVC / MVVM",
+        "Microservices",
+        "REST vs GraphQL",
+        "System design basics",
+        "Event-driven architecture"
+      ]
+    },
+    {
+      "id": "hardware",
+      "title": "Hardware",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "CPU & memory",
+        "Storage types (SSD/NVMe)",
+        "How servers work"
+      ]
+    },
+    {
+      "id": "linux",
+      "title": "Linux OS",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "CLI basics",
+        "File permissions",
+        "Shell scripting (bash)",
+        "Process management",
+        "SSH & remote access"
+      ]
+    },
+    {
+      "id": "scaling",
+      "title": "Scaling & Cost Management",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Horizontal vs vertical scaling",
+        "Load balancing",
+        "Cloud cost optimisation",
+        "Caching strategies"
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Security / Cybersecurity",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "OWASP Top 10",
+        "Auth & OAuth2",
+        "SQL Injection basics",
+        "HTTPS / TLS",
+        "Penetration testing basics"
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "OOP fundamentals",
+        "Collections & Generics",
+        "Spring Boot",
+        "JUnit testing",
+        "Maven / Gradle"
+      ]
+    },
+    {
+      "id": "sql-databases",
+      "title": "SQL & Databases",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "SQL basics",
+        "Joins & subqueries",
+        "Indexes",
+        "Transactions",
+        "NoSQL basics",
+        "PostgreSQL / MySQL",
+        "ORM concepts"
+      ]
+    },
+    {
+      "id": "testing",
+      "title": "Testing",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Unit testing",
+        "Integration testing",
+        "End-to-end testing",
+        "TDD",
+        "Mocking",
+        "Code coverage"
+      ]
+    },
+    {
+      "id": "git-workflows",
+      "title": "Git & Version Control",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Branching strategies",
+        "Pull requests",
+        "Rebasing vs merging",
+        "Git hooks",
+        "Conventional commits",
+        "Resolving conflicts"
+      ]
+    },
+    {
+      "id": "debugging",
+      "title": "Debugging",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Reading stack traces",
+        "Browser DevTools",
+        "Debugger usage",
+        "Logging strategies",
+        "Root cause analysis"
+      ]
+    },
+    {
+      "id": "code-reviews",
+      "title": "Code Reviews & Reading Code",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Reviewing PRs effectively",
+        "Reading unfamiliar codebases",
+        "Giving constructive feedback",
+        "Open source contributions"
+      ]
+    },
+    {
+      "id": "tech-docs",
+      "title": "Technical Documentation",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Writing READMEs",
+        "API documentation",
+        "Architecture decision records (ADRs)",
+        "Diagrams (UML, C4)",
+        "Confluence / Notion"
+      ]
+    },
+    {
+      "id": "estimation",
+      "title": "Estimating & Task Breakdown",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Breaking epics into tasks",
+        "Story points",
+        "T-shirt sizing",
+        "Identifying unknowns",
+        "Planning poker"
+      ]
+    },
+    {
+      "id": "cicd",
+      "title": "CI/CD Pipelines",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "GitHub Actions",
+        "Build automation",
+        "Automated testing in CI",
+        "Deployment pipelines",
+        "Environment management",
+        "Release strategies"
+      ]
+    },
+    {
+      "id": "cloud-basics",
+      "title": "Cloud Basics (AWS / GCP)",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Compute (EC2 / Cloud Run)",
+        "Storage (S3 / Cloud Storage)",
+        "Databases (RDS / Cloud SQL)",
+        "IAM & permissions",
+        "Serverless functions",
+        "Regions & availability zones"
+      ]
+    },
+    {
+      "id": "api-design",
+      "title": "API Design",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "REST principles",
+        "HTTP methods & status codes",
+        "Versioning",
+        "Authentication (API keys, OAuth)",
+        "Rate limiting",
+        "OpenAPI / Swagger"
+      ]
+    },
+    {
+      "id": "authentication",
+      "title": "Authentication",
+      "status": "not-started",
+      "group": "topics",
+      "learned": [],
+      "toLearn": [
+        "Session vs JWT",
+        "OAuth2 & OpenID Connect",
+        "Password hashing (bcrypt/argon2)",
+        "MFA & TOTP",
+        "Social login (Google/GitHub)",
+        "RBAC & permissions",
+        "Refresh tokens & PKCE",
+        "Cookie security (SameSite, HttpOnly)",
+        "SSO",
+        "Passkeys / WebAuthn"
+      ]
+    },
+    {
+      "id": "clean-code",
+      "title": "Clean Code — Robert C. Martin",
+      "status": "not-started",
+      "group": "books-certs",
+      "learned": [],
+      "toLearn": [
+        "Meaningful names",
+        "Functions",
+        "Comments",
+        "Error handling",
+        "Unit tests",
+        "Classes",
+        "SOLID Principles",
+        "Design Patterns",
+        "Advanced TDD",
+        "Clean Architecture",
+        "Component Design",
+        "Functional Programming"
+      ]
+    },
+    {
+      "id": "azure-certs",
+      "title": "Azure Certifications",
+      "status": "not-started",
+      "group": "books-certs",
+      "learned": [],
+      "toLearn": [
+        "AZ-900 Fundamentals",
+        "AZ-204 Developer",
+        "AZ-104 Administrator"
+      ]
+    },
+    {
+      "id": "agile",
+      "title": "Agile",
+      "status": "not-started",
+      "group": "books-certs",
+      "learned": [],
+      "toLearn": [
+        "Scrum framework",
+        "Kanban",
+        "Sprint planning",
+        "Retrospectives",
+        "User stories",
+        "Agile manifesto & values"
+      ]
+    }
+  ]
+}
