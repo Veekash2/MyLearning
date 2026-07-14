@@ -307,6 +307,48 @@
       .kb-tag { cursor: pointer; }
     }
 
+    /* ── GitHub sync bar ── */
+    #sync-bar {
+      background: #152e11; padding: 0.28rem 2rem;
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.76rem; font-family: monospace; min-height: 24px;
+    }
+    #sync-link { color: #8bc880; text-decoration: none; margin-left: auto; }
+    #sync-link:hover { color: #fff; }
+    .sync-status { }
+    .sync-saving { color: #f4c842; }
+    .sync-saved  { color: #6fcf6f; }
+    .sync-error  { color: #ff9090; }
+    .sync-ready  { color: #6fcf6f; }
+
+    /* ── Sync modal ── */
+    #sync-modal {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.45);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #sync-modal-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.8rem 2rem;
+      width: 420px; max-width: 92vw;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    }
+    #sync-modal-box h3 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1.1rem; }
+    #sync-modal-box p  { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.55; }
+    #sync-modal-box code { background: #ede8dc; padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.82rem; }
+    #pat-input {
+      width: 100%; padding: 0.55rem 0.7rem; font-size: 0.88rem;
+      font-family: monospace; border: 1px solid var(--border); border-radius: 4px;
+      box-sizing: border-box; margin-bottom: 0.5rem;
+      background: var(--surface); color: var(--text);
+    }
+    #pat-input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+    #pat-error { color: #c0392b; font-size: 0.8rem; margin-bottom: 0.6rem; display: none; }
+    .sync-modal-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .sync-connect-btn { background: var(--accent); color: #fff; border: none; padding: 0.45rem 1rem; border-radius: 4px; cursor: pointer; font-family: Georgia, serif; }
+    .sync-cancel-btn  { background: none; border: 1px solid var(--border); padding: 0.45rem 1rem; border-radius: 4px; cursor: pointer; color: var(--text-muted); }
+    .sync-disconnect-btn { background: none; border: 1px solid #e0a0a0; padding: 0.45rem 1rem; border-radius: 4px; cursor: pointer; color: #c0392b; margin-left: auto; }
+
     .legend {
       display: flex; gap: 1.2rem; flex-wrap: wrap; align-items: center;
       font-size: 0.82rem; color: var(--text-muted);
@@ -359,6 +401,30 @@
   <a href="#resources">Resources</a>
   <a href="projects.html">Boss Projects</a>
 </nav>
+
+<div id="sync-bar">
+  <span id="sync-status"></span>
+  <a id="sync-link" href="#" onclick="openSyncModal();return false">Connect GitHub to sync →</a>
+</div>
+
+<div id="sync-modal" style="display:none">
+  <div id="sync-modal-box">
+    <h3>GitHub Sync</h3>
+    <p>
+      Create a <strong>fine-grained PAT</strong> at
+      <code>github.com → Settings → Developer settings → Fine-grained tokens</code>.
+      Set <strong>Repository access</strong> to <code>Veekash2/MyLearning</code> only,
+      and grant <strong>Contents: Read and write</strong>. Stored only in this browser — never sent anywhere except GitHub.
+    </p>
+    <input type="password" id="pat-input" placeholder="github_pat_…" autocomplete="off" />
+    <div id="pat-error"></div>
+    <div class="sync-modal-btns">
+      <button class="sync-connect-btn" onclick="connectGH()">Connect</button>
+      <button class="sync-cancel-btn" onclick="closeSyncModal()">Cancel</button>
+      <button class="sync-disconnect-btn" id="disconnect-btn" style="display:none" onclick="disconnectGH()">Disconnect</button>
+    </div>
+  </div>
+</div>
 
 <div class="page-layout">
 
@@ -964,8 +1030,140 @@
     sbSync();
   }
 
-  renderPage();
-  sbSync();
+  /* ── GitHub sync ── */
+  const GH_REPO = 'Veekash2/MyLearning';
+  const GH_FILE = 'data.json';
+  let _ghSha = null;
+  let _ghSaveTimer = null;
+
+  function ghPAT() { return localStorage.getItem('ghPAT') || ''; }
+
+  async function ghLoad() {
+    try {
+      const headers = { 'Accept': 'application/vnd.github+json' };
+      if (ghPAT()) headers['Authorization'] = 'Bearer ' + ghPAT();
+      const res = await fetch('https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_FILE, { headers });
+      if (!res.ok) return null;
+      const json = await res.json();
+      _ghSha = json.sha;
+      const bytes = Uint8Array.from(atob(json.content.replace(/\s/g, '')), c => c.charCodeAt(0));
+      return JSON.parse(new TextDecoder().decode(bytes));
+    } catch(e) { return null; }
+  }
+
+  function ghSaveDebounced(data) {
+    clearTimeout(_ghSaveTimer);
+    _ghSaveTimer = setTimeout(() => ghSave(data), 1500);
+  }
+
+  async function ghSave(data) {
+    if (!ghPAT()) return;
+    setSyncStatus('saving');
+    try {
+      const bytes = new TextEncoder().encode(JSON.stringify(data, null, 2));
+      const content = btoa(Array.from(bytes, b => String.fromCharCode(b)).join(''));
+      const body = { message: 'Update learning data', content };
+      if (_ghSha) body.sha = _ghSha;
+      const res = await fetch('https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_FILE, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/vnd.github+json',
+          'Authorization': 'Bearer ' + ghPAT(),
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        const j = await res.json();
+        _ghSha = j.content.sha;
+        setSyncStatus('saved');
+      } else {
+        const err = await res.json().catch(() => ({}));
+        setSyncStatus('error', err.message || ('HTTP ' + res.status));
+      }
+    } catch(e) { setSyncStatus('error', e.message); }
+  }
+
+  function setSyncStatus(state, msg) {
+    const el = document.getElementById('sync-status');
+    if (!el) return;
+    const labels = { saving: '● Saving…', saved: '✓ Saved', error: '✕ Error', ready: '● Connected' };
+    el.textContent = (labels[state] || '') + (msg ? ': ' + msg : '');
+    el.className = 'sync-status sync-' + state;
+    if (state === 'saved') setTimeout(() => { if (el.className.includes('saved')) setSyncStatus('ready'); }, 2500);
+  }
+
+  function updateSyncUI() {
+    const link = document.getElementById('sync-link');
+    const disc = document.getElementById('disconnect-btn');
+    if (ghPAT()) {
+      if (link) link.textContent = 'Sync settings';
+      if (disc) disc.style.display = 'inline-block';
+      setSyncStatus('ready');
+    } else {
+      if (link) link.textContent = 'Connect GitHub to sync →';
+      if (disc) disc.style.display = 'none';
+      const el = document.getElementById('sync-status');
+      if (el) { el.textContent = ''; el.className = ''; }
+    }
+  }
+
+  function openSyncModal() {
+    const input = document.getElementById('pat-input');
+    if (input) { input.value = ghPAT() ? '••••••••••••••••' : ''; }
+    document.getElementById('pat-error').style.display = 'none';
+    document.getElementById('disconnect-btn').style.display = ghPAT() ? 'inline-block' : 'none';
+    document.getElementById('sync-modal').style.display = 'flex';
+    if (input && !ghPAT()) input.focus();
+  }
+
+  function closeSyncModal() {
+    document.getElementById('sync-modal').style.display = 'none';
+  }
+
+  async function connectGH() {
+    const val = document.getElementById('pat-input').value.trim();
+    if (!val || val.startsWith('•')) { closeSyncModal(); return; }
+    const errEl = document.getElementById('pat-error');
+    errEl.style.display = 'none';
+    // Validate by trying a read
+    try {
+      const res = await fetch('https://api.github.com/repos/' + GH_REPO + '/contents/', {
+        headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + val }
+      });
+      if (!res.ok) { errEl.textContent = 'Token rejected (HTTP ' + res.status + '). Check permissions.'; errEl.style.display = 'block'; return; }
+    } catch(e) { errEl.textContent = 'Network error: ' + e.message; errEl.style.display = 'block'; return; }
+    localStorage.setItem('ghPAT', val);
+    closeSyncModal();
+    updateSyncUI();
+    // Push current data immediately
+    ghSave(loadData());
+  }
+
+  function disconnectGH() {
+    localStorage.removeItem('ghPAT');
+    _ghSha = null;
+    closeSyncModal();
+    updateSyncUI();
+  }
+
+  /* override saveData to also push to GitHub */
+  const _localSaveData = saveData;
+  saveData = function(data) {
+    localStorage.setItem('learningData', JSON.stringify(data));
+    if (ghPAT()) ghSaveDebounced(data);
+  };
+
+  async function init() {
+    const ghData = await ghLoad();
+    if (ghData) {
+      localStorage.setItem('learningData', JSON.stringify(ghData));
+    }
+    renderPage();
+    sbSync();
+    updateSyncUI();
+  }
+  init();
 </script>
 </body>
 </html>
