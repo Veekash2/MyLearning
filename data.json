@@ -4,17 +4,18 @@
     {
       "id": "networking",
       "title": "Networking",
-      "status": "not-started",
+      "status": "in-progress",
       "group": "topics",
       "learned": [],
       "toLearn": [
         "Subnetting",
         "Firewalls & VPNs",
-        "OSI Model",
         "TCP/IP",
         "DNS & DHCP"
       ],
-      "learning": []
+      "learning": [
+        "OSI Model"
+      ]
     },
     {
       "id": "docker",
