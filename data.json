@@ -196,11 +196,11 @@
       "learned": [
         "Branching strategies",
         "Pull requests",
-        "Rebasing vs merging"
+        "Rebasing vs merging",
+        "Git hooks",
+        "Conventional commits"
       ],
       "toLearn": [
-        "Git hooks",
-        "Conventional commits",
         "Resolving conflicts"
       ]
     },
