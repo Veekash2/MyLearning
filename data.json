@@ -191,18 +191,17 @@
     {
       "id": "git-workflows",
       "title": "Git & Version Control",
-      "status": "not-started",
+      "status": "done",
       "group": "topics",
       "learned": [
         "Branching strategies",
         "Pull requests",
         "Rebasing vs merging",
         "Git hooks",
-        "Conventional commits"
-      ],
-      "toLearn": [
+        "Conventional commits",
         "Resolving conflicts"
-      ]
+      ],
+      "toLearn": []
     },
     {
       "id": "debugging",
