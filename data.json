@@ -193,11 +193,12 @@
       "title": "Git & Version Control",
       "status": "not-started",
       "group": "topics",
-      "learned": [],
-      "toLearn": [
+      "learned": [
         "Branching strategies",
         "Pull requests",
-        "Rebasing vs merging",
+        "Rebasing vs merging"
+      ],
+      "toLearn": [
         "Git hooks",
         "Conventional commits",
         "Resolving conflicts"
