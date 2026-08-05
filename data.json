@@ -7,28 +7,29 @@
       "status": "in-progress",
       "group": "topics",
       "learned": [],
-      "toLearn": [
+      "toLearn": [],
+      "learning": [
+        "OSI Model",
         "Subnetting",
         "Firewalls & VPNs",
         "TCP/IP",
         "DNS & DHCP"
-      ],
-      "learning": [
-        "OSI Model"
       ]
     },
     {
       "id": "docker",
       "title": "Docker",
-      "status": "not-started",
+      "status": "in-progress",
       "group": "topics",
       "learned": [],
       "toLearn": [
-        "Containers vs VMs",
-        "Dockerfile",
         "Docker Compose",
         "Volumes & Networks",
         "Docker Hub"
+      ],
+      "learning": [
+        "Containers vs VMs",
+        "Dockerfile"
       ]
     },
     {
