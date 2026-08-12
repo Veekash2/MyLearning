@@ -24,37 +24,21 @@
     --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   :root[data-theme="light"] {
-    --bg: #f0f2f5;
-    --surface: #ffffff;
-    --surface-2: #f7f8fa;
-    --border: #e2e6ed;
-    --border-2: #d1d7e0;
-    --text: #111827;
-    --text-muted: #6b7280;
-    --text-dim: #9ca3af;
-    --accent: #0d9488;
-    --accent-dim: rgba(13,148,136,0.1);
-    --amber: #d97706;
-    --amber-dim: rgba(217,119,6,0.1);
-    --green: #16a34a;
-    --green-dim: rgba(22,163,74,0.1);
+    --bg: #f0f2f5; --surface: #ffffff; --surface-2: #f7f8fa;
+    --border: #e2e6ed; --border-2: #d1d7e0;
+    --text: #111827; --text-muted: #6b7280; --text-dim: #9ca3af;
+    --accent: #0d9488; --accent-dim: rgba(13,148,136,0.1);
+    --amber: #d97706; --amber-dim: rgba(217,119,6,0.1);
+    --green: #16a34a; --green-dim: rgba(22,163,74,0.1);
   }
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) {
-      --bg: #f0f2f5;
-      --surface: #ffffff;
-      --surface-2: #f7f8fa;
-      --border: #e2e6ed;
-      --border-2: #d1d7e0;
-      --text: #111827;
-      --text-muted: #6b7280;
-      --text-dim: #9ca3af;
-      --accent: #0d9488;
-      --accent-dim: rgba(13,148,136,0.1);
-      --amber: #d97706;
-      --amber-dim: rgba(217,119,6,0.1);
-      --green: #16a34a;
-      --green-dim: rgba(22,163,74,0.1);
+      --bg: #f0f2f5; --surface: #ffffff; --surface-2: #f7f8fa;
+      --border: #e2e6ed; --border-2: #d1d7e0;
+      --text: #111827; --text-muted: #6b7280; --text-dim: #9ca3af;
+      --accent: #0d9488; --accent-dim: rgba(13,148,136,0.1);
+      --amber: #d97706; --amber-dim: rgba(217,119,6,0.1);
+      --green: #16a34a; --green-dim: rgba(22,163,74,0.1);
     }
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -71,7 +55,7 @@
     overflow: hidden;
   }
 
-  /* Header */
+  /* ── Header ── */
   header {
     display: flex;
     align-items: center;
@@ -81,11 +65,7 @@
     background: var(--surface);
     flex-shrink: 0;
   }
-  .header-left {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-  }
+  .header-left { display: flex; align-items: baseline; gap: 10px; }
   h1 {
     font-family: var(--mono);
     font-size: 13px;
@@ -94,46 +74,24 @@
     text-transform: uppercase;
     color: var(--accent);
   }
-  .date-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-  }
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .progress-summary {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-  .progress-summary span { color: var(--accent); font-weight: 600; }
+  .date-label { font-family: var(--mono); font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .progress-summary { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+  .progress-summary .hi { color: var(--accent); font-weight: 600; }
+  .progress-summary .hi2 { color: var(--amber); font-weight: 600; }
   .theme-btn {
-    background: none;
-    border: 1px solid var(--border-2);
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-family: var(--mono);
+    background: none; border: 1px solid var(--border-2);
+    color: var(--text-muted); cursor: pointer;
+    padding: 4px 8px; border-radius: 4px;
+    font-size: 12px; font-family: var(--mono);
     transition: color 0.15s, border-color 0.15s;
   }
   .theme-btn:hover { color: var(--text); border-color: var(--text-dim); }
 
-  /* Main layout */
-  main {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    flex: 1;
-    overflow: hidden;
-    gap: 0;
-  }
+  /* ── Layout ── */
+  main { display: grid; grid-template-columns: 1fr 340px; flex: 1; overflow: hidden; }
 
-  /* Backlog panel */
+  /* ── Backlog ── */
   .backlog {
     overflow-y: auto;
     padding: 16px;
@@ -154,7 +112,6 @@
   }
   .section-label:first-child { margin-top: 0; }
 
-  /* Topic card */
   .topic {
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -164,263 +121,205 @@
   }
   .topic:hover { border-color: var(--border-2); }
   .topic.open { border-color: var(--border-2); }
-
   .topic-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    cursor: pointer;
-    user-select: none;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; cursor: pointer; user-select: none;
   }
   .topic-chevron {
-    font-size: 10px;
-    color: var(--text-muted);
-    transition: transform 0.15s;
-    flex-shrink: 0;
-    width: 12px;
-    text-align: center;
+    font-size: 10px; color: var(--text-muted);
+    transition: transform 0.15s; flex-shrink: 0; width: 12px; text-align: center;
   }
   .topic.open .topic-chevron { transform: rotate(90deg); }
-  .topic-name {
-    flex: 1;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .topic-meta {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .subtopic-count {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-muted);
-  }
+  .topic-name { flex: 1; font-size: 13px; font-weight: 500; color: var(--text); }
+  .topic-meta { display: flex; align-items: center; gap: 6px; }
+  .subtopic-count { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
   .status-chip {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    padding: 2px 7px;
-    border-radius: 3px;
-    font-weight: 500;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.04em; padding: 2px 7px; border-radius: 3px; font-weight: 500;
   }
   .status-done { background: var(--green-dim); color: var(--green); }
   .status-in-progress { background: var(--amber-dim); color: var(--amber); }
   .status-not-started { background: rgba(100,116,139,0.12); color: var(--text-muted); }
 
-  /* Subtopics */
-  .subtopics {
-    display: none;
-    padding: 0 12px 10px;
-    border-top: 1px solid var(--border);
-  }
+  .subtopics { display: none; padding: 0 12px 10px; border-top: 1px solid var(--border); }
   .topic.open .subtopics { display: block; }
 
   .subtopic-group-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 8px 0 4px;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-muted); padding: 8px 0 4px;
   }
   .subtopic-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 0;
-  }
-  .subtopic-item + .subtopic-item {
+    display: flex; align-items: center; gap: 8px; padding: 5px 0;
     border-top: 1px solid var(--border);
   }
-  .subtopic-name {
-    flex: 1;
-    font-size: 12.5px;
-    color: var(--text-dim);
-  }
-  .subtopic-name.done-text {
-    color: var(--text-muted);
-    text-decoration: line-through;
-  }
-  .btn-add-today {
-    background: none;
-    border: 1px solid var(--border-2);
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 2px 7px;
-    border-radius: 3px;
-    font-size: 10px;
-    font-family: var(--mono);
-    white-space: nowrap;
-    transition: all 0.12s;
-    flex-shrink: 0;
-  }
-  .btn-add-today:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .btn-add-today.added {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-dim);
-  }
-  .subtopic-status {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--green);
-    flex-shrink: 0;
-  }
+  .subtopic-item:first-of-type { border-top: none; }
+  .subtopic-name { flex: 1; font-size: 12.5px; color: var(--text-dim); }
+  .subtopic-name.done-text { color: var(--text-muted); text-decoration: line-through; }
 
-  /* Today panel */
-  .today-panel {
+  /* add buttons area */
+  .subtopic-actions { display: flex; gap: 4px; flex-shrink: 0; position: relative; }
+  .btn-add {
+    background: none; border: 1px solid var(--border-2); color: var(--text-muted);
+    cursor: pointer; padding: 2px 7px; border-radius: 3px;
+    font-size: 10px; font-family: var(--mono); white-space: nowrap;
+    transition: all 0.12s;
+  }
+  .btn-add:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-add.added { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+  .btn-add.week-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .btn-add.week-btn.added { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
+  .btn-add.month-btn:hover { border-color: var(--green); color: var(--green); }
+  .btn-add.month-btn.added { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+
+  .subtopic-status { font-family: var(--mono); font-size: 10px; color: var(--green); flex-shrink: 0; }
+
+  /* Day picker popup */
+  .picker-popup {
+    position: absolute; right: 0; top: 100%; margin-top: 4px;
+    background: var(--surface-2); border: 1px solid var(--border-2);
+    border-radius: 6px; padding: 6px; z-index: 100;
+    display: flex; flex-direction: column; gap: 2px;
+    min-width: 110px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .picker-popup button {
+    background: none; border: none; color: var(--text-dim);
+    cursor: pointer; padding: 4px 8px; border-radius: 3px;
+    font-size: 11px; font-family: var(--mono); text-align: left;
+    transition: background 0.1s, color 0.1s;
+  }
+  .picker-popup button:hover { background: var(--border); color: var(--text); }
+  .picker-popup button.active { color: var(--accent); }
+  .picker-popup button.active-amber { color: var(--amber); }
+
+  /* ── Right panel ── */
+  .right-panel {
     border-left: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    display: flex; flex-direction: column; overflow: hidden;
     background: var(--surface);
   }
-  .today-header {
-    padding: 12px 16px 10px;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-  .today-title {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-  }
-  .today-progress {
-    height: 2px;
-    background: var(--border);
-    border-radius: 1px;
-    overflow: hidden;
-    margin-top: 8px;
-  }
-  .today-progress-bar {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 1px;
-    transition: width 0.3s ease;
-  }
-  .today-progress-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-  .today-progress-label span { color: var(--accent); }
 
-  .today-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-2) transparent;
+  /* Tabs */
+  .tab-bar {
+    display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0;
   }
-  .today-empty {
-    padding: 32px 16px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 12px;
-    line-height: 1.7;
+  .tab-btn {
+    flex: 1; background: none; border: none;
+    padding: 10px 0; font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--text-muted); cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
   }
-  .today-empty strong {
-    display: block;
-    color: var(--text-dim);
-    font-size: 13px;
-    margin-bottom: 6px;
-  }
+  .tab-btn:hover { color: var(--text-dim); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  .today-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 8px 16px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
-  }
-  .today-item:last-child { border-bottom: none; }
-  .today-item.checked { background: var(--surface-2); }
+  /* Tab panels */
+  .tab-panel { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+  .tab-panel.active { display: flex; }
 
+  /* ── Today tab ── */
+  .panel-header {
+    padding: 12px 16px 10px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .panel-header-title {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
+  }
+  .progress-bar-wrap { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; margin-top: 8px; }
+  .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 1px; transition: width 0.3s ease; }
+  .progress-count { font-family: var(--mono); font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+  .progress-count span { color: var(--accent); }
+
+  .scroll-list { flex: 1; overflow-y: auto; padding: 8px 0; scrollbar-width: thin; scrollbar-color: var(--border-2) transparent; }
+
+  .empty-msg { padding: 32px 16px; text-align: center; color: var(--text-muted); font-size: 12px; line-height: 1.7; }
+  .empty-msg strong { display: block; color: var(--text-dim); font-size: 13px; margin-bottom: 6px; }
+
+  .list-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 8px 16px; border-bottom: 1px solid var(--border); transition: background 0.1s;
+  }
+  .list-item:last-child { border-bottom: none; }
+  .list-item.checked { background: var(--surface-2); }
   .check-btn {
-    width: 16px;
-    height: 16px;
-    border-radius: 3px;
-    border: 1.5px solid var(--border-2);
-    background: none;
-    cursor: pointer;
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    color: transparent;
-    transition: all 0.12s;
+    width: 16px; height: 16px; border-radius: 3px;
+    border: 1.5px solid var(--border-2); background: none; cursor: pointer;
+    flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: transparent; transition: all 0.12s;
   }
   .check-btn:hover { border-color: var(--accent); }
-  .today-item.checked .check-btn {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--bg);
+  .list-item.checked .check-btn { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .list-item-content { flex: 1; min-width: 0; }
+  .list-item-topic { font-family: var(--mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; margin-bottom: 1px; }
+  .list-item-name { font-size: 12.5px; color: var(--text); line-height: 1.4; }
+  .list-item.checked .list-item-name { color: var(--text-muted); text-decoration: line-through; }
+  .remove-btn {
+    background: none; border: none; color: var(--text-muted); cursor: pointer;
+    font-size: 14px; line-height: 1; padding: 0; opacity: 0;
+    transition: opacity 0.1s, color 0.1s; flex-shrink: 0;
   }
+  .list-item:hover .remove-btn { opacity: 1; }
+  .remove-btn:hover { color: var(--text); }
 
-  .today-item-content { flex: 1; min-width: 0; }
-  .today-item-topic {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-    margin-bottom: 1px;
-  }
-  .today-item-name {
-    font-size: 12.5px;
-    color: var(--text);
-    line-height: 1.4;
-  }
-  .today-item.checked .today-item-name {
-    color: var(--text-muted);
-    text-decoration: line-through;
-  }
-
-  .today-item-remove {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 14px;
-    line-height: 1;
-    padding: 0;
-    opacity: 0;
-    transition: opacity 0.1s, color 0.1s;
-    flex-shrink: 0;
-  }
-  .today-item:hover .today-item-remove { opacity: 1; }
-  .today-item-remove:hover { color: var(--text); }
-
-  .today-footer {
-    padding: 10px 16px;
-    border-top: 1px solid var(--border);
-    flex-shrink: 0;
+  .panel-footer {
+    padding: 10px 16px; border-top: 1px solid var(--border); flex-shrink: 0;
   }
   .btn-clear {
-    background: none;
-    border: 1px solid var(--border-2);
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-family: var(--mono);
-    width: 100%;
+    background: none; border: 1px solid var(--border-2); color: var(--text-muted);
+    cursor: pointer; padding: 5px 10px; border-radius: 4px;
+    font-size: 11px; font-family: var(--mono); width: 100%;
     transition: all 0.12s;
   }
   .btn-clear:hover { border-color: var(--text-muted); color: var(--text); }
+
+  /* ── Week tab ── */
+  .week-scroll { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: var(--border-2) transparent; }
+  .day-block { }
+  .day-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .day-label .day-date { color: var(--text-muted); font-size: 10px; }
+  .day-label.today-day { color: var(--accent); }
+  .day-items { display: flex; flex-direction: column; gap: 2px; }
+  .day-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 5px 8px; border-radius: 4px;
+    background: var(--surface-2); border: 1px solid var(--border);
+  }
+  .day-item.checked { opacity: 0.5; }
+  .day-item .check-btn { margin-top: 0; }
+  .day-item.checked .check-btn { background: var(--amber); border-color: var(--amber); color: var(--bg); }
+  .day-item-text { flex: 1; font-size: 12px; color: var(--text-dim); }
+  .day-item-topic { font-family: var(--mono); font-size: 9px; color: var(--text-muted); }
+  .day-item.checked .day-item-text { text-decoration: line-through; color: var(--text-muted); }
+  .day-empty { font-size: 11px; color: var(--text-muted); font-style: italic; padding: 4px 0; }
+
+  /* ── Month tab ── */
+  .month-scroll { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 14px; scrollbar-width: thin; scrollbar-color: var(--border-2) transparent; }
+  .week-block { }
+  .week-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .week-label .week-range { font-size: 10px; color: var(--text-muted); }
+  .week-label.current-week { color: var(--green); }
+  .week-items { display: flex; flex-direction: column; gap: 2px; }
+  .week-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 5px 8px; border-radius: 4px;
+    background: var(--surface-2); border: 1px solid var(--border);
+  }
+  .week-item .check-btn { margin-top: 0; }
+  .week-item.checked .check-btn { background: var(--green); border-color: var(--green); color: var(--bg); }
+  .week-item-text { flex: 1; font-size: 12px; color: var(--text-dim); }
+  .week-item.checked .week-item-text { text-decoration: line-through; color: var(--text-muted); }
+  .week-empty { font-size: 11px; color: var(--text-muted); font-style: italic; padding: 4px 0; }
 
   /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
@@ -429,10 +328,10 @@
 
   @media (max-width: 680px) {
     main { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-    .today-panel { border-left: none; border-top: 1px solid var(--border); }
+    .right-panel { border-left: none; border-top: 1px solid var(--border); }
     body { overflow: auto; }
     main { overflow: visible; }
-    .backlog, .today-list { overflow: visible; }
+    .backlog { overflow: visible; }
   }
 </style>
 </head>
@@ -451,124 +350,179 @@
 
 <main>
   <div class="backlog" id="backlog"></div>
-  <div class="today-panel">
-    <div class="today-header">
-      <div class="today-title">Today's focus</div>
-      <div class="today-progress-label"><span id="todayDone">0</span> / <span id="todayTotal">0</span> done</div>
-      <div class="today-progress"><div class="today-progress-bar" id="progressBar" style="width:0%"></div></div>
+
+  <div class="right-panel">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('today')">Today</button>
+      <button class="tab-btn" onclick="switchTab('week')">Week</button>
+      <button class="tab-btn" onclick="switchTab('month')">Month</button>
     </div>
-    <div class="today-list" id="todayList"></div>
-    <div class="today-footer">
-      <button class="btn-clear" onclick="clearToday()">clear today's list</button>
+
+    <!-- TODAY -->
+    <div class="tab-panel active" id="tab-today">
+      <div class="panel-header">
+        <div class="panel-header-title">Today's focus</div>
+        <div class="progress-count"><span id="todayDone">0</span> / <span id="todayTotal">0</span> done</div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="todayBar" style="width:0%"></div></div>
+      </div>
+      <div class="scroll-list" id="todayList"></div>
+      <div class="panel-footer">
+        <button class="btn-clear" onclick="clearSchedule('today')">clear today</button>
+      </div>
+    </div>
+
+    <!-- WEEK -->
+    <div class="tab-panel" id="tab-week">
+      <div class="week-scroll" id="weekView"></div>
+      <div class="panel-footer">
+        <button class="btn-clear" onclick="clearSchedule('week')">clear this week</button>
+      </div>
+    </div>
+
+    <!-- MONTH -->
+    <div class="tab-panel" id="tab-month">
+      <div class="month-scroll" id="monthView"></div>
+      <div class="panel-footer">
+        <button class="btn-clear" onclick="clearSchedule('month')">clear this month</button>
+      </div>
     </div>
   </div>
 </main>
 
 <script>
 const DATA_URL = './data.json';
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const MONTH_WEEKS = ['Week 1','Week 2','Week 3','Week 4'];
+
+let activeTab = 'today';
+let activePicker = null; // { el, topicId, topicTitle, name, type }
 
 let state = {
   topics: [],
-  subtopicStatus: {}, // { "topicId::subtopic": "learning" | "learned" }
-  today: [],          // [{ topicId, topicTitle, name, checked }]
+  subtopicStatus: {},
+  // today: [{topicId, topicTitle, name, checked}]
+  today: [],
+  // week: { "Mon": [{topicId, topicTitle, name, checked}], ... }
+  week: {},
+  // month: { "Week 1": [{topicId, topicTitle, name, checked}], ... }
+  month: {},
 };
 
-// Load from localStorage, then fetch fresh data
 function loadState() {
-  const saved = localStorage.getItem('mylearning_state');
-  if (saved) {
-    try { state = JSON.parse(saved); } catch(e) {}
-  }
+  const saved = localStorage.getItem('mylearning_v2');
+  if (saved) { try { state = JSON.parse(saved); } catch(e) {} }
+  DAYS.forEach(d => { if (!state.week[d]) state.week[d] = []; });
+  MONTH_WEEKS.forEach(w => { if (!state.month[w]) state.month[w] = []; });
 }
-function saveState() {
-  localStorage.setItem('mylearning_state', JSON.stringify(state));
-}
+function saveState() { localStorage.setItem('mylearning_v2', JSON.stringify(state)); }
 
 function key(topicId, name) { return topicId + '::' + name; }
+function escQ(s) { return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
 
-function getSubtopicStatus(topicId, name) {
-  return state.subtopicStatus[key(topicId, name)] || 'to-learn';
+// ── Status helpers ──
+function getSubtopicStatus(topicId, name) { return state.subtopicStatus[key(topicId, name)] || 'to-learn'; }
+
+function computeTopicStatus(topic) {
+  const all = [...(topic.learned||[]), ...(topic.learning||[]), ...(topic.toLearn||[])];
+  if (!all.length) return topic.status;
+  const done = all.filter(n => getSubtopicStatus(topic.id, n) === 'learned').length;
+  const learning = all.filter(n => getSubtopicStatus(topic.id, n) === 'learning').length;
+  if (done === all.length) return 'done';
+  if (done > 0 || learning > 0 || topic.status === 'in-progress') return 'in-progress';
+  return 'not-started';
 }
-function setSubtopicStatus(topicId, name, status) {
-  state.subtopicStatus[key(topicId, name)] = status;
-  saveState();
+function statusLabel(s) { return s === 'done' ? 'done' : s === 'in-progress' ? 'in progress' : 'not started'; }
+function statusClass(s) { return s === 'done' ? 'status-done' : s === 'in-progress' ? 'status-in-progress' : 'status-not-started'; }
+
+// ── Schedule helpers ──
+function isInList(list, topicId, name) { return list.some(i => i.topicId === topicId && i.name === name); }
+function isInToday(tid, name) { return isInList(state.today, tid, name); }
+function isInWeekDay(day, tid, name) { return isInList(state.week[day]||[], tid, name); }
+function isInWeekAny(tid, name) { return DAYS.some(d => isInWeekDay(d, tid, name)); }
+function weekDayFor(tid, name) { return DAYS.find(d => isInWeekDay(d, tid, name)); }
+function isInMonthWeek(wk, tid, name) { return isInList(state.month[wk]||[], tid, name); }
+function isInMonthAny(tid, name) { return MONTH_WEEKS.some(w => isInMonthWeek(w, tid, name)); }
+function monthWeekFor(tid, name) { return MONTH_WEEKS.find(w => isInMonthWeek(w, tid, name)); }
+
+function addToList(list, topicId, topicTitle, name) {
+  if (!isInList(list, topicId, name)) list.push({ topicId, topicTitle, name, checked: false });
+}
+function removeFromList(list, topicId, name) {
+  const idx = list.findIndex(i => i.topicId === topicId && i.name === name);
+  if (idx !== -1) list.splice(idx, 1);
+}
+function toggleCheck(list, topicId, name) {
+  const item = list.find(i => i.topicId === topicId && i.name === name);
+  if (item) item.checked = !item.checked;
 }
 
-function isInToday(topicId, name) {
-  return state.today.some(t => t.topicId === topicId && t.name === name);
-}
-function addToToday(topicId, topicTitle, name) {
-  if (!isInToday(topicId, name)) {
-    state.today.push({ topicId, topicTitle, name, checked: false });
-    saveState();
-  }
-}
-function removeFromToday(topicId, name) {
-  state.today = state.today.filter(t => !(t.topicId === topicId && t.name === name));
-  saveState();
-}
-function toggleTodayCheck(topicId, name) {
-  const item = state.today.find(t => t.topicId === topicId && t.name === name);
-  if (item) { item.checked = !item.checked; saveState(); }
-}
-function clearToday() {
-  state.today = [];
-  saveState();
+// ── Tab switching ──
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['today','week','month'][i] === tab);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'tab-' + tab);
+  });
+  closePicker();
   render();
 }
 
-// Compute topic status from subtopic statuses
-function computeTopicStatus(topic) {
-  const all = [...topic.learned, ...topic.learning, ...topic.toLearn];
-  if (all.length === 0) return topic.status;
-  const learnedCount = all.filter(n => getSubtopicStatus(topic.id, n) === 'learned').length;
-  const learningCount = all.filter(n => getSubtopicStatus(topic.id, n) === 'learning').length;
-  if (learnedCount === all.length) return 'done';
-  if (learnedCount > 0 || learningCount > 0 || topic.status === 'in-progress') return 'in-progress';
-  return 'not-started';
+// ── Picker ──
+function openPicker(el, topicId, topicTitle, name, type) {
+  closePicker();
+  const popup = document.createElement('div');
+  popup.className = 'picker-popup';
+  const options = type === 'week' ? DAYS : MONTH_WEEKS;
+  const list = type === 'week' ? state.week : state.month;
+  options.forEach(opt => {
+    const already = isInList(list[opt]||[], topicId, name);
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.className = already ? (type === 'week' ? 'active' : 'active-amber') : '';
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      if (!list[opt]) list[opt] = [];
+      if (already) { removeFromList(list[opt], topicId, name); }
+      else { addToList(list[opt], topicId, topicTitle, name); }
+      saveState(); closePicker(); render();
+    };
+    popup.appendChild(btn);
+  });
+  el.appendChild(popup);
+  activePicker = { el, popup };
+  setTimeout(() => document.addEventListener('click', closePicker, { once: true }), 0);
+}
+function closePicker() {
+  if (activePicker) { activePicker.popup.remove(); activePicker = null; }
 }
 
-function statusLabel(s) {
-  if (s === 'done') return 'done';
-  if (s === 'in-progress') return 'in progress';
-  return 'not started';
-}
-function statusClass(s) {
-  if (s === 'done') return 'status-done';
-  if (s === 'in-progress') return 'status-in-progress';
-  return 'status-not-started';
-}
-
+// ── Render backlog ──
 function renderBacklog() {
   const el = document.getElementById('backlog');
   const groups = {};
-  state.topics.forEach(t => {
-    if (!groups[t.group]) groups[t.group] = [];
-    groups[t.group].push(t);
-  });
-  const groupOrder = ['topics', 'books-certs'];
+  state.topics.forEach(t => { if (!groups[t.group]) groups[t.group] = []; groups[t.group].push(t); });
+  const groupOrder = ['topics','books-certs'];
   const groupLabels = { 'topics': 'Topics', 'books-certs': 'Books & Certs' };
   let html = '';
   groupOrder.forEach(g => {
     if (!groups[g]) return;
-    html += `<div class="section-label">${groupLabels[g] || g}</div>`;
+    html += `<div class="section-label">${groupLabels[g]||g}</div>`;
     groups[g].forEach(topic => {
-      const allSubs = [...(topic.learned||[]), ...(topic.learning||[]), ...(topic.toLearn||[])];
+      const allSubs = [...(topic.learned||[]),...(topic.learning||[]),...(topic.toLearn||[])];
       const status = computeTopicStatus(topic);
-      const learnedCount = allSubs.filter(n => getSubtopicStatus(topic.id, n) === 'learned').length;
-      const open = topic._open ? 'open' : '';
-      html += `<div class="topic ${open}" id="topic-${topic.id}">
+      const learnedCount = allSubs.filter(n => getSubtopicStatus(topic.id,n)==='learned').length;
+      html += `<div class="topic ${topic._open?'open':''}" id="topic-${topic.id}">
         <div class="topic-header" onclick="toggleTopic('${topic.id}')">
           <span class="topic-chevron">▶</span>
           <span class="topic-name">${topic.title}</span>
           <span class="topic-meta">
-            ${allSubs.length > 0 ? `<span class="subtopic-count">${learnedCount}/${allSubs.length}</span>` : ''}
+            ${allSubs.length ? `<span class="subtopic-count">${learnedCount}/${allSubs.length}</span>` : ''}
             <span class="status-chip ${statusClass(status)}">${statusLabel(status)}</span>
           </span>
         </div>
-        <div class="subtopics">
-          ${renderSubtopics(topic)}
-        </div>
+        <div class="subtopics">${renderSubtopics(topic)}</div>
       </div>`;
     });
   });
@@ -577,28 +531,37 @@ function renderBacklog() {
 
 function renderSubtopics(topic) {
   const sections = [
-    { items: topic.learned || [], label: 'Learned' },
-    { items: topic.learning || [], label: 'Currently learning' },
-    { items: topic.toLearn || [], label: 'To learn' },
-  ].filter(s => s.items.length > 0);
-
-  // If no sections, show empty
-  if (sections.length === 0) return '<div style="padding:8px 0;color:var(--text-muted);font-size:12px;">No subtopics yet.</div>';
-
+    { items: topic.learned||[], label: 'Learned' },
+    { items: topic.learning||[], label: 'Currently learning' },
+    { items: topic.toLearn||[], label: 'To learn' },
+  ].filter(s => s.items.length);
+  if (!sections.length) return '<div style="padding:8px 0;color:var(--text-muted);font-size:12px;">No subtopics.</div>';
   let html = '';
   sections.forEach(section => {
     html += `<div class="subtopic-group-label">${section.label}</div>`;
     section.items.forEach(name => {
-      const subStatus = getSubtopicStatus(topic.id, name);
+      const isDone = getSubtopicStatus(topic.id, name) === 'learned';
       const inToday = isInToday(topic.id, name);
-      const isDone = subStatus === 'learned';
+      const inWeek = isInWeekAny(topic.id, name);
+      const weekDay = weekDayFor(topic.id, name);
+      const inMonth = isInMonthAny(topic.id, name);
+      const monthWk = monthWeekFor(topic.id, name);
+      const tid = escQ(topic.id), tt = escQ(topic.title), nn = escQ(name);
       html += `<div class="subtopic-item">
-        <span class="subtopic-name ${isDone ? 'done-text' : ''}">${name}</span>
+        <span class="subtopic-name ${isDone?'done-text':''}">${name}</span>
         ${isDone
           ? `<span class="subtopic-status">✓</span>`
-          : `<button class="btn-add-today ${inToday ? 'added' : ''}"
-              onclick="handleAddToday('${topic.id}', '${escQ(topic.title)}', '${escQ(name)}')"
-            >${inToday ? 'added' : '+ today'}</button>`
+          : `<div class="subtopic-actions" id="sa-${topic.id}-${CSS.escape(name)}">
+              <button class="btn-add ${inToday?'added':''}"
+                onclick="handleAddToday('${tid}','${tt}','${nn}')"
+              >${inToday?'today':'+ today'}</button>
+              <button class="btn-add week-btn ${inWeek?'added':''}"
+                onclick="handleWeekPicker(event,'${tid}','${tt}','${nn}')"
+              >${inWeek?weekDay:'+ week'}</button>
+              <button class="btn-add month-btn ${inMonth?'added':''}"
+                onclick="handleMonthPicker(event,'${tid}','${tt}','${nn}')"
+              >${inMonth?monthWk:'+ month'}</button>
+            </div>`
         }
       </div>`;
     });
@@ -606,105 +569,195 @@ function renderSubtopics(topic) {
   return html;
 }
 
-function escQ(s) { return s.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
-
+// ── Render today tab ──
 function renderToday() {
   const list = document.getElementById('todayList');
-  const done = state.today.filter(t => t.checked).length;
+  const done = state.today.filter(i => i.checked).length;
   const total = state.today.length;
   document.getElementById('todayDone').textContent = done;
   document.getElementById('todayTotal').textContent = total;
-  document.getElementById('progressBar').style.width = total > 0 ? (done/total*100)+'%' : '0%';
-
-  if (state.today.length === 0) {
-    list.innerHTML = `<div class="today-empty">
-      <strong>Nothing here yet</strong>
-      Open a topic on the left and hit <em>+ today</em> on any subtopic to add it here.
-    </div>`;
+  document.getElementById('todayBar').style.width = total ? (done/total*100)+'%' : '0%';
+  if (!state.today.length) {
+    list.innerHTML = `<div class="empty-msg"><strong>Nothing here yet</strong>Expand a topic on the left and hit <em>+ today</em> to add subtopics.</div>`;
     return;
   }
-
   list.innerHTML = state.today.map(item => `
-    <div class="today-item ${item.checked ? 'checked' : ''}">
-      <button class="check-btn" onclick="handleCheck('${item.topicId}', '${escQ(item.name)}')">✓</button>
-      <div class="today-item-content">
-        <div class="today-item-topic">${item.topicTitle}</div>
-        <div class="today-item-name">${item.name}</div>
+    <div class="list-item ${item.checked?'checked':''}">
+      <button class="check-btn" onclick="handleCheck('today',null,'${escQ(item.topicId)}','${escQ(item.name)}')">✓</button>
+      <div class="list-item-content">
+        <div class="list-item-topic">${item.topicTitle}</div>
+        <div class="list-item-name">${item.name}</div>
       </div>
-      <button class="today-item-remove" onclick="handleRemove('${item.topicId}', '${escQ(item.name)}')">×</button>
-    </div>
-  `).join('');
+      <button class="remove-btn" onclick="handleRemove('today',null,'${escQ(item.topicId)}','${escQ(item.name)}')">×</button>
+    </div>`).join('');
+}
+
+// ── Render week tab ──
+function renderWeek() {
+  const now = new Date();
+  const todayDow = (now.getDay() + 6) % 7; // 0=Mon
+  const html = DAYS.map((day, i) => {
+    const offset = i - todayDow;
+    const d = new Date(now); d.setDate(d.getDate() + offset);
+    const dateStr = d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'short' });
+    const isToday = i === todayDow;
+    const items = state.week[day] || [];
+    return `<div class="day-block">
+      <div class="day-label ${isToday?'today-day':''}">
+        <span>${day}${isToday?' · today':''}</span>
+        <span class="day-date">${dateStr}</span>
+      </div>
+      <div class="day-items">
+        ${items.length
+          ? items.map(item => `
+            <div class="day-item ${item.checked?'checked':''}">
+              <button class="check-btn" onclick="handleCheck('week','${escQ(day)}','${escQ(item.topicId)}','${escQ(item.name)}')">✓</button>
+              <div class="list-item-content">
+                <div class="day-item-topic">${item.topicTitle}</div>
+                <div class="day-item-text">${item.name}</div>
+              </div>
+              <button class="remove-btn" onclick="handleRemove('week','${escQ(day)}','${escQ(item.topicId)}','${escQ(item.name)}')">×</button>
+            </div>`).join('')
+          : `<div class="day-empty">nothing scheduled</div>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('weekView').innerHTML = html;
+}
+
+// ── Render month tab ──
+function renderMonth() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const monthName = now.toLocaleDateString('en-NZ', { month: 'long', year: 'numeric' });
+  // Figure out which week of the month we're in
+  const day = now.getDate();
+  const currentWeekIdx = Math.floor((day - 1) / 7); // 0-3
+
+  const html = `<div style="font-family:var(--mono);font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px;">${monthName}</div>` +
+  MONTH_WEEKS.map((wk, i) => {
+    const startDay = i * 7 + 1;
+    const endDay = Math.min(startDay + 6, new Date(year, month+1, 0).getDate());
+    const startD = new Date(year, month, startDay);
+    const endD = new Date(year, month, endDay);
+    const rangeStr = startD.toLocaleDateString('en-NZ',{day:'numeric',month:'short'}) + ' – ' + endD.toLocaleDateString('en-NZ',{day:'numeric',month:'short'});
+    const isCurrent = i === currentWeekIdx;
+    const items = state.month[wk] || [];
+    return `<div class="week-block">
+      <div class="week-label ${isCurrent?'current-week':''}">
+        <span>${wk}${isCurrent?' · now':''}</span>
+        <span class="week-range">${rangeStr}</span>
+      </div>
+      <div class="week-items">
+        ${items.length
+          ? items.map(item => `
+            <div class="week-item ${item.checked?'checked':''}">
+              <button class="check-btn" onclick="handleCheck('month','${escQ(wk)}','${escQ(item.topicId)}','${escQ(item.name)}')">✓</button>
+              <div class="list-item-content">
+                <div class="day-item-topic">${item.topicTitle}</div>
+                <div class="week-item-text">${item.name}</div>
+              </div>
+              <button class="remove-btn" onclick="handleRemove('month','${escQ(wk)}','${escQ(item.topicId)}','${escQ(item.name)}')">×</button>
+            </div>`).join('')
+          : `<div class="week-empty">nothing scheduled</div>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('monthView').innerHTML = html;
 }
 
 function renderProgress() {
   const done = state.topics.filter(t => computeTopicStatus(t) === 'done').length;
   const inprog = state.topics.filter(t => computeTopicStatus(t) === 'in-progress').length;
   document.getElementById('progressSummary').innerHTML =
-    `<span>${done}</span> done · <span style="color:var(--amber)">${inprog}</span> in progress`;
+    `<span class="hi">${done}</span> done · <span class="hi2">${inprog}</span> in progress`;
 }
 
 function render() {
   renderBacklog();
-  renderToday();
   renderProgress();
+  if (activeTab === 'today') renderToday();
+  else if (activeTab === 'week') renderWeek();
+  else renderMonth();
 }
 
+// ── Handlers ──
 function toggleTopic(id) {
-  const topic = state.topics.find(t => t.id === id);
-  if (topic) { topic._open = !topic._open; }
+  const t = state.topics.find(t => t.id === id);
+  if (t) t._open = !t._open;
   renderBacklog();
 }
 
 function handleAddToday(topicId, topicTitle, name) {
-  if (isInToday(topicId, name)) {
-    removeFromToday(topicId, name);
-  } else {
-    addToToday(topicId, topicTitle, name);
-  }
-  render();
+  if (isInToday(topicId, name)) removeFromList(state.today, topicId, name);
+  else addToList(state.today, topicId, topicTitle, name);
+  saveState(); render();
 }
 
-function handleCheck(topicId, name) {
-  toggleTodayCheck(topicId, name);
-  render();
+function handleWeekPicker(event, topicId, topicTitle, name) {
+  event.stopPropagation();
+  const btn = event.currentTarget;
+  const container = btn.parentElement;
+  openPicker(container, topicId, topicTitle, name, 'week');
 }
 
-function handleRemove(topicId, name) {
-  removeFromToday(topicId, name);
-  render();
+function handleMonthPicker(event, topicId, topicTitle, name) {
+  event.stopPropagation();
+  const btn = event.currentTarget;
+  const container = btn.parentElement;
+  openPicker(container, topicId, topicTitle, name, 'month');
+}
+
+function handleCheck(type, slot, topicId, name) {
+  if (type === 'today') toggleCheck(state.today, topicId, name);
+  else if (type === 'week') toggleCheck(state.week[slot]||[], topicId, name);
+  else toggleCheck(state.month[slot]||[], topicId, name);
+  saveState(); render();
+}
+
+function handleRemove(type, slot, topicId, name) {
+  if (type === 'today') removeFromList(state.today, topicId, name);
+  else if (type === 'week') removeFromList(state.week[slot]||[], topicId, name);
+  else removeFromList(state.month[slot]||[], topicId, name);
+  saveState(); render();
+}
+
+function clearSchedule(type) {
+  if (type === 'today') state.today = [];
+  else if (type === 'week') DAYS.forEach(d => state.week[d] = []);
+  else MONTH_WEEKS.forEach(w => state.month[w] = []);
+  saveState(); render();
 }
 
 function toggleTheme() {
-  const root = document.documentElement;
-  root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme =
+    document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
 }
 
 function setDateLabel() {
-  const now = new Date();
-  const label = now.toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short' });
-  document.getElementById('dateLabel').textContent = label;
+  document.getElementById('dateLabel').textContent =
+    new Date().toLocaleDateString('en-NZ', { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
 async function fetchData() {
   try {
     const res = await fetch(DATA_URL);
     const data = await res.json();
-    // Merge fresh topics in — preserve _open and subtopicStatus
     const existing = {};
     state.topics.forEach(t => { existing[t.id] = t; });
     state.topics = data.topics.map(t => ({
       ...t,
       _open: existing[t.id] ? existing[t.id]._open : false,
     }));
-    saveState();
-    render();
+    saveState(); render();
   } catch(e) {
-    // Use cached state if fetch fails
-    console.warn('Could not fetch fresh data, using cached state.', e);
+    console.warn('Using cached state.', e);
   }
 }
 
-// Init
 loadState();
 setDateLabel();
 render();
